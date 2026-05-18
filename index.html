@@ -1250,8 +1250,15 @@
       document.getElementById('langMenu').classList.remove('open');
     }
 
-    document.addEventListener('click', e => {
-      if (!document.getElementById('langSwitcher').contains(e.target)) closeLangMenu();
+    document.addEventListener('click', function(e) {
+      var ls = document.getElementById('langSwitcher');
+      if (ls && !ls.contains(e.target)) closeLangMenu();
+      var bm = document.getElementById('mobileMenu');
+      var bb = document.getElementById('burgerBtn');
+      if (bm && bb && !bb.contains(e.target) && !bm.contains(e.target)) {
+        bb.classList.remove('open');
+        bm.classList.remove('open');
+      }
     });
 
     function changeValue(id, delta) {
@@ -1427,6 +1434,14 @@
       localStorage.setItem('language', lang);
       document.getElementById('currentFlag').textContent = flags[lang];
       const t = translations[lang];
+      // Nav desktop + mobile
+      var navLogo = document.getElementById('navLogo'); if(navLogo) navLogo.innerHTML = t.navLogo;
+      var navCalc = document.getElementById('navCalc'); if(navCalc) navCalc.innerHTML = t.navCalc;
+      var navLimites = document.getElementById('navLimites'); if(navLimites) navLimites.innerHTML = t.navLimites;
+      var navEnfant = document.getElementById('navEnfant'); if(navEnfant) navEnfant.innerHTML = t.navEnfant;
+      var mobCalc = document.getElementById('mobCalc'); if(mobCalc) mobCalc.innerHTML = t.mobCalc;
+      var mobLimites = document.getElementById('mobLimites'); if(mobLimites) mobLimites.innerHTML = t.mobLimites;
+      var mobEnfant = document.getElementById('mobEnfant'); if(mobEnfant) mobEnfant.innerHTML = t.mobEnfant;
       document.getElementById('badgeLabel').innerHTML      = t.badge;
       document.getElementById('mainTitle').innerHTML       = t.title;
       document.getElementById('mainDescription').innerHTML = t.desc;
@@ -1479,6 +1494,17 @@
       localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
       updateThemeIcon();
     });
+
+    // Burger
+    var _burger = document.getElementById('burgerBtn');
+    var _burgerMenu = document.getElementById('mobileMenu');
+    if (_burger && _burgerMenu) {
+      _burger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        _burger.classList.toggle('open');
+        _burgerMenu.classList.toggle('open');
+      });
+    }
 
     function openLegal()    { document.getElementById('legalPage').style.display   = 'block'; }
     function closeLegal()   { document.getElementById('legalPage').style.display   = 'none';  }
