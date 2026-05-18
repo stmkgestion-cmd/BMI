@@ -763,6 +763,7 @@
   (function() {
     var flags = { fr: '🇫🇷', en: '🇬🇧', es: '🇪🇸' };
 
+    window._imcTrans = {};
     var translations = {
       fr: {
         pageTitle: 'IMC Enfant | Calculateur IMC pour enfants et adolescents',
@@ -873,18 +874,21 @@
         footerCopy:'© Société X 2026', footCalc:'Calculadora', footLimites:'Límites del IMC'
       }
     };
+    window._imcTrans = translations;
 
     /* ---- Textes dynamiques du calculateur (par langue) ---- */
+    window._imcLang = 'fr';
     var currentLang = 'fr';
 
     function setLanguage(lang) {
       currentLang = lang;
+      window._imcLang = lang;
       localStorage.setItem('language', lang);
       document.getElementById('currentFlag').textContent = flags[lang];
       var t = translations[lang];
       document.title = t.pageTitle;
       var ids = ['navLogo','navCalc','navLimites','navEnfant','mobCalc','mobLimites','mobEnfant',
-        'heroBadge','heroTitle','heroDesc','calcTitle','calcBtn','lblHeight','lblWeight','lblAge','lblSex','lblImcCalc',
+        'heroBadge','heroTitle','heroDesc','calcTitle','lblHeight','lblWeight','lblAge','lblSex','lblImcCalc',
         'sec1Title','sec1P1','sec1P2','thCat','thPct','thInt',
         'tr1c1','tr1c2','tr1c3','tr2c1','tr2c2','tr2c3','tr3c1','tr3c2','tr3c3','tr4c1','tr4c2','tr4c3',
         'sec2Title','sec2P1','sec2P2','sec2P3','sec3Title','sec3P1','sec3P2','sec3P3',
@@ -893,30 +897,32 @@
         var el = document.getElementById(id);
         if (el && t[id] !== undefined) el.innerHTML = t[id];
       });
-      /* Boutons sexe */
+      /* Boutons avec onclick — textContent uniquement pour ne pas écraser les handlers */
       var btnF = document.getElementById('sex-f');
       var btnM = document.getElementById('sex-m');
       if (btnF) btnF.textContent = t.sexF;
       if (btnM) btnM.textContent = t.sexM;
-      /* Bouton CTA */
+      var calcBtnEl = document.getElementById('calcBtn');
+      if (calcBtnEl) calcBtnEl.textContent = t.calcBtn;
       var ctaBtn = document.getElementById('ctaBtn');
       if (ctaBtn) ctaBtn.textContent = t.ctaBtn2;
     }
 
     /* ---- Calculateur ---- */
-    function selectSex(val) {
+    window.selectSex = function(val) {
       document.getElementById('c-sex').value = val;
       document.getElementById('sex-f').classList.toggle('selected', val === 'f');
       document.getElementById('sex-m').classList.toggle('selected', val === 'm');
     }
 
-    function spinVal(id, delta) {
+    window.spinVal = function(id, delta) {
       var el = document.getElementById(id);
       var min = parseFloat(el.min) || 0;
       var max = parseFloat(el.max) || Infinity;
       el.value = Math.min(max, Math.max(min, (parseFloat(el.value) || 0) + delta));
     }
 
+    window._imcRefs = window._imcRefs || {};
     var refs = {
       f: { 2:[13.4,17.1,18.6],3:[12.9,16.4,17.9],4:[12.5,15.9,17.5],5:[12.3,15.8,17.6],
            6:[12.2,16.0,18.0],7:[12.3,16.6,18.9],8:[12.5,17.3,19.9],9:[12.9,18.1,21.0],
@@ -927,13 +933,16 @@
            10:[13.5,19.3,22.5],11:[14.1,20.2,23.6],12:[14.7,21.0,24.6],13:[15.3,21.7,25.4],
            14:[15.9,22.4,26.0],15:[16.5,23.0,26.5],16:[17.0,23.6,27.0],17:[17.4,24.0,27.4],18:[17.8,24.5,27.8] }
     };
+    window._imcRefs = refs;
 
-    function calculateChildIMC() {
+    window.calculateChildIMC = function() {
       var h   = parseFloat(document.getElementById('c-height').value);
       var w   = parseFloat(document.getElementById('c-weight').value);
       var age = parseInt(document.getElementById('c-age').value);
       var sex = document.getElementById('c-sex').value;
-      var t   = translations[currentLang];
+      var lang = window._imcLang || 'fr';
+      var t   = window._imcTrans[lang];
+      var refs = window._imcRefs;
 
       if (!h || !w || !age || !sex || h < 50 || w < 5 || age < 2 || age > 18) {
         alert(t.alertMsg); return;
