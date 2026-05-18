@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Limites de l'IMC | Ce que l'indice de masse corporelle ne dit pas</title>
+  <meta name="description" content="L'IMC est utile mais imparfait. Découvrez ses principales limites : masse musculaire, âge, sexe, ethnie, et les indicateurs complémentaires recommandés.">
+  <meta name="keywords" content="limites IMC, IMC imparfait, IMC muscles, IMC âge, IMC ethnie, alternatives IMC, tour de taille">
+  <meta name="author" content="Société X">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Les limites de l'IMC">
+  <meta property="og:description" content="L'IMC est un indicateur général — voici ce qu'il ne mesure pas et comment l'interpréter intelligemment.">
+  <meta property="og:type" content="article">
+  <link rel="canonical" href="https://www.votresite.com/limites-imc">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --footer: #c7d0dd; --link: #8db4ff; --bg: #0f1115;
+      --border: rgba(255,255,255,0.08); --text: #f5f7fb;
+      --muted: #a7b0c0; --accent: #ffffff;
+      --success: #32d583; --warning: #f5b546; --danger: #ff6b6b;
+      --shadow: 0 20px 60px rgba(0,0,0,0.45);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.04), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(255,255,255,0.03), transparent 25%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 80px 20px 80px;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    /* ---- NAV ---- */
+    .topbar {
+      position: fixed;
+      top: 0; left: 0; width: 100%;
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(15,17,21,0.82);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--border);
+      z-index: 900;
+    }
+
+    .nav-logo {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .nav-link {
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .nav-link:hover { color: var(--text); background: rgba(255,255,255,0.07); border-color: var(--border); }
+    .nav-link.active { color: var(--text); background: rgba(255,255,255,0.09); border-color: var(--border); }
+
+    .nav-controls { display: flex; align-items: center; gap: 10px; }
+
+    .theme-toggle {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.08);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 17px;
+      display: flex; align-items: center; justify-content: center;
+      transition: 0.2s ease;
+    }
+    .theme-toggle:hover { transform: scale(1.05); background: rgba(255,255,255,0.13); }
+
+    /* ---- PAGE LAYOUT ---- */
+    .page-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      padding-top: 30px;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 52px 60px;
+      border: 1px solid var(--border);
+      border-radius: 32px;
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(20px);
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(245,181,70,0.12);
+      border: 1px solid rgba(245,181,70,0.3);
+      color: var(--warning);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 700;
+      letter-spacing: -2px;
+      line-height: 1.05;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 span { color: #cfd8e3; font-weight: 300; }
+
+    .hero-desc {
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.8;
+      max-width: 620px;
+    }
+
+    /* Cards grille */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      padding: 30px 28px;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(12px);
+      transition: border-color 0.2s ease;
+    }
+
+    .card:hover { border-color: rgba(255,255,255,0.15); }
+
+    .card-icon {
+      font-size: 28px;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .card h2 {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.4px;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .card.accent-green  { border-color: rgba(50,213,131,0.2);  }
+    .card.accent-orange { border-color: rgba(245,181,70,0.2);  }
+    .card.accent-red    { border-color: rgba(255,107,107,0.2); }
+    .card.accent-blue   { border-color: rgba(110,198,245,0.2); }
+    .card.accent-purple { border-color: rgba(167,139,250,0.2); }
+    .card.accent-pink   { border-color: rgba(244,114,182,0.2); }
+
+    /* Section large */
+    .section-full {
+      padding: 36px 40px;
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      background: rgba(255,255,255,0.03);
+      margin-bottom: 20px;
+    }
+
+    .section-full h2 {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.8px;
+      margin-bottom: 18px;
+    }
+
+    .section-full p {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 14px;
+    }
+
+    .section-full p:last-child { margin-bottom: 0; }
+
+    /* Tableau comparatif */
+
+    .table-scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-top: 16px;
+      border-radius: 12px;
+    }
+    .compare-table {
+      width: 100%;
+      min-width: 540px;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+
+    .compare-table th {
+      text-align: left;
+      padding: 10px 16px;
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .compare-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: var(--text);
+      vertical-align: top;
+      line-height: 1.6;
+    }
+
+    .compare-table tr:last-child td { border-bottom: none; }
+
+    .tag {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .tag-good   { background: rgba(50,213,131,0.15);  color: var(--success); }
+    .tag-bad    { background: rgba(255,107,107,0.15); color: var(--danger);  }
+    .tag-medium { background: rgba(245,181,70,0.15);  color: var(--warning); }
+
+    /* CTA */
+    .cta-section {
+      padding: 40px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 28px;
+      background: rgba(255,255,255,0.04);
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .cta-section h2 { font-size: 24px; font-weight: 700; letter-spacing: -0.6px; margin-bottom: 10px; }
+    .cta-section p  { color: var(--muted); font-size: 15px; margin-bottom: 24px; line-height: 1.7; }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #111;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+      border: none;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .cta-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    .page-links {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .page-link {
+      padding: 11px 20px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      color: var(--muted);
+      font-size: 13px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .page-link:hover { background: rgba(255,255,255,0.1); color: var(--text); border-color: rgba(255,255,255,0.2); }
+
+    /* Footer */
+    footer {
+      position: fixed;
+      bottom: 0; left: 0; width: 100%;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15,17,21,0.82);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-top: 1px solid var(--border);
+      color: var(--footer);
+      font-size: 13px;
+      flex-wrap: wrap;
+      gap: 10px;
+      z-index: 900;
+    }
+
+    footer a { color: var(--link); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    .footer-links { display: flex; gap: 16px; }
+
+    /* Light mode */
+    body.light {
+      --bg: #f4f7fb; --border: rgba(0,0,0,0.08); --text: #111827;
+      --muted: #5b6472; --accent: #111827; --footer: #4b5563; --link: #2563eb;
+      background:
+        radial-gradient(circle at top left, rgba(0,0,0,0.03), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(0,0,0,0.02), transparent 25%),
+        var(--bg);
+    }
+
+    body.light .topbar,
+    body.light footer { background: rgba(235,239,245,0.88); }
+    body.light .cta-btn { color: #fff; }
+    body.light .hero h1 span { color: #4a5568; }
+    body.light .compare-table td { color: #111827; }
+
+
+    /* ---- BURGER MOBILE ---- */
+    .burger {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.08);
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.2s ease;
+    }
+    .burger:hover { background: rgba(255,255,255,0.14); }
+    .burger .icon-burger { display: block; }
+    .burger .icon-close  { display: none; }
+    .burger.open .icon-burger { display: none; }
+    .burger.open .icon-close  { display: block; }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 53px; left: 0; width: 100%;
+      background: rgba(15,17,21,0.97);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--border);
+      padding: 8px 14px 12px;
+      flex-direction: column;
+      gap: 4px;
+      z-index: 1000;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu .mob-link {
+      display: block;
+      padding: 12px 16px;
+      font-size: 15px;
+      font-family: 'Inter', sans-serif;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      color: var(--muted);
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+    .mobile-menu .mob-link:hover { background: rgba(255,255,255,0.07); color: var(--text); }
+    .mobile-menu .mob-link.active {
+      background: rgba(255,255,255,0.09);
+      border-color: var(--border);
+      color: var(--text);
+    }
+    body.light .burger { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.12); }
+    body.light .burger svg { stroke: #111827; }
+    body.light .mobile-menu { background: rgba(235,239,245,0.97); }
+    /* Responsive */
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .burger { display: flex; }
+    }
+    @media (max-width: 720px) {
+      body { padding: 70px 0 70px; }
+      .page-wrapper { padding: 16px 14px 0; }
+      .hero { padding: 28px 20px; border-radius: 20px; }
+      .hero h1 { font-size: 28px; letter-spacing: -1px; }
+      .hero-desc { font-size: 14px; }
+      .cards-grid { grid-template-columns: 1fr; gap: 10px; }
+      .card { padding: 22px 18px; border-radius: 18px; }
+      .card h2 { font-size: 16px; }
+      .section-full { padding: 22px 18px; border-radius: 20px; margin-bottom: 12px; }
+      .section-full h2 { font-size: 20px; }
+      .cta-section { padding: 26px 18px; border-radius: 20px; margin-bottom: 12px; }
+      .compare-table th, .compare-table td { padding: 10px 12px; font-size: 13px; }
+      .topbar { padding: 10px 14px; }
+      .nav-links { display: none; }
+      footer { padding: 10px 16px; font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Les limites de l'IMC",
+    "description": "L'IMC est utile mais imparfait. Découvrez ses principales limites et les indicateurs complémentaires.",
+    "author": { "@type": "Organization", "name": "Société X" },
+    "publisher": { "@type": "Organization", "name": "Société X" }
+  }
+  </script>
+
+  <nav class="topbar" id="mainTopbar">
+    <button class="burger" id="burgerBtn" onclick="toggleBurger()" aria-label="Menu"><svg class="icon-burger" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--text)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="4" x2="14" y2="4"/><line x1="2" y1="8" x2="14" y2="8"/><line x1="2" y1="12" x2="14" y2="12"/></svg><svg class="icon-close" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--text)" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="3" x2="13" y2="13"/><line x1="13" y1="3" x2="3" y2="13"/></svg></button>
+    <a class="nav-logo" href="index.html">Calculateur IMC</a>
+    <div class="nav-links">
+      <a class="nav-link" href="index.html">Calculateur</a>
+      <a class="nav-link active" href="limites-imc.html">Limites de l'IMC</a>
+      <a class="nav-link" href="imc-enfant.html">IMC enfant</a>
+    </div>
+    <div class="nav-controls">
+      <button class="theme-toggle" id="themeToggle">☾</button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a class="mob-link" href="index.html">Calculateur</a>
+    <a class="mob-link active" href="limites-imc.html">Limites de l'IMC</a>
+    <a class="mob-link" href="imc-enfant.html">IMC enfant</a>
+  </div>
+
+  <div class="page-wrapper">
+
+    <!-- Hero -->
+    <div class="hero">
+      <div class="hero-badge">⚠ À SAVOIR</div>
+      <h1>Les limites de l'IMC — <span>ce qu'il ne mesure pas.</span></h1>
+      <p class="hero-desc">
+        L'IMC est un outil de dépistage populaire, rapide et gratuit. Mais il repose sur une formule qui date de 1832 et ignore de nombreux facteurs essentiels à la santé. Voici ce qu'il faut savoir avant d'interpréter son résultat.
+      </p>
+    </div>
+
+    <!-- 6 limites en cartes -->
+    <div class="cards-grid">
+
+      <div class="card accent-orange">
+        <span class="card-icon">💪</span>
+        <h2>La masse musculaire ignorée</h2>
+        <p>L'IMC ne distingue pas le muscle de la graisse. Un athlète avec une forte masse musculaire peut être classé en "surpoids" ou "obésité" malgré un corps en excellente santé. À l'inverse, une personne sédentaire avec peu de muscles peut afficher un IMC normal tout en ayant un excès de graisse viscérale.</p>
+      </div>
+
+      <div class="card accent-blue">
+        <span class="card-icon">👴</span>
+        <h2>L'âge non pris en compte</h2>
+        <p>Avec l'âge, la masse musculaire diminue naturellement et la graisse augmente, même si le poids reste stable. Un IMC de 23 n'a pas la même signification à 25 ans et à 70 ans. Les personnes âgées avec un IMC légèrement supérieur à 25 ont parfois de meilleurs indicateurs de survie — c'est le paradoxe de l'obésité.</p>
+      </div>
+
+      <div class="card accent-pink">
+        <span class="card-icon">⚥</span>
+        <h2>Le sexe biologique non différencié</h2>
+        <p>À IMC égal, les femmes ont généralement un taux de graisse corporelle plus élevé que les hommes — c'est une différence physiologique normale. Les seuils OMS sont identiques pour les deux sexes, ce qui introduit un biais systématique dans l'interprétation.</p>
+      </div>
+
+      <div class="card accent-purple">
+        <span class="card-icon">🌍</span>
+        <h2>L'origine ethnique occultée</h2>
+        <p>Les populations asiatiques accumulent davantage de graisse viscérale pour un même IMC. L'OMS recommande des seuils abaissés pour ces populations : surpoids à partir de 23, obésité à 27.5. Les populations d'Afrique subsaharienne et des îles du Pacifique présentent des profils inverses.</p>
+      </div>
+
+      <div class="card accent-red">
+        <span class="card-icon">📏</span>
+        <h2>La répartition des graisses absente</h2>
+        <p>La graisse abdominale (viscérale) est bien plus dangereuse pour la santé cardiovasculaire que la graisse sous-cutanée des hanches ou des cuisses. L'IMC ne donne aucune information sur où la graisse est stockée, ce qui est pourtant un prédicteur majeur de risques métaboliques.</p>
+      </div>
+
+      <div class="card accent-green">
+        <span class="card-icon">🦴</span>
+        <h2>La densité osseuse ignorée</h2>
+        <p>Les personnes à forte densité osseuse (ossature lourde) peuvent avoir un IMC supérieur sans excès de graisse. À l'opposé, l'ostéoporose réduit le poids osseux et peut masquer un surpoids adipeux réel. La structure squelettique contribue significativement au poids sans être liée à la graisse.</p>
+      </div>
+
+    </div>
+
+    <!-- Tableau comparatif des indicateurs -->
+    <div class="section-full">
+      <h2>Indicateurs complémentaires à l'IMC</h2>
+      <p>Pour une évaluation plus complète de la composition corporelle et du risque métabolique, ces indicateurs sont souvent utilisés en complément :</p>
+
+      <div class="table-scroll"><table class="compare-table">
+        <thead>
+          <tr>
+            <th>Indicateur</th>
+            <th>Ce qu'il mesure</th>
+            <th>Avantages</th>
+            <th>Limite</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Tour de taille</strong></td>
+            <td>Graisse abdominale</td>
+            <td><span class="tag tag-good">Simple</span> Prédit le risque cardiovasculaire</td>
+            <td>Varie selon la taille</td>
+          </tr>
+          <tr>
+            <td><strong>Rapport taille/hanches</strong></td>
+            <td>Répartition des graisses</td>
+            <td><span class="tag tag-good">Précis</span> Différencie obésité androïde/gynoïde</td>
+            <td>Moins connu du grand public</td>
+          </tr>
+          <tr>
+            <td><strong>Rapport taille/taille</strong></td>
+            <td>Graisse viscérale relative</td>
+            <td><span class="tag tag-good">Indépendant</span> du sexe et de l'ethnie</td>
+            <td>Peu utilisé en clinique</td>
+          </tr>
+          <tr>
+            <td><strong>DEXA / IRM</strong></td>
+            <td>Composition corporelle exacte</td>
+            <td><span class="tag tag-good">Référence</span> Mesure précise graisse/muscle/os</td>
+            <td><span class="tag tag-bad">Coûteux</span> Accès médical requis</td>
+          </tr>
+          <tr>
+            <td><strong>Impédancemétrie</strong></td>
+            <td>% graisse et muscle</td>
+            <td><span class="tag tag-medium">Accessible</span> Balances connectées, cabinets</td>
+            <td>Précision variable selon hydratation</td>
+          </tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <!-- Quand l'IMC reste utile -->
+    <div class="section-full">
+      <h2>Quand l'IMC reste pertinent</h2>
+      <p>Malgré ses limites, l'IMC conserve une utilité réelle dans plusieurs contextes. À l'échelle d'une population, c'est un outil de surveillance épidémiologique robuste et standardisé depuis des décennies, permettant des comparaisons internationales.</p>
+      <p>Pour un individu sédentaire sans particularité musculaire ou ethnique marquée, l'IMC reste un indicateur de dépistage rapide et suffisant. Il est également utile pour suivre une tendance dans le temps — une augmentation progressive de l'IMC est un signal d'alerte valide même si la valeur absolue est imparfaite.</p>
+      <p>La règle d'or : l'IMC est un <strong>point de départ</strong>, jamais une conclusion. En cas de doute ou de valeur aux seuils, une évaluation médicale complète est toujours recommandée.</p>
+    </div>
+
+    <!-- CTA retour calculateur -->
+    <div class="cta-section">
+      <h2>Calculez votre IMC</h2>
+      <p>En gardant ces nuances en tête, utilisez notre calculateur pour obtenir votre valeur et la situer par rapport aux seuils de référence.</p>
+      <a class="cta-btn" href="index.html">← Retour au calculateur</a>
+      <div class="page-links">
+        <a class="page-link" href="imc-enfant.html">IMC chez l'enfant →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <div>© Société X 2026</div>
+    <div class="footer-links">
+      <a href="index.html">Calculateur</a>
+      <a href="imc-enfant.html">IMC enfant</a>
+    </div>
+  </footer>
+
+  <script>
+
+    function toggleBurger() {
+      document.getElementById('burgerBtn').classList.toggle('open');
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+    document.addEventListener('click', function(e) {
+      var burger = document.getElementById('burgerBtn');
+      var menu   = document.getElementById('mobileMenu');
+      if (!burger || !menu) return;
+      if (!burger.contains(e.target) && !menu.contains(e.target)) {
+        burger.classList.remove('open');
+        menu.classList.remove('open');
+      }
+    });
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedTheme  = localStorage.getItem('theme');
+    if (savedTheme === 'light' || (!savedTheme && !prefersDark)) document.body.classList.add('light');
+    const toggleBtn = document.getElementById('themeToggle');
+    function updateIcon() { toggleBtn.textContent = document.body.classList.contains('light') ? '☀' : '☾'; }
+    updateIcon();
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('light');
+      localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+      updateIcon();
+    });
+  </script>
+
+</body>
+</html>

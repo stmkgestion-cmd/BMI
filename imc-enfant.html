@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IMC Enfant | Calculateur IMC pour enfants et adolescents</title>
+  <meta name="description" content="Calculez l'IMC de votre enfant et interprétez-le correctement selon son âge et son sexe. L'IMC enfant se lit en percentile, pas en valeur absolue.">
+  <meta name="keywords" content="IMC enfant, calculateur IMC enfant, IMC adolescent, percentile IMC, surpoids enfant, corpulence enfant">
+  <meta name="author" content="Société X">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="IMC Enfant — Calculateur et interprétation">
+  <meta property="og:description" content="L'IMC de l'enfant se lit en percentile selon l'âge et le sexe. Calculez et interprétez ici.">
+  <meta property="og:type" content="article">
+  <link rel="canonical" href="https://www.votresite.com/imc-enfant">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --footer: #c7d0dd; --link: #8db4ff; --bg: #0f1115;
+      --border: rgba(255,255,255,0.08); --text: #f5f7fb;
+      --muted: #a7b0c0; --accent: #ffffff;
+      --success: #32d583; --warning: #f5b546; --danger: #ff6b6b;
+      --shadow: 0 20px 60px rgba(0,0,0,0.45);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.04), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(255,255,255,0.03), transparent 25%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 80px 20px 80px;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    /* ---- NAV ---- */
+    .topbar {
+      position: fixed;
+      top: 0; left: 0; width: 100%;
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(15,17,21,0.82);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--border);
+      z-index: 900;
+    }
+
+    .nav-logo {
+      font-size: 15px; font-weight: 600;
+      color: var(--text); text-decoration: none; letter-spacing: -0.3px;
+    }
+
+    .nav-links { display: flex; gap: 6px; align-items: center; }
+
+    .nav-link {
+      padding: 8px 14px; border-radius: 999px; font-size: 13px;
+      color: var(--muted); text-decoration: none;
+      border: 1px solid transparent; transition: all 0.2s ease; white-space: nowrap;
+    }
+
+    .nav-link:hover { color: var(--text); background: rgba(255,255,255,0.07); border-color: var(--border); }
+    .nav-link.active { color: var(--text); background: rgba(255,255,255,0.09); border-color: var(--border); }
+
+    .nav-controls { display: flex; align-items: center; gap: 10px; }
+
+    .theme-toggle {
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 1px solid var(--border); background: rgba(255,255,255,0.08);
+      color: var(--text); cursor: pointer; font-size: 17px;
+      display: flex; align-items: center; justify-content: center; transition: 0.2s ease;
+    }
+    .theme-toggle:hover { transform: scale(1.05); background: rgba(255,255,255,0.13); }
+
+    /* ---- LAYOUT ---- */
+    .page-wrapper { max-width: 900px; margin: 0 auto; padding-top: 30px; }
+
+    /* Hero */
+    .hero {
+      padding: 52px 60px;
+      border: 1px solid var(--border); border-radius: 32px;
+      background: rgba(255,255,255,0.03); backdrop-filter: blur(20px);
+      box-shadow: var(--shadow); margin-bottom: 24px;
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 14px; border-radius: 999px;
+      background: rgba(110,198,245,0.1); border: 1px solid rgba(110,198,245,0.3);
+      color: #6ec6f5; font-size: 12px; font-weight: 500;
+      letter-spacing: 0.5px; margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-size: 48px; font-weight: 700; letter-spacing: -2px;
+      line-height: 1.05; margin-bottom: 18px;
+    }
+
+    .hero h1 span { color: #cfd8e3; font-weight: 300; }
+    .hero-desc { color: var(--muted); font-size: 17px; line-height: 1.8; max-width: 620px; }
+
+    /* Calculateur enfant */
+    .calc-card {
+      padding: 40px;
+      border: 1px solid var(--border); border-radius: 28px;
+      background: rgba(255,255,255,0.03); backdrop-filter: blur(20px);
+      box-shadow: var(--shadow); margin-bottom: 24px;
+    }
+
+    .calc-card h2 {
+      font-size: 24px; font-weight: 700;
+      letter-spacing: -0.6px; margin-bottom: 28px;
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .field { display: flex; flex-direction: column; gap: 8px; }
+
+    .field label {
+      font-size: 13px; font-weight: 500;
+      color: var(--muted); letter-spacing: 0.3px;
+    }
+
+    .field input, .field select {
+      width: 100%; padding: 15px 18px;
+      border-radius: 14px; border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05); color: var(--text);
+      font-size: 15px; font-family: 'Inter', sans-serif;
+      outline: none; transition: border-color 0.2s ease, background 0.2s ease;
+      -moz-appearance: textfield; appearance: textfield;
+    }
+
+    .field input::-webkit-inner-spin-button,
+    .field input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+
+    /* Wrapper avec flèches */
+    .input-wrapper { position: relative; }
+
+    .input-wrapper input {
+      padding-right: 48px;
+    }
+
+    .spin-btns {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .spin-btn {
+      width: 28px; height: 22px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.07);
+      color: var(--muted);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.15s ease;
+      padding: 0; font-size: 0; line-height: 1;
+    }
+
+    .spin-btn:hover {
+      background: rgba(255,255,255,0.15);
+      color: var(--text);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    .spin-btn:active { transform: scale(0.93); }
+
+    .spin-btn svg {
+      width: 10px; height: 10px;
+      fill: none; stroke: currentColor;
+      stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    body.light .spin-btn { border-color: rgba(0,0,0,0.1); background: rgba(0,0,0,0.04); }
+    body.light .spin-btn:hover { background: rgba(0,0,0,0.1); }
+
+    /* Sex toggle */
+    .sex-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .sex-btn {
+      padding: 15px 18px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      color: var(--muted);
+      font-size: 15px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .sex-btn:hover {
+      background: rgba(255,255,255,0.1);
+      color: var(--text);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    .sex-btn.selected {
+      background: rgba(255,255,255,0.13);
+      border-color: rgba(255,255,255,0.35);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    body.light .sex-btn { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.1); color: #5b6472; }
+    body.light .sex-btn:hover { background: rgba(0,0,0,0.08); color: #111827; border-color: rgba(0,0,0,0.2); }
+    body.light .sex-btn.selected { background: rgba(0,0,0,0.1); border-color: rgba(0,0,0,0.35); color: #111827; }
+
+    .field input:focus, .field select:focus {
+      border-color: rgba(255,255,255,0.28); background: rgba(255,255,255,0.08);
+    }
+
+    .field input::placeholder { color: rgba(167,176,192,0.45); }
+
+    .calc-btn {
+      width: 100%; padding: 16px; border: none; border-radius: 16px;
+      background: var(--accent); color: #111; font-size: 15px; font-weight: 600;
+      cursor: pointer; transition: 0.2s ease; font-family: 'Inter', sans-serif;
+      margin-top: 4px;
+    }
+    .calc-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* Résultat */
+    .result-card {
+      display: none;
+      margin-top: 24px; padding: 28px;
+      border-radius: 22px; border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      animation: fadeIn 0.5s ease;
+    }
+
+    .result-row {
+      display: flex; align-items: flex-end; gap: 20px;
+      margin-bottom: 16px; flex-wrap: wrap;
+    }
+
+    .result-imc { font-size: 56px; font-weight: 700; letter-spacing: -2px; line-height: 1; }
+    .result-meta { display: flex; flex-direction: column; gap: 4px; }
+    .result-label { font-size: 13px; color: var(--muted); }
+    .result-status { font-size: 18px; font-weight: 600; }
+
+    /* Barre percentile */
+    .percentile-bar-wrap { margin: 16px 0 6px; }
+    .percentile-bar {
+      position: relative; height: 10px; border-radius: 999px;
+      background: linear-gradient(90deg,
+        #6ec6f5 0%, #6ec6f5 3%,
+        #32d583 3%, #32d583 85%,
+        #f5b546 85%, #f5b546 97%,
+        #ff6b6b 97%, #ff6b6b 100%);
+      margin-bottom: 8px; overflow: visible;
+    }
+    .percentile-cursor {
+      position: absolute; top: 50%; width: 16px; height: 16px;
+      border-radius: 50%; background: #fff;
+      border: 2.5px solid rgba(0,0,0,0.25);
+      transform: translate(-50%, -50%);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+      transition: left 0.6s cubic-bezier(.4,0,.2,1); z-index: 2;
+    }
+    .percentile-ticks {
+      position: relative;
+      height: 18px;
+      margin-top: 5px;
+    }
+
+    .percentile-tick {
+      position: absolute;
+      font-size: 10.5px;
+      font-weight: 500;
+      opacity: 0.9;
+      white-space: nowrap;
+    }
+
+    .result-note {
+      margin-top: 16px; font-size: 13px; color: var(--muted); line-height: 1.65;
+      padding-top: 16px; border-top: 1px solid var(--border);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Sections éditoriales */
+    .section-full {
+      padding: 36px 40px; border: 1px solid var(--border);
+      border-radius: 28px; background: rgba(255,255,255,0.03);
+      margin-bottom: 20px;
+    }
+
+    .section-full h2 {
+      font-size: 26px; font-weight: 700;
+      letter-spacing: -0.8px; margin-bottom: 18px;
+    }
+
+    .section-full p {
+      font-size: 15px; color: var(--muted);
+      line-height: 1.8; margin-bottom: 14px;
+    }
+
+    .section-full p:last-child { margin-bottom: 0; }
+
+    /* Tableau percentiles */
+    .ptable {
+      width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 14px;
+    }
+
+    .ptable th {
+      text-align: left; padding: 10px 14px; color: var(--muted);
+      font-weight: 500; font-size: 12px; letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .ptable td {
+      padding: 11px 14px; border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: var(--text); line-height: 1.5;
+    }
+
+    .ptable tr:last-child td { border-bottom: none; }
+
+    .dot {
+      display: inline-block; width: 9px; height: 9px;
+      border-radius: 50%; margin-right: 8px; vertical-align: middle;
+    }
+
+    /* CTA */
+    .cta-section {
+      padding: 40px; border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 28px; background: rgba(255,255,255,0.04);
+      text-align: center; margin-bottom: 20px;
+    }
+
+    .cta-section h2 { font-size: 24px; font-weight: 700; letter-spacing: -0.6px; margin-bottom: 10px; }
+    .cta-section p { color: var(--muted); font-size: 15px; margin-bottom: 24px; line-height: 1.7; }
+
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 999px;
+      background: var(--accent); color: #111; font-size: 15px; font-weight: 600;
+      text-decoration: none; transition: opacity 0.2s, transform 0.2s;
+      border: none; cursor: pointer; font-family: 'Inter', sans-serif;
+    }
+    .cta-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    .page-links {
+      display: flex; gap: 12px; justify-content: center;
+      flex-wrap: wrap; margin-top: 14px;
+    }
+
+    .page-link {
+      padding: 11px 20px; border-radius: 999px; border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05); color: var(--muted);
+      font-size: 13px; text-decoration: none; transition: all 0.2s ease;
+    }
+    .page-link:hover { background: rgba(255,255,255,0.1); color: var(--text); border-color: rgba(255,255,255,0.2); }
+
+    /* Footer */
+    footer {
+      position: fixed; bottom: 0; left: 0; width: 100%;
+      padding: 12px 24px; display: flex;
+      justify-content: space-between; align-items: center;
+      background: rgba(15,17,21,0.82);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-top: 1px solid var(--border);
+      color: var(--footer); font-size: 13px; flex-wrap: wrap; gap: 10px; z-index: 900;
+    }
+    footer a { color: var(--link); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    .footer-links { display: flex; gap: 16px; }
+
+    /* Light mode */
+    body.light {
+      --bg: #f4f7fb; --border: rgba(0,0,0,0.08); --text: #111827;
+      --muted: #5b6472; --accent: #111827; --footer: #4b5563; --link: #2563eb;
+      background:
+        radial-gradient(circle at top left, rgba(0,0,0,0.03), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(0,0,0,0.02), transparent 25%),
+        var(--bg);
+    }
+    body.light .topbar, body.light footer { background: rgba(235,239,245,0.88); }
+    body.light .calc-btn { color: #fff; }
+    body.light .cta-btn  { color: #fff; }
+    body.light .hero h1 span { color: #4a5568; }
+    body.light .field input, body.light .field select { background: rgba(0,0,0,0.04); color: #111827; }
+    body.light .percentile-cursor { border-color: rgba(0,0,0,0.18); }
+    body.light .ptable td { color: #111827; }
+
+
+    /* ---- BURGER MOBILE ---- */
+    .burger {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.08);
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.2s ease;
+    }
+    .burger:hover { background: rgba(255,255,255,0.14); }
+    .burger .icon-burger { display: block; }
+    .burger .icon-close  { display: none; }
+    .burger.open .icon-burger { display: none; }
+    .burger.open .icon-close  { display: block; }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 53px; left: 0; width: 100%;
+      background: rgba(15,17,21,0.97);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--border);
+      padding: 8px 14px 12px;
+      flex-direction: column;
+      gap: 4px;
+      z-index: 1000;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu .mob-link {
+      display: block;
+      padding: 12px 16px;
+      font-size: 15px;
+      font-family: 'Inter', sans-serif;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      color: var(--muted);
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+    .mobile-menu .mob-link:hover { background: rgba(255,255,255,0.07); color: var(--text); }
+    .mobile-menu .mob-link.active {
+      background: rgba(255,255,255,0.09);
+      border-color: var(--border);
+      color: var(--text);
+    }
+    body.light .burger { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.12); }
+    body.light .burger svg { stroke: #111827; }
+    body.light .mobile-menu { background: rgba(235,239,245,0.97); }
+    /* Responsive */
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .burger { display: flex; }
+    }
+    @media (max-width: 720px) {
+      body { padding: 70px 0 70px; }
+      .page-wrapper { padding: 16px 14px 0; }
+      .hero { padding: 28px 20px; border-radius: 20px; }
+      .hero h1 { font-size: 28px; letter-spacing: -1px; }
+      .hero-desc { font-size: 14px; }
+      .calc-card { padding: 22px 18px; border-radius: 20px; }
+      .calc-card h2 { font-size: 20px; margin-bottom: 20px; }
+      .calc-grid { grid-template-columns: 1fr; gap: 10px; }
+      .result-imc { font-size: 44px; }
+      .result-status { font-size: 16px; }
+      .section-full { padding: 22px 18px; border-radius: 20px; margin-bottom: 12px; }
+      .section-full h2 { font-size: 20px; }
+      .cta-section { padding: 26px 18px; border-radius: 20px; margin-bottom: 12px; }
+      .ptable th, .ptable td { padding: 9px 10px; font-size: 13px; }
+      .topbar { padding: 10px 14px; }
+      .nav-links { display: none; }
+      footer { padding: 10px 16px; font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "IMC Enfant — Calculateur et interprétation",
+    "description": "L'IMC de l'enfant se lit en percentile selon l'âge et le sexe. Calculez et interprétez ici.",
+    "author": { "@type": "Organization", "name": "Société X" },
+    "publisher": { "@type": "Organization", "name": "Société X" }
+  }
+  </script>
+
+  <nav class="topbar" id="mainTopbar">
+    <button class="burger" id="burgerBtn" onclick="toggleBurger()" aria-label="Menu"><svg class="icon-burger" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--text)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="4" x2="14" y2="4"/><line x1="2" y1="8" x2="14" y2="8"/><line x1="2" y1="12" x2="14" y2="12"/></svg><svg class="icon-close" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--text)" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="3" x2="13" y2="13"/><line x1="13" y1="3" x2="3" y2="13"/></svg></button>
+    <a class="nav-logo" href="index.html">Calculateur IMC</a>
+    <div class="nav-links">
+      <a class="nav-link" href="index.html">Calculateur</a>
+      <a class="nav-link" href="limites-imc.html">Limites de l'IMC</a>
+      <a class="nav-link active" href="imc-enfant.html">IMC enfant</a>
+    </div>
+    <div class="nav-controls">
+      <button class="theme-toggle" id="themeToggle">☾</button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a class="mob-link" href="index.html">Calculateur</a>
+    <a class="mob-link" href="limites-imc.html">Limites de l'IMC</a>
+    <a class="mob-link active" href="imc-enfant.html">IMC enfant</a>
+  </div>
+
+  <div class="page-wrapper">
+
+    <!-- Hero -->
+    <div class="hero">
+      <div class="hero-badge">👶 IMC ENFANT & ADOLESCENT</div>
+      <h1>L'IMC de l'enfant — <span>une lecture en percentile.</span></h1>
+      <p class="hero-desc">
+        Contrairement à l'adulte, l'IMC d'un enfant ne s'interprète pas avec des seuils fixes. Il varie avec l'âge et le sexe, et se lit par rapport à une courbe de référence nationale exprimée en percentile.
+      </p>
+    </div>
+
+    <!-- Calculateur -->
+    <div class="calc-card">
+      <h2>Calculer l'IMC de votre enfant</h2>
+
+      <div class="calc-grid">
+        <div class="field">
+          <label>Taille (cm)</label>
+          <div class="input-wrapper">
+            <input type="number" id="c-height" placeholder="Ex : 120" min="50" max="200">
+            <div class="spin-btns">
+              <button class="spin-btn" onclick="spinVal('c-height', 1)" title="+1">
+                <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+              </button>
+              <button class="spin-btn" onclick="spinVal('c-height', -1)" title="-1">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Poids (kg)</label>
+          <div class="input-wrapper">
+            <input type="number" id="c-weight" placeholder="Ex : 22" min="5" max="150">
+            <div class="spin-btns">
+              <button class="spin-btn" onclick="spinVal('c-weight', 1)" title="+1">
+                <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+              </button>
+              <button class="spin-btn" onclick="spinVal('c-weight', -1)" title="-1">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Âge (années)</label>
+          <div class="input-wrapper">
+            <input type="number" id="c-age" placeholder="Ex : 8" min="2" max="18">
+            <div class="spin-btns">
+              <button class="spin-btn" onclick="spinVal('c-age', 1)" title="+1">
+                <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+              </button>
+              <button class="spin-btn" onclick="spinVal('c-age', -1)" title="-1">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Sexe</label>
+          <div class="sex-toggle">
+            <button class="sex-btn" id="sex-f" onclick="selectSex('f')">Fille</button>
+            <button class="sex-btn" id="sex-m" onclick="selectSex('m')">Garçon</button>
+          </div>
+          <input type="hidden" id="c-sex" value="">
+        </div>
+      </div>
+
+      <button class="calc-btn" onclick="calculateChildIMC()">Calculer l'IMC</button>
+
+      <div class="result-card" id="childResult">
+        <div class="result-row">
+          <div class="result-imc" id="childImcValue">—</div>
+          <div class="result-meta">
+            <span class="result-label">IMC calculé</span>
+            <span class="result-status" id="childStatus">—</span>
+            <span class="result-label" id="childPercentileLabel">—</span>
+          </div>
+        </div>
+
+        <div class="percentile-bar-wrap">
+          <div class="percentile-bar">
+            <div class="percentile-cursor" id="childCursor" style="left:50%"></div>
+          </div>
+          <!-- Bornes positionnées aux séparations exactes de la barre gradient -->
+          <div class="percentile-ticks">
+            <span class="percentile-tick" style="left:0%;   color:#6ec6f5; transform:translateX(0)">0</span>
+            <span class="percentile-tick" style="left:3%;   color:#32d583; transform:translateX(-50%)">3e</span>
+            <span class="percentile-tick" style="left:85%;  color:#f5b546; transform:translateX(-50%)">85e</span>
+            <span class="percentile-tick" style="left:97%;  color:#ff6b6b; transform:translateX(-50%)">97e</span>
+          </div>
+        </div>
+
+        <p class="result-note" id="childNote">—</p>
+      </div>
+    </div>
+
+    <!-- Explication percentile -->
+    <div class="section-full">
+      <h2>Qu'est-ce qu'un percentile ?</h2>
+      <p>Le percentile indique la position d'un enfant par rapport à une population de référence du même âge et du même sexe. Un enfant au 50e percentile a un IMC médian : la moitié des enfants du même profil ont un IMC plus bas, l'autre moitié un IMC plus haut.</p>
+      <p>En France, les courbes de référence utilisées sont celles de l'INSERM et intégrées dans le carnet de santé. L'OMS dispose également de ses propres courbes légèrement différentes.</p>
+
+      <table class="ptable">
+        <thead>
+          <tr>
+            <th>Catégorie</th>
+            <th>Percentile</th>
+            <th>Interprétation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="dot" style="background:#6ec6f5"></span>Insuffisance pondérale</td>
+            <td>&lt; 3e percentile</td>
+            <td>Poids insuffisant pour la taille et l'âge. Consultation recommandée.</td>
+          </tr>
+          <tr>
+            <td><span class="dot" style="background:#32d583"></span>Corpulence normale</td>
+            <td>3e – 85e percentile</td>
+            <td>Zone de référence. Croissance harmonieuse.</td>
+          </tr>
+          <tr>
+            <td><span class="dot" style="background:#f5b546"></span>Surpoids</td>
+            <td>85e – 97e percentile</td>
+            <td>Excès de poids relatif à surveiller. Avis médical conseillé.</td>
+          </tr>
+          <tr>
+            <td><span class="dot" style="background:#ff6b6b"></span>Obésité</td>
+            <td>&gt; 97e percentile</td>
+            <td>Obésité pédiatrique. Suivi médical nécessaire.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Particularités -->
+    <div class="section-full">
+      <h2>Pourquoi l'IMC enfant est différent</h2>
+      <p>L'IMC varie naturellement et fortement pendant l'enfance. Il augmente rapidement la première année de vie, diminue ensuite jusqu'à environ 6 ans (c'est le "rebond d'adiposité"), puis augmente à nouveau jusqu'à l'âge adulte. Ce rebond précoce — avant 5-6 ans — est associé à un risque plus élevé d'obésité à l'âge adulte.</p>
+      <p>C'est pourquoi un seuil fixe comme 25 pour le surpoids adulte n'a aucun sens pour un enfant de 8 ans. À cet âge, le surpoids correspond typiquement à un IMC autour de 18-19, selon le sexe et la courbe de référence utilisée.</p>
+      <p>L'interprétation doit toujours être faite par un professionnel de santé qui dispose du carnet de santé et peut observer la trajectoire de la courbe dans le temps, pas seulement un point isolé.</p>
+    </div>
+
+    <!-- Ce que les parents peuvent faire -->
+    <div class="section-full">
+      <h2>Ce que les parents peuvent faire</h2>
+      <p>Si le résultat indique un surpoids ou une obésité, la réaction la plus utile n'est pas de mettre l'enfant au régime — ce qui peut être contre-productif et nuire à son rapport à la nourriture. L'approche recommandée par les pédiatres est de stabiliser le poids (l'enfant grandira dedans) plutôt que de le faire perdre du poids.</p>
+      <p>Concrètement : favoriser l'activité physique quotidienne (au moins 60 minutes à intensité modérée), réduire le temps d'écran, structurer les repas sans les rituels de récompense ou de punition avec la nourriture, et consulter un pédiatre ou un nutritionniste pédiatrique pour un accompagnement adapté.</p>
+      <p>Pour les enfants en insuffisance pondérale, une consultation médicale est également recommandée pour écarter une cause sous-jacente (trouble digestif, alimentaire, croissance atypique).</p>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section">
+      <h2>Calculateur adulte</h2>
+      <p>Pour calculer votre propre IMC avec notre outil interactif, retournez sur la page principale.</p>
+      <a class="cta-btn" href="index.html">← Retour au calculateur</a>
+      <div class="page-links">
+        <a class="page-link" href="limites-imc.html">Limites de l'IMC →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <div>© Société X 2026</div>
+    <div class="footer-links">
+      <a href="index.html">Calculateur</a>
+      <a href="limites-imc.html">Limites de l'IMC</a>
+    </div>
+  </footer>
+
+  <script>
+    function selectSex(val) {
+      document.getElementById('c-sex').value = val;
+      document.getElementById('sex-f').classList.toggle('selected', val === 'f');
+      document.getElementById('sex-m').classList.toggle('selected', val === 'm');
+    }
+
+
+    function toggleBurger() {
+      document.getElementById('burgerBtn').classList.toggle('open');
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+    document.addEventListener('click', function(e) {
+      var burger = document.getElementById('burgerBtn');
+      var menu   = document.getElementById('mobileMenu');
+      if (!burger || !menu) return;
+      if (!burger.contains(e.target) && !menu.contains(e.target)) {
+        burger.classList.remove('open');
+        menu.classList.remove('open');
+      }
+    });
+    /* ---- SPIN BUTTONS ---- */
+    function spinVal(id, delta) {
+      const el = document.getElementById(id);
+      const min = parseFloat(el.min) || 0;
+      const max = parseFloat(el.max) || Infinity;
+      el.value = Math.min(max, Math.max(min, (parseFloat(el.value) || 0) + delta));
+    }
+
+    /* ---- THEME ---- */
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedTheme  = localStorage.getItem('theme');
+    if (savedTheme === 'light' || (!savedTheme && !prefersDark)) document.body.classList.add('light');
+    const toggleBtn = document.getElementById('themeToggle');
+    function updateIcon() { toggleBtn.textContent = document.body.classList.contains('light') ? '☀' : '☾'; }
+    updateIcon();
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('light');
+      localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+      updateIcon();
+    });
+
+    /* ---- COURBES SIMPLIFIÉES (références INSERM/OMS) ----
+       Valeurs de percentile 85 et 97 par âge et sexe
+       Source : courbes françaises du carnet de santé (valeurs indicatives)
+    */
+    const refs = {
+      f: {
+        // [âge]: [p3, p85, p97]
+        2:  [13.4, 17.1, 18.6],
+        3:  [12.9, 16.4, 17.9],
+        4:  [12.5, 15.9, 17.5],
+        5:  [12.3, 15.8, 17.6],
+        6:  [12.2, 16.0, 18.0],
+        7:  [12.3, 16.6, 18.9],
+        8:  [12.5, 17.3, 19.9],
+        9:  [12.9, 18.1, 21.0],
+        10: [13.3, 19.0, 22.1],
+        11: [13.9, 19.9, 23.1],
+        12: [14.5, 20.7, 24.0],
+        13: [15.1, 21.4, 24.7],
+        14: [15.7, 21.9, 25.2],
+        15: [16.1, 22.3, 25.6],
+        16: [16.4, 22.6, 25.9],
+        17: [16.6, 22.8, 26.1],
+        18: [16.8, 23.0, 26.3]
+      },
+      m: {
+        2:  [13.5, 17.0, 18.3],
+        3:  [13.0, 16.3, 17.7],
+        4:  [12.6, 15.9, 17.3],
+        5:  [12.4, 15.8, 17.4],
+        6:  [12.3, 16.0, 17.9],
+        7:  [12.4, 16.7, 18.9],
+        8:  [12.6, 17.5, 20.1],
+        9:  [13.0, 18.4, 21.3],
+        10: [13.5, 19.3, 22.5],
+        11: [14.1, 20.2, 23.6],
+        12: [14.7, 21.0, 24.6],
+        13: [15.3, 21.7, 25.4],
+        14: [15.9, 22.4, 26.0],
+        15: [16.5, 23.0, 26.5],
+        16: [17.0, 23.6, 27.0],
+        17: [17.4, 24.0, 27.4],
+        18: [17.8, 24.5, 27.8]
+      }
+    };
+
+    function calculateChildIMC() {
+      const h   = parseFloat(document.getElementById('c-height').value);
+      const w   = parseFloat(document.getElementById('c-weight').value);
+      const age = parseInt(document.getElementById('c-age').value);
+      const sex = document.getElementById('c-sex').value;
+
+      if (!h || !w || !age || !sex || h < 50 || w < 5 || age < 2 || age > 18) {
+        alert('Veuillez renseigner tous les champs avec des valeurs valides (âge 2-18 ans).');
+        return;
+      }
+
+      const imc = w / Math.pow(h / 100, 2);
+      document.getElementById('childImcValue').textContent = imc.toFixed(1);
+
+      // Interpolation entre deux âges si besoin
+      const ageFloor = Math.min(18, Math.max(2, Math.floor(age)));
+      const ref = refs[sex][ageFloor];
+      const [p3, p85, p97] = ref;
+
+      let status, color, note, pctLabel, cursorPct;
+
+      if (imc < p3) {
+        status = 'Insuffisance pondérale';
+        color  = '#6ec6f5';
+        pctLabel = '< 3e percentile';
+        cursorPct = Math.max(1, (imc / p3) * 3);
+        note = "Le poids de votre enfant est inférieur au 3e percentile pour son âge et son sexe. Une consultation pédiatrique est recommandée pour évaluer sa croissance.";
+      } else if (imc < p85) {
+        status = 'Corpulence normale';
+        color  = '#32d583';
+        const p = 3 + ((imc - p3) / (p85 - p3)) * 82;
+        pctLabel = `≈ ${Math.round(p)}e percentile`;
+        cursorPct = 3 + ((imc - p3) / (p85 - p3)) * 82;
+        note = "La corpulence de votre enfant est dans la zone normale pour son âge et son sexe. Continuez à suivre la courbe dans le carnet de santé.";
+      } else if (imc < p97) {
+        status = 'Surpoids';
+        color  = '#f5b546';
+        const p = 85 + ((imc - p85) / (p97 - p85)) * 12;
+        pctLabel = `≈ ${Math.round(p)}e percentile`;
+        cursorPct = 85 + ((imc - p85) / (p97 - p85)) * 12;
+        note = "L'IMC de votre enfant se situe entre le 85e et le 97e percentile, ce qui indique un surpoids. Un suivi médical et des conseils nutritionnels adaptés sont conseillés.";
+      } else {
+        status = 'Obésité';
+        color  = '#ff6b6b';
+        pctLabel = '> 97e percentile';
+        cursorPct = Math.min(99, 97 + ((imc - p97) / p97) * 10);
+        note = "L'IMC de votre enfant dépasse le 97e percentile, correspondant à une obésité pédiatrique. Un suivi médical par un pédiatre ou spécialiste est nécessaire.";
+      }
+
+      document.getElementById('childStatus').textContent      = status;
+      document.getElementById('childStatus').style.color      = color;
+      document.getElementById('childPercentileLabel').textContent = pctLabel;
+      document.getElementById('childCursor').style.left       = Math.min(98, Math.max(2, cursorPct)) + '%';
+      document.getElementById('childNote').textContent        = note;
+      document.getElementById('childResult').style.display    = 'block';
+
+      if (window.innerWidth < 720) {
+        setTimeout(() => {
+          document.getElementById('childResult').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 60);
+      }
+    }
+  </script>
+
+</body>
+</html>

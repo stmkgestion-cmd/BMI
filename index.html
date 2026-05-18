@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculateur IMC Gratuit | Indice de Masse Corporelle en Ligne</title>
+
+  <meta name="description" content="Calculez gratuitement votre IMC avec notre calculateur moderne et précis. Découvrez instantanément votre indice de masse corporelle et son interprétation.">
+  <meta name="keywords" content="IMC, calculateur IMC, indice de masse corporelle, BMI, santé, poids idéal, calcul IMC gratuit">
+  <meta name="author" content="Société X">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Calculateur IMC Gratuit">
+  <meta property="og:description" content="Calculez votre indice de masse corporelle avec une interface premium moderne.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Calculateur IMC Gratuit">
+  <meta name="twitter:description" content="Découvrez votre indice de masse corporelle instantanément.">
+  <link rel="canonical" href="https://www.votresite.com/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --footer: #c7d0dd;
+      --link: #8db4ff;
+      --bg: #0f1115;
+      --card: #171a21;
+      --soft: #1f2430;
+      --border: rgba(255,255,255,0.08);
+      --text: #f5f7fb;
+      --muted: #a7b0c0;
+      --accent: #ffffff;
+      --success: #32d583;
+      --warning: #f5b546;
+      --danger: #ff6b6b;
+      --shadow: 0 20px 60px rgba(0,0,0,0.45);
+    }
+
+    body {
+      transition: background 0.3s ease, color 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.04), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(255,255,255,0.03), transparent 25%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 32px;
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(20px);
+      box-shadow: var(--shadow);
+    }
+
+    .left {
+      padding: 70px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 28px;
+      border-right: 1px solid var(--border);
+    }
+
+    .topbar {
+      position: fixed;
+      top: 0; left: 0; width: 100%;
+      padding: 12px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(15,17,21,0.82);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--border);
+      z-index: 899; /* sous language-switcher et theme-toggle */
+    }
+
+    .nav-logo {
+      font-size: 14px; font-weight: 600;
+      color: var(--text); letter-spacing: -0.3px;
+    }
+
+    .nav-links { display: flex; gap: 4px; }
+
+    .nav-link {
+      padding: 7px 13px; border-radius: 999px; font-size: 13px;
+      color: var(--muted); text-decoration: none;
+      border: 1px solid transparent; transition: all 0.2s ease; white-space: nowrap;
+    }
+
+    .nav-link:hover { color: var(--text); background: rgba(255,255,255,0.07); border-color: var(--border); }
+    .nav-link.active { color: var(--text); background: rgba(255,255,255,0.09); border-color: var(--border); }
+
+    body.light .topbar { background: rgba(235,239,245,0.88); }
+
+
+    /* ---- BURGER MOBILE ---- */
+    .burger {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.08);
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.2s ease;
+    }
+    .burger:hover { background: rgba(255,255,255,0.14); }
+    .burger .icon-burger { display: block; }
+    .burger .icon-close  { display: none; }
+    .burger.open .icon-burger { display: none; }
+    .burger.open .icon-close  { display: block; }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 53px; left: 0; width: 100%;
+      background: rgba(15,17,21,0.97);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--border);
+      padding: 8px 14px 12px;
+      flex-direction: column;
+      gap: 4px;
+      z-index: 1000;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu .mob-link {
+      display: block;
+      padding: 12px 16px;
+      font-size: 15px;
+      font-family: 'Inter', sans-serif;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      color: var(--muted);
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+    .mobile-menu .mob-link:hover { background: rgba(255,255,255,0.07); color: var(--text); }
+    .mobile-menu .mob-link.active {
+      background: rgba(255,255,255,0.09);
+      border-color: var(--border);
+      color: var(--text);
+    }
+    body.light .burger { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.12); }
+    body.light .burger svg { stroke: #111827; }
+    body.light .mobile-menu { background: rgba(235,239,245,0.97); }
+    @media (max-width: 640px) {
+      .topbar { padding: 8px 14px; }
+      .nav-links { display: none; }
+      .burger { display: flex; }
+    }
+
+    .badge-btn {
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+      width: max-content;
+    }
+
+    .badge-btn:hover,
+    .badge-btn:focus-visible {
+      background: rgba(255,255,255,0.13);
+      border-color: rgba(255,255,255,0.22);
+      color: var(--text);
+      box-shadow: 0 0 0 3px rgba(255,255,255,0.06);
+      outline: none;
+    }
+
+    .badge-btn[aria-expanded="true"] {
+      background: rgba(255,255,255,0.11);
+      border-color: rgba(255,255,255,0.2);
+      color: var(--text);
+    }
+
+    .badge-chevron {
+      width: 13px;
+      height: 13px;
+      flex-shrink: 0;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: transform 0.3s ease;
+    }
+
+    .badge-btn[aria-expanded="true"] .badge-chevron {
+      transform: rotate(180deg);
+    }
+
+    .accordion-wrap { display: flex; flex-direction: column; gap: 0; }
+
+    .accordion-body {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.35s ease;
+    }
+
+    .accordion-body.open {
+      grid-template-rows: 1fr;
+    }
+
+    .accordion-body > p {
+      overflow: hidden;
+      padding-top: 16px;
+    }
+
+    body.light .badge-btn {
+      background: rgba(0,0,0,0.05);
+      border-color: rgba(0,0,0,0.1);
+    }
+
+    body.light .badge-btn:hover,
+    body.light .badge-btn:focus-visible {
+      background: rgba(0,0,0,0.1);
+      border-color: rgba(0,0,0,0.2);
+      color: #111827;
+      box-shadow: 0 0 0 3px rgba(0,0,0,0.05);
+    }
+
+    body.light .badge-btn[aria-expanded="true"] {
+      background: rgba(0,0,0,0.08);
+      border-color: rgba(0,0,0,0.18);
+      color: #111827;
+    }
+
+    h1 {
+      font-size: 64px;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: -2px;
+    }
+
+    h1 span {
+      color: #cfd8e3;
+      font-weight: 300;
+    }
+
+    body.light h1 span {
+      color: #4a5568;
+    }
+
+    .description {
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.8;
+      max-width: 520px;
+    }
+
+    .features {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .feature {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      padding: 14px 18px;
+      border-radius: 18px;
+      color: #d8dee9;
+      font-size: 14px;
+    }
+
+    .right {
+      padding: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .calculator {
+      width: 100%;
+      max-width: 420px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 36px;
+      backdrop-filter: blur(20px);
+    }
+
+    .calculator h2 {
+      font-size: 28px;
+      margin-bottom: 30px;
+      letter-spacing: -1px;
+    }
+
+    .group { margin-bottom: 22px; }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* Input avec flèches stylisées */
+    .input-wrapper { position: relative; }
+
+    .input-wrapper input {
+      width: 100%;
+      padding: 18px 52px 18px 18px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      font-size: 16px;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: 0.3s ease;
+      -moz-appearance: textfield;
+      appearance: textfield;
+    }
+
+    .input-wrapper input::-webkit-inner-spin-button,
+    .input-wrapper input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+
+    .input-wrapper input:focus {
+      border-color: rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.06);
+    }
+
+    .spin-btns {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .spin-btn {
+      width: 28px;
+      height: 22px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.07);
+      color: var(--muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+      padding: 0;
+      font-size: 0;
+      line-height: 1;
+    }
+
+    .spin-btn:hover {
+      background: rgba(255,255,255,0.15);
+      color: var(--text);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    .spin-btn:active { transform: scale(0.93); }
+
+    .spin-btn svg {
+      width: 10px;
+      height: 10px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    button.calc-btn {
+      width: 100%;
+      padding: 18px;
+      border: none;
+      border-radius: 18px;
+      background: var(--accent);
+      color: #111;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s ease;
+      margin-top: 10px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    button.calc-btn:hover { transform: translateY(-2px); opacity: 0.95; }
+
+    .result {
+      margin-top: 30px;
+      padding: 26px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .result h3 {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+
+    .imc-value {
+      font-size: 60px;
+      font-weight: 700;
+      letter-spacing: -2px;
+      margin-bottom: 12px;
+    }
+
+    .status { font-size: 18px; font-weight: 500; }
+    .status.good   { color: var(--success); }
+    .status.medium { color: var(--warning); }
+    .status.bad    { color: var(--danger); }
+
+    .footer-note {
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ---- LANGUAGE DROPDOWN (dans topbar) ---- */
+    .language-switcher {
+      position: relative;
+      z-index: 999;
+    }
+
+    .lang-dropdown-btn {
+      height: 40px;
+      padding: 0 12px 0 9px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      font-size: 18px;
+      line-height: 1;
+      transition: 0.2s ease;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      white-space: nowrap;
+    }
+
+    .lang-dropdown-btn:hover { background: rgba(255,255,255,0.13); }
+
+    .lang-chevron {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      transition: transform 0.25s ease;
+      stroke: var(--muted);
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .lang-dropdown-btn.open .lang-chevron { transform: rotate(180deg); }
+
+    .lang-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: rgba(23,26,33,0.97);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 6px;
+      min-width: 100%;
+      display: none;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.35);
+      overflow: hidden;
+    }
+
+    .lang-menu.open { display: block; animation: fadeIn 0.2s ease; }
+
+    .lang-option {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--muted);
+      transition: 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .lang-option:hover { background: rgba(255,255,255,0.08); color: var(--text); }
+    .lang-option .flag { font-size: 20px; line-height: 1; }
+    .lang-option .lang-name { font-size: 13px; }
+
+    /* Theme toggle — dans la topbar */
+    .theme-toggle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.08);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 17px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      transition: 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .theme-toggle:hover { transform: scale(1.05); background: rgba(255,255,255,0.13); }
+
+    /* Light mode */
+    body.light {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --soft: #eef2f7;
+      --border: rgba(0,0,0,0.08);
+      --text: #111827;
+      --muted: #5b6472;
+      --accent: #111827;
+      --footer: #4b5563;
+      --link: #2563eb;
+      background:
+        radial-gradient(circle at top left, rgba(0,0,0,0.03), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(0,0,0,0.02), transparent 25%),
+        var(--bg);
+    }
+
+    body.light .theme-toggle     { background: rgba(0,0,0,0.06); border-color: rgba(0,0,0,0.1); color: #111827; }
+    body.light .lang-dropdown-btn{ background: rgba(0,0,0,0.06); border-color: rgba(0,0,0,0.1); color: #111827; }
+    body.light .lang-menu        { background: rgba(244,247,251,0.97); }
+    body.light .lang-option:hover{ background: rgba(0,0,0,0.05); color: #111; }
+    body.light button.calc-btn   { color: white; }
+    body.light .spin-btn         { border-color: rgba(0,0,0,0.12); background: rgba(0,0,0,0.04); }
+    body.light .spin-btn:hover   { background: rgba(0,0,0,0.1); }
+    body.light .input-wrapper input { background: rgba(0,0,0,0.04); color: #111827; }
+    body.light .legal-page,
+    body.light .contact-page     { background: rgba(244,247,251,0.96); }
+    body.light .close-btn        { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.1); color: #5b6472; }
+    body.light .close-btn:hover  { background: rgba(0,0,0,0.08); color: #111827; border-color: rgba(0,0,0,0.18); }
+    body.light .contact-divider  { background: rgba(0,0,0,0.08); }
+    body.light .field input,
+    body.light .field textarea   { background: rgba(0,0,0,0.04); color: #111827; border-color: rgba(0,0,0,0.1); }
+    body.light .field input:focus,
+    body.light .field textarea:focus { border-color: rgba(0,0,0,0.3); background: rgba(0,0,0,0.06); }
+    body.light .field input::placeholder,
+    body.light .field textarea::placeholder { color: rgba(91,100,114,0.5); }
+
+    /* Footer */
+    footer {
+      position: fixed;
+      bottom: 0; left: 0;
+      width: 100%;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15,17,21,0.82);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-top: 1px solid var(--border);
+      color: var(--footer);
+      font-size: 14px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    body.light footer {
+      background: rgba(235,239,245,0.88);
+    }
+
+    footer a { color: var(--link); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    .footer-links { display: flex; gap: 18px; flex-wrap: wrap; }
+
+    /* Overlay pages */
+    .legal-page,
+    .contact-page {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15,17,21,0.96);
+      backdrop-filter: blur(16px);
+      z-index: 2000;
+      overflow-y: auto;
+      padding: 60px 24px;
+    }
+
+    .page-content {
+      max-width: 900px;
+      margin: auto;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 44px 48px 40px;
+    }
+
+    .page-content h2 {
+      margin-bottom: 8px;
+      font-size: 38px;
+      letter-spacing: -1px;
+    }
+
+    .page-content > p,
+    .page-content .subtitle {
+      line-height: 1.8;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    /* ---- CONTACT FORM ---- */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .field label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.3px;
+      margin-bottom: 0;
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      padding: 15px 18px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      font-size: 15px;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      resize: none;
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder { color: rgba(167,176,192,0.45); }
+
+    .field input:focus,
+    .field textarea:focus {
+      border-color: rgba(255,255,255,0.28);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .field textarea { min-height: 120px; line-height: 1.6; }
+
+    /* Divider */
+    .contact-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0 24px;
+    }
+
+    /* ---- CLOSE BUTTON ---- */
+    .close-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 14px 20px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.13);
+      background: rgba(255,255,255,0.07);
+      color: var(--muted);
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      letter-spacing: 0.1px;
+    }
+
+    .close-btn:hover {
+      background: rgba(255,255,255,0.13);
+      color: var(--text);
+      border-color: rgba(255,255,255,0.22);
+    }
+
+    .close-btn:active { transform: scale(0.98); }
+
+    .close-btn svg {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ---- GAUGE ---- */
+    .gauge-wrap {
+      margin: 18px 0 4px;
+    }
+
+    .gauge-bar {
+      position: relative;
+      display: flex;
+      height: 10px;
+      border-radius: 999px;
+      overflow: visible;
+      margin-bottom: 8px;
+    }
+
+    .gauge-seg {
+      height: 100%;
+      opacity: 0.85;
+    }
+
+    .gauge-cursor {
+      position: absolute;
+      top: 50%;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #fff;
+      border: 2.5px solid rgba(0,0,0,0.25);
+      transform: translate(-50%, -50%);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+      transition: left 0.6s cubic-bezier(.4,0,.2,1);
+      z-index: 2;
+    }
+
+    body.light .gauge-cursor {
+      border-color: rgba(0,0,0,0.18);
+      background: #fff;
+    }
+
+    .gauge-ticks {
+      position: relative;
+      height: 18px;
+      margin-top: 5px;
+    }
+
+    .gauge-tick {
+      position: absolute;
+      font-size: 10.5px;
+      font-weight: 500;
+      opacity: 0.9;
+      white-space: nowrap;
+    }
+
+    /* ---- TARGET IMC ---- */
+    .target-section {
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+    }
+
+    .target-header { display: flex; flex-direction: column; gap: 10px; }
+
+    .target-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.3px;
+      margin-bottom: 0;
+      display: block;
+    }
+
+    .target-input-row { display: flex; gap: 10px; align-items: center; }
+
+    .target-result {
+      margin-top: 12px;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+      min-height: 0;
+      transition: all 0.2s ease;
+    }
+
+    .target-result strong {
+      font-size: 18px;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    body.light .target-section {
+      background: rgba(0,0,0,0.03);
+      border-color: rgba(0,0,0,0.08);
+    }
+
+    @media (max-width: 980px) {
+      .container { grid-template-columns: 1fr; }
+      .left { border-right: none; border-bottom: 1px solid var(--border); }
+      h1 { font-size: 48px; }
+    }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 640px) {
+
+      /* Body plein écran, sans padding latéral */
+      body {
+        padding: 0;
+        align-items: flex-start;
+        min-height: 100dvh;
+      }
+
+      /* Container occupe exactement 100% de la largeur, sans bordures latérales */
+      .container {
+        max-width: 100vw;
+        width: 100%;
+        border-radius: 0;
+        border: none;
+        border-bottom: 1px solid var(--border);
+        min-height: 100dvh;
+        box-shadow: none;
+      }
+
+      /* Panneau gauche compact */
+      .left {
+        padding: 72px 16px 20px;
+        gap: 14px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      h1 {
+        font-size: 26px;
+        letter-spacing: -0.5px;
+        line-height: 1.2;
+      }
+
+      h1 br { display: none; }
+
+      .description { font-size: 14px; line-height: 1.6; }
+
+      .accordion-body > p { padding-top: 12px; }
+
+      /* Features : scroll horizontal, une seule ligne */
+      .features {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 7px;
+        margin-top: 2px;
+        padding-bottom: 2px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .features::-webkit-scrollbar { display: none; }
+
+      .feature {
+        padding: 8px 11px;
+        font-size: 11px;
+        border-radius: 10px;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      /* Panneau droit */
+      .right {
+        padding: 16px 16px 96px;
+        align-items: flex-start;
+      }
+
+      .calculator {
+        padding: 18px 14px;
+        border-radius: 18px;
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .calculator h2 {
+        font-size: 18px;
+        margin-bottom: 14px;
+        letter-spacing: -0.5px;
+      }
+
+      /* Taille + Poids côte à côte */
+      .inputs-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-bottom: 10px;
+      }
+
+      .group { margin-bottom: 0; }
+
+      label { font-size: 11px; margin-bottom: 6px; }
+
+      .input-wrapper input {
+        padding: 13px 40px 13px 12px;
+        font-size: 15px;
+        border-radius: 11px;
+      }
+
+      .spin-btns { right: 7px; }
+      .spin-btn { width: 22px; height: 18px; border-radius: 5px; }
+      .spin-btn svg { width: 9px; height: 9px; }
+
+      button.calc-btn {
+        padding: 14px;
+        font-size: 15px;
+        border-radius: 13px;
+        margin-top: 8px;
+      }
+
+      /* Résultat */
+      .result {
+        margin-top: 12px;
+        padding: 16px 14px;
+        border-radius: 14px;
+      }
+
+      .result h3 { font-size: 12px; margin-bottom: 4px; }
+
+      .imc-value {
+        font-size: 44px;
+        letter-spacing: -2px;
+        margin-bottom: 4px;
+      }
+
+      .status { font-size: 15px; }
+
+      /* Jauge */
+      .gauge-wrap { margin: 10px 0 2px; }
+      .gauge-bar { height: 7px; margin-bottom: 5px; }
+      .gauge-cursor { width: 13px; height: 13px; }
+      .gauge-labels { font-size: 9.5px; }
+
+      /* IMC cible */
+      .target-section {
+        margin-top: 12px;
+        padding: 12px 12px;
+        border-radius: 12px;
+      }
+
+      .target-label { font-size: 11px; }
+      .target-result { font-size: 12px; margin-top: 8px; }
+      .target-result strong { font-size: 15px; }
+
+      .footer-note { font-size: 11px; margin-top: 12px; line-height: 1.5; }
+
+      /* Contrôles dans la topbar sur mobile */
+      .nav-controls { gap: 6px; }
+      .lang-dropdown-btn { height: 34px; padding: 0 9px 0 7px; font-size: 16px; gap: 4px; }
+      .lang-chevron { width: 11px; height: 11px; }
+      .lang-menu { border-radius: 14px; }
+      .lang-option { padding: 9px 12px; font-size: 13px; }
+      .lang-option .flag { font-size: 16px; }
+      .theme-toggle { width: 34px; height: 34px; font-size: 15px; }
+
+      /* Footer */
+      footer { padding: 10px 16px; font-size: 12px; gap: 8px; }
+      .footer-links { gap: 12px; }
+
+      /* Pages légales / contact */
+      .legal-page, .contact-page { padding: 16px 12px 80px; }
+      .page-content { padding: 20px 16px 20px; border-radius: 18px; }
+      .page-content h2 { font-size: 24px; margin-bottom: 4px; }
+      .page-content > p { font-size: 14px; }
+      .form-row { grid-template-columns: 1fr; }
+      .field label { font-size: 12px; }
+      .field input, .field textarea { padding: 12px 14px; font-size: 14px; border-radius: 11px; }
+      .field textarea { min-height: 100px; }
+      .contact-form { gap: 9px; margin-top: 16px; }
+      .contact-divider { margin: 16px 0 14px; }
+      .close-btn { padding: 12px 16px; font-size: 13px; border-radius: 11px; }
+    }
+  </style>
+</head>
+<body>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Calculateur IMC",
+    "url": "https://www.votresite.com/",
+    "description": "Calculateur d'indice de masse corporelle gratuit et moderne."
+  }
+  </script>
+
+  <nav class="topbar" id="mainTopbar">
+    <button class="burger" id="burgerBtn" onclick="toggleBurger()" aria-label="Menu"><svg class="icon-burger" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--text)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="4" x2="14" y2="4"/><line x1="2" y1="8" x2="14" y2="8"/><line x1="2" y1="12" x2="14" y2="12"/></svg><svg class="icon-close" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--text)" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="3" x2="13" y2="13"/><line x1="13" y1="3" x2="3" y2="13"/></svg></button>
+    <span class="nav-logo">Calculateur IMC</span>
+    <div class="nav-links">
+      <a class="nav-link active" href="index.html">Calculateur</a>
+      <a class="nav-link" href="limites-imc.html">Limites de l'IMC</a>
+      <a class="nav-link" href="imc-enfant.html">IMC enfant</a>
+    </div>
+    <div class="nav-controls">
+      <div class="language-switcher" id="langSwitcher">
+        <button class="lang-dropdown-btn" id="langBtn" onclick="toggleLangMenu()">
+          <span id="currentFlag">🇫🇷</span>
+          <svg class="lang-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="lang-menu" id="langMenu">
+          <div class="lang-option" onclick="setLanguage('fr'); closeLangMenu();">
+            <span class="flag">🇫🇷</span><span class="lang-name">Français</span>
+          </div>
+          <div class="lang-option" onclick="setLanguage('en'); closeLangMenu();">
+            <span class="flag">🇬🇧</span><span class="lang-name">English</span>
+          </div>
+          <div class="lang-option" onclick="setLanguage('es'); closeLangMenu();">
+            <span class="flag">🇪🇸</span><span class="lang-name">Español</span>
+          </div>
+        </div><!-- /lang-menu -->
+      </div><!-- /language-switcher -->
+      <button class="theme-toggle" id="themeToggle">☾</button>
+    </div><!-- /nav-controls -->
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a class="mob-link active" href="index.html">Calculateur</a>
+    <a class="mob-link" href="limites-imc.html">Limites de l'IMC</a>
+    <a class="mob-link" href="imc-enfant.html">IMC enfant</a>
+  </div>
+
+  <div class="container">
+
+    <section class="left">
+      <h1 id="mainTitle">
+        Analysez votre<br>
+        <span>indice de masse corporelle.</span>
+      </h1>
+
+      <div class="accordion-wrap">
+        <button class="badge-btn" id="badgeTitle" onclick="toggleAccordion()" aria-expanded="false">
+          <span id="badgeLabel">QU'EST-CE QUE L'IMC ?</span>
+          <svg class="badge-chevron" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="accordion-body" id="accordionBody">
+          <p class="description" id="mainDescription">
+            L'IMC (Indice de Masse Corporelle) est une valeur permettant d'évaluer la corpulence d'une personne en fonction de sa taille et de son poids.
+          </p>
+        </div>
+      </div>
+
+      <div class="features">
+        <div class="feature" style="border-color:rgba(50,213,131,0.35); color:#32d583;">
+          <span id="normalLabel">IMC normal : 18.5 – 24.9</span>
+        </div>
+        <div class="feature" style="border-color:rgba(245,181,70,0.35); color:#f5b546;">
+          <span id="overweightLabel">Surpoids : 25 – 29.9</span>
+        </div>
+        <div class="feature" style="border-color:rgba(255,107,107,0.35); color:#ff6b6b;">
+          <span id="obesityLabel">Obésité : 30+</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="right">
+      <div class="calculator">
+        <h2 id="calcTitle">Calculez votre IMC</h2>
+
+        <div class="inputs-row">
+        <div class="group">
+          <label id="heightLabel">Taille (cm)</label>
+          <div class="input-wrapper">
+            <input type="number" id="height" placeholder="Ex : 175">
+            <div class="spin-btns">
+              <button class="spin-btn" onclick="changeValue('height', 1)" title="+1">
+                <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+              </button>
+              <button class="spin-btn" onclick="changeValue('height', -1)" title="-1">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="group">
+          <label id="weightLabel">Poids (kg)</label>
+          <div class="input-wrapper">
+            <input type="number" id="weight" placeholder="Ex : 70">
+            <div class="spin-btns">
+              <button class="spin-btn" onclick="changeValue('weight', 1)" title="+1">
+                <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+              </button>
+              <button class="spin-btn" onclick="changeValue('weight', -1)" title="-1">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        <button class="calc-btn" onclick="calculateIMC()">
+          <span id="calcButton">Calculer maintenant</span>
+        </button>
+
+        <div class="result" id="result">
+          <h3 id="resultTitle">Votre résultat</h3>
+          <div class="imc-value" id="imcValue">0</div>
+          <div class="status" id="status"></div>
+
+          <!-- Graphique jauge -->
+          <div class="gauge-wrap">
+            <div class="gauge-bar">
+              <div class="gauge-seg" style="flex:3.5; background:linear-gradient(90deg,#6ec6f5,#74b9e8); border-radius:999px 0 0 999px;"></div>
+              <div class="gauge-seg" style="flex:6.5; background:linear-gradient(90deg,#32d583,#2ec97a);"></div>
+              <div class="gauge-seg" style="flex:5;   background:linear-gradient(90deg,#f5b546,#f0a020);"></div>
+              <div class="gauge-seg" style="flex:10;  background:linear-gradient(90deg,#ff6b6b,#e84545); border-radius:0 999px 999px 0;"></div>
+              <div class="gauge-cursor" id="gaugeCursor"></div>
+            </div>
+            <!-- Bornes aux séparations exactes : flex 3.5/6.5/5/10 = total 25 → 14% / 40% / 60% -->
+            <div class="gauge-ticks">
+              <span class="gauge-tick" style="left:0%;   color:#6ec6f5; transform:translateX(0)">10</span>
+              <span class="gauge-tick" style="left:14%;  color:#32d583; transform:translateX(-50%)">18.5</span>
+              <span class="gauge-tick" style="left:40%;  color:#f5b546; transform:translateX(-50%)">25</span>
+              <span class="gauge-tick" style="left:60%;  color:#ff6b6b; transform:translateX(-50%)">30</span>
+              <span class="gauge-tick" style="left:100%; color:#ff6b6b; transform:translateX(-100%)">40+</span>
+            </div>
+          </div>
+
+          <!-- Section IMC cible -->
+          <div class="target-section">
+            <div class="target-header">
+              <label class="target-label" id="targetLabel">IMC cible</label>
+              <div class="target-input-row">
+                <div class="input-wrapper" style="flex:1;">
+                  <input type="number" id="targetImc" placeholder="Ex : 22" step="0.1" min="10" max="50" oninput="calculateTargetWeight()">
+                  <div class="spin-btns">
+                    <button class="spin-btn" onclick="changeValueFloat('targetImc', 0.5); calculateTargetWeight();">
+                      <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+                    </button>
+                    <button class="spin-btn" onclick="changeValueFloat('targetImc', -0.5); calculateTargetWeight();">
+                      <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="target-result" id="targetResult"></div>
+          </div>
+
+          <div class="footer-note">
+            <span id="footerNote">L'IMC est un indicateur général et ne remplace pas un avis médical professionnel.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <div>© Société X 2026</div>
+    <div class="footer-links">
+      <a href="#" onclick="openLegal()">Mentions légales</a>
+      <a href="#" onclick="openContact()">Contact</a>
+    </div>
+  </footer>
+
+  <!-- SEO -->
+  <div style="display:none;">
+    Calculateur IMC gratuit en ligne. Découvrez votre indice de masse corporelle, votre poids santé et votre classification IMC.
+  </div>
+
+  <!-- Mentions légales -->
+  <div class="legal-page" id="legalPage">
+    <div class="page-content">
+      <h2 id="legalTitle">Mentions légales</h2>
+      <p><strong id="legalEditor">Éditeur du site :</strong> Société X</p>
+      <p id="legalP1">Le présent site propose un outil informatif de calcul d'indice de masse corporelle (IMC).</p>
+      <p id="legalP2">Les informations affichées sont fournies à titre indicatif et ne remplacent pas un avis médical professionnel.</p>
+      <p id="legalP3">Les données saisies ne sont ni enregistrées ni revendues.</p>
+      <p>© 2026 Société X — Tous droits réservés.</p>
+      <div class="contact-divider"></div>
+      <button class="close-btn" onclick="closeLegal()">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <span id="legalCloseBtn">Fermer</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Contact -->
+  <div class="contact-page" id="contactPage">
+    <div class="page-content">
+      <h2 id="contactTitle">Contact</h2>
+      <p id="contactIntro">Une question, une suggestion ou un retour concernant le calculateur IMC ?</p>
+
+      <form class="contact-form">
+        <div class="form-row">
+          <div class="field">
+            <label id="contactNameLabel">Nom</label>
+            <input type="text" id="contactNameInput" placeholder="Jean Dupont">
+          </div>
+          <div class="field">
+            <label id="contactEmailLabel">Email</label>
+            <input type="email" id="contactEmailInput" placeholder="jean@exemple.fr">
+          </div>
+        </div>
+        <div class="field">
+          <label id="contactMsgLabel">Message</label>
+          <textarea id="contactMsgInput" placeholder="Votre message…"></textarea>
+        </div>
+        <button class="calc-btn" type="submit"><span id="contactSendBtn">Envoyer le message</span></button>
+      </form>
+
+      <div class="contact-divider"></div>
+
+      <button class="close-btn" onclick="closeContact()">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <span id="contactCloseBtn">Fermer</span>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const flags = { fr: '🇫🇷', en: '🇬🇧', es: '🇪🇸' };
+
+    
+    function toggleBurger() {
+      document.getElementById('burgerBtn').classList.toggle('open');
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+    document.addEventListener('click', function(e) {
+      var burger = document.getElementById('burgerBtn');
+      var menu   = document.getElementById('mobileMenu');
+      if (!burger || !menu) return;
+      if (!burger.contains(e.target) && !menu.contains(e.target)) {
+        burger.classList.remove('open');
+        menu.classList.remove('open');
+      }
+    });
+function toggleLangMenu() {
+      document.getElementById('langBtn').classList.toggle('open');
+      document.getElementById('langMenu').classList.toggle('open');
+    }
+
+    function closeLangMenu() {
+      document.getElementById('langBtn').classList.remove('open');
+      document.getElementById('langMenu').classList.remove('open');
+    }
+
+    document.addEventListener('click', function(e) {
+      if (!document.getElementById('langSwitcher').contains(e.target)) closeLangMenu();
+    });
+
+    function changeValue(id, delta) {
+      const el = document.getElementById(id);
+      el.value = Math.max(0, (parseFloat(el.value) || 0) + delta);
+    }
+
+    function changeValueFloat(id, delta) {
+      const el = document.getElementById(id);
+      const v = Math.round(((parseFloat(el.value) || 0) + delta) * 10) / 10;
+      el.value = Math.max(10, Math.min(50, v));
+    }
+
+    /* Positionne le curseur — flex 3.5/6.5/5/10 = total 25
+       Segment bleu  : 14% → IMC 10–18.5
+       Segment vert  : 26% → IMC 18.5–25   (start 14%)
+       Segment orange: 20% → IMC 25–30     (start 40%)
+       Segment rouge : 40% → IMC 30–40     (start 60%)
+    */
+    function positionCursor(imc) {
+      const cursor = document.getElementById('gaugeCursor');
+      const ranges = [
+        { from: 10,   to: 18.5, start: 0,  width: 14 },
+        { from: 18.5, to: 25,   start: 14, width: 26 },
+        { from: 25,   to: 30,   start: 40, width: 20 },
+        { from: 30,   to: 40,   start: 60, width: 40 }
+      ];
+      const clamped = Math.max(10, Math.min(40, imc));
+      let pct = 60 + ((clamped - 30) / 10) * 40; // défaut : rouge
+      for (const r of ranges) {
+        if (clamped <= r.to) {
+          pct = r.start + ((clamped - r.from) / (r.to - r.from)) * r.width;
+          break;
+        }
+      }
+      cursor.style.left = Math.min(98, Math.max(2, pct)) + '%';
+    }
+
+    function calculateIMC() {
+      const height = parseFloat(document.getElementById('height').value);
+      const weight = parseFloat(document.getElementById('weight').value);
+      const lang = localStorage.getItem('language') || 'fr';
+      const t = translations[lang];
+      if (!height || !weight || height <= 0 || weight <= 0) {
+        alert(t.alertMsg || 'Veuillez entrer des valeurs valides.');
+        return;
+      }
+      const imc = weight / Math.pow(height / 100, 2);
+      document.getElementById('imcValue').textContent = imc.toFixed(1);
+      let status, className;
+      if (imc < 18.5)    { status = t.statusUnder;  className = 'medium'; }
+      else if (imc < 25) { status = t.statusNormal; className = 'good';   }
+      else if (imc < 30) { status = t.statusOver;   className = 'medium'; }
+      else               { status = t.statusObese;  className = 'bad';    }
+      const statusEl = document.getElementById('status');
+      statusEl.textContent = status;
+      statusEl.className = 'status ' + className;
+      positionCursor(imc);
+      document.getElementById('result').style.display = 'block';
+      // reset IMC cible
+      document.getElementById('targetImc').value = '';
+      document.getElementById('targetResult').innerHTML = '';
+      // scroll vers le résultat sur mobile
+      if (window.innerWidth < 980) {
+        setTimeout(() => {
+          document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 60);
+      }
+    }
+
+    function calculateTargetWeight() {
+      const targetImc = parseFloat(document.getElementById('targetImc').value);
+      const height = parseFloat(document.getElementById('height').value);
+      const lang = localStorage.getItem('language') || 'fr';
+      const t = translations[lang];
+      const resultEl = document.getElementById('targetResult');
+      if (!targetImc || !height || targetImc < 10 || targetImc > 50) {
+        resultEl.innerHTML = '';
+        return;
+      }
+      const targetWeight = targetImc * Math.pow(height / 100, 2);
+      let color;
+      if (targetImc < 18.5)    color = '#6ec6f5';
+      else if (targetImc < 25) color = '#32d583';
+      else if (targetImc < 30) color = '#f5b546';
+      else                     color = '#ff6b6b';
+      resultEl.innerHTML = `<strong style="color:${color}">${targetWeight.toFixed(1)} kg</strong>${t.targetResultText || 'pour un IMC de'} ${targetImc}`;
+    }
+
+    const translations = {
+      fr: {
+        badge: "QU'EST-CE QUE L'IMC ?",
+        title: "Analysez votre<br><span>indice de masse corporelle.</span>",
+        desc: "L'IMC (Indice de Masse Corporelle) est une valeur permettant d'évaluer la corpulence d'une personne en fonction de sa taille et de son poids.",
+        normal: "IMC normal : 18.5 – 24.9", overweight: "Surpoids : 25 – 29.9", obesity: "Obésité : 30+",
+        calc: "Calculez votre IMC", height: "Taille (cm)", weight: "Poids (kg)",
+        button: "Calculer maintenant", result: "Votre résultat",
+        note: "L'IMC est un indicateur général et ne remplace pas un avis médical professionnel.",
+        alertMsg: "Veuillez entrer des valeurs valides.",
+        statusUnder: "Insuffisance pondérale", statusNormal: "Poids normal",
+        statusOver: "Surpoids", statusObese: "Obésité",
+        targetLabel: "IMC cible", targetResultText: " pour un IMC de ",
+        legalTitle: "Mentions légales", legalEditor: "Éditeur du site :",
+        legalP1: "Le présent site propose un outil informatif de calcul d'indice de masse corporelle (IMC).",
+        legalP2: "Les informations affichées sont fournies à titre indicatif et ne remplacent pas un avis médical professionnel.",
+        legalP3: "Les données saisies ne sont ni enregistrées ni revendues.", legalCloseBtn: "Fermer",
+        contactTitle: "Contact", contactIntro: "Une question, une suggestion ou un retour concernant le calculateur IMC ?",
+        contactNameLabel: "Nom", contactNameInput: "Jean Dupont",
+        contactEmailLabel: "Email", contactEmailInput: "jean@exemple.fr",
+        contactMsgLabel: "Message", contactMsgInput: "Votre message…",
+        contactSendBtn: "Envoyer le message", contactCloseBtn: "Fermer",
+        footerLegal: "Mentions légales", footerContact: "Contact"
+      },
+      en: {
+        badge: "WHAT IS BMI?",
+        title: "Analyze your<br><span>body mass index.</span>",
+        desc: "BMI (Body Mass Index) is a value used to assess body weight based on height and weight.",
+        normal: "Normal BMI: 18.5 – 24.9", overweight: "Overweight: 25 – 29.9", obesity: "Obesity: 30+",
+        calc: "Calculate your BMI", height: "Height (cm)", weight: "Weight (kg)",
+        button: "Calculate now", result: "Your result",
+        note: "BMI is a general indicator and does not replace professional medical advice.",
+        alertMsg: "Please enter valid values.",
+        statusUnder: "Underweight", statusNormal: "Normal weight",
+        statusOver: "Overweight", statusObese: "Obesity",
+        targetLabel: "Target BMI", targetResultText: " for a BMI of ",
+        legalTitle: "Legal notice", legalEditor: "Website publisher:",
+        legalP1: "This site provides an informational BMI calculation tool.",
+        legalP2: "The information displayed is provided for guidance only and does not replace professional medical advice.",
+        legalP3: "No data entered is stored or sold.", legalCloseBtn: "Close",
+        contactTitle: "Contact", contactIntro: "A question, suggestion or feedback about the BMI calculator?",
+        contactNameLabel: "Name", contactNameInput: "John Smith",
+        contactEmailLabel: "Email", contactEmailInput: "john@example.com",
+        contactMsgLabel: "Message", contactMsgInput: "Your message…",
+        contactSendBtn: "Send message", contactCloseBtn: "Close",
+        footerLegal: "Legal notice", footerContact: "Contact"
+      },
+      es: {
+        badge: "¿QUÉ ES EL IMC?",
+        title: "Analiza tu<br><span>índice de masa corporal.</span>",
+        desc: "El IMC (Índice de Masa Corporal) es un valor que permite evaluar la complexión física según la altura y el peso.",
+        normal: "IMC normal: 18.5 – 24.9", overweight: "Sobrepeso: 25 – 29.9", obesity: "Obesidad: 30+",
+        calc: "Calcula tu IMC", height: "Altura (cm)", weight: "Peso (kg)",
+        button: "Calcular ahora", result: "Tu resultado",
+        note: "El IMC es un indicador general y no reemplaza el consejo médico profesional.",
+        alertMsg: "Por favor, introduce valores válidos.",
+        statusUnder: "Bajo peso", statusNormal: "Peso normal",
+        statusOver: "Sobrepeso", statusObese: "Obesidad",
+        targetLabel: "IMC objetivo", targetResultText: " para un IMC de ",
+        legalTitle: "Aviso legal", legalEditor: "Editor del sitio:",
+        legalP1: "Este sitio ofrece una herramienta informativa de cálculo del índice de masa corporal (IMC).",
+        legalP2: "La información mostrada se proporciona a título orientativo y no sustituye el consejo médico profesional.",
+        legalP3: "Los datos introducidos no se almacenan ni se venden.", legalCloseBtn: "Cerrar",
+        contactTitle: "Contacto", contactIntro: "¿Una pregunta, sugerencia o comentario sobre la calculadora de IMC?",
+        contactNameLabel: "Nombre", contactNameInput: "Juan García",
+        contactEmailLabel: "Email", contactEmailInput: "juan@ejemplo.es",
+        contactMsgLabel: "Mensaje", contactMsgInput: "Tu mensaje…",
+        contactSendBtn: "Enviar mensaje", contactCloseBtn: "Cerrar",
+        footerLegal: "Aviso legal", footerContact: "Contacto"
+      }
+    };
+
+    function toggleAccordion() {
+      const btn  = document.getElementById('badgeTitle');
+      const body = document.getElementById('accordionBody');
+      const isOpen = body.classList.toggle('open');
+      btn.setAttribute('aria-expanded', isOpen);
+    }
+
+    function setLanguage(lang) {
+      localStorage.setItem('language', lang);
+      document.getElementById('currentFlag').textContent = flags[lang];
+      const t = translations[lang];
+      document.getElementById('badgeLabel').innerHTML      = t.badge;
+      document.getElementById('mainTitle').innerHTML       = t.title;
+      document.getElementById('mainDescription').innerHTML = t.desc;
+      document.getElementById('normalLabel').innerHTML     = t.normal;
+      document.getElementById('overweightLabel').innerHTML = t.overweight;
+      document.getElementById('obesityLabel').innerHTML    = t.obesity;
+      document.getElementById('calcTitle').innerHTML       = t.calc;
+      document.getElementById('heightLabel').innerHTML     = t.height;
+      document.getElementById('weightLabel').innerHTML     = t.weight;
+      document.getElementById('calcButton').innerHTML      = t.button;
+      document.getElementById('resultTitle').innerHTML     = t.result;
+      document.getElementById('footerNote').innerHTML      = t.note;
+      document.getElementById('targetLabel').innerHTML     = t.targetLabel;
+      document.getElementById('legalTitle').innerHTML      = t.legalTitle;
+      document.getElementById('legalEditor').innerHTML     = t.legalEditor;
+      document.getElementById('legalP1').innerHTML         = t.legalP1;
+      document.getElementById('legalP2').innerHTML         = t.legalP2;
+      document.getElementById('legalP3').innerHTML         = t.legalP3;
+      document.getElementById('legalCloseBtn').innerHTML   = t.legalCloseBtn;
+      document.getElementById('contactTitle').innerHTML    = t.contactTitle;
+      document.getElementById('contactIntro').innerHTML    = t.contactIntro;
+      document.getElementById('contactNameLabel').innerHTML  = t.contactNameLabel;
+      document.getElementById('contactNameInput').placeholder  = t.contactNameInput;
+      document.getElementById('contactEmailLabel').innerHTML = t.contactEmailLabel;
+      document.getElementById('contactEmailInput').placeholder = t.contactEmailInput;
+      document.getElementById('contactMsgLabel').innerHTML  = t.contactMsgLabel;
+      document.getElementById('contactMsgInput').placeholder   = t.contactMsgInput;
+      document.getElementById('contactSendBtn').innerHTML   = t.contactSendBtn;
+      document.getElementById('contactCloseBtn').innerHTML  = t.contactCloseBtn;
+      document.querySelector('footer .footer-links a:first-child').innerHTML = t.footerLegal;
+      document.querySelector('footer .footer-links a:last-child').innerHTML  = t.footerContact;
+    }
+
+    const savedLang = localStorage.getItem('language') || navigator.language.slice(0, 2);
+    setLanguage(translations[savedLang] ? savedLang : 'fr');
+
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedTheme  = localStorage.getItem('theme');
+    if (savedTheme === 'light' || (!savedTheme && !prefersDark)) document.body.classList.add('light');
+
+    const toggleBtn = document.getElementById('themeToggle');
+
+    function updateThemeIcon() {
+      toggleBtn.textContent = document.body.classList.contains('light') ? '☀' : '☾';
+    }
+    updateThemeIcon();
+
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('light');
+      localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+      updateThemeIcon();
+    });
+
+    function openLegal()    { document.getElementById('legalPage').style.display   = 'block'; }
+    function closeLegal()   { document.getElementById('legalPage').style.display   = 'none';  }
+    function openContact()  { document.getElementById('contactPage').style.display = 'block'; }
+    function closeContact() { document.getElementById('contactPage').style.display = 'none';  }
+  </script>
+
+</body>
+</html>
