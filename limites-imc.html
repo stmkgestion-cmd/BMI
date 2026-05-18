@@ -217,20 +217,12 @@
     .section-full p:last-child { margin-bottom: 0; }
 
     /* Tableau comparatif */
-
-    .table-scroll {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      margin-top: 16px;
-      border-radius: 12px;
-    }
     .compare-table {
       width: 100%;
-      min-width: 540px;
       border-collapse: collapse;
+      margin-top: 16px;
       font-size: 14px;
     }
-
 
     .compare-table th {
       text-align: left;
@@ -357,65 +349,60 @@
     body.light .compare-table td { color: #111827; }
 
 
-    /* ---- BURGER MOBILE ---- */
-    .burger {
-      display: none;
-      align-items: center;
-      justify-content: center;
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.08);
-      cursor: pointer;
-      flex-shrink: 0;
-      transition: background 0.2s ease;
+    .language-switcher { position: relative; z-index: 999; }
+    .lang-dropdown-btn {
+      height: 40px; padding: 0 12px 0 9px; border-radius: 999px;
+      border: 1px solid var(--border); background: rgba(255,255,255,0.08);
+      display: flex; align-items: center; gap: 6px; cursor: pointer;
+      font-size: 18px; line-height: 1; transition: 0.2s ease;
+      color: var(--text); font-family: 'Inter', sans-serif;
     }
-    .burger:hover { background: rgba(255,255,255,0.14); }
-    .burger .icon-burger { display: block; }
-    .burger .icon-close  { display: none; }
-    .burger.open .icon-burger { display: none; }
-    .burger.open .icon-close  { display: block; }
+    .lang-dropdown-btn:hover { background: rgba(255,255,255,0.13); }
+    .lang-chevron {
+      width: 13px; height: 13px; flex-shrink: 0;
+      transition: transform 0.25s ease; stroke: var(--muted);
+      fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .lang-dropdown-btn.open .lang-chevron { transform: rotate(180deg); }
+    .lang-menu {
+      position: absolute; top: calc(100% + 8px); right: 0;
+      background: rgba(23,26,33,0.97); backdrop-filter: blur(16px);
+      border: 1px solid var(--border); border-radius: 18px;
+      padding: 6px; min-width: 130px; display: none;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.35); z-index: 999;
+    }
+    .lang-menu.open { display: block; }
+    .lang-option {
+      display: flex; align-items: center; gap: 9px;
+      padding: 10px 14px; border-radius: 12px; cursor: pointer;
+      font-size: 14px; color: var(--muted); transition: 0.15s ease;
+    }
+    .lang-option:hover { background: rgba(255,255,255,0.08); color: var(--text); }
+    body.light .lang-dropdown-btn { background: rgba(0,0,0,0.06); border-color: rgba(0,0,0,0.1); color: #111827; }
+    body.light .lang-menu { background: rgba(244,247,251,0.97); }
+    body.light .lang-option:hover { background: rgba(0,0,0,0.05); color: #111; }
 
-    .mobile-menu {
-      display: none;
-      position: fixed;
-      top: 53px; left: 0; width: 100%;
-      background: rgba(15,17,21,0.97);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      backdrop-filter: blur(20px) saturate(180%);
-      border-bottom: 1px solid var(--border);
-      padding: 8px 14px 12px;
-      flex-direction: column;
-      gap: 4px;
-      z-index: 1000;
-    }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu .mob-link {
-      display: block;
-      padding: 12px 16px;
-      font-size: 15px;
-      font-family: 'Inter', sans-serif;
-      border-radius: 14px;
-      border: 1px solid transparent;
-      color: var(--muted);
-      text-decoration: none;
-      transition: all 0.15s ease;
-    }
-    .mobile-menu .mob-link:hover { background: rgba(255,255,255,0.07); color: var(--text); }
-    .mobile-menu .mob-link.active {
-      background: rgba(255,255,255,0.09);
-      border-color: var(--border);
-      color: var(--text);
-    }
-    body.light .burger { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.12); }
-    body.light .burger svg { stroke: #111827; }
-    body.light .mobile-menu { background: rgba(235,239,245,0.97); }
+    .burger { display:none; align-items:center; justify-content:center; width:36px; height:36px;
+      border-radius:10px; border:1px solid var(--border); background:rgba(255,255,255,0.08);
+      cursor:pointer; flex-shrink:0; transition:background 0.2s ease; }
+    .burger:hover { background:rgba(255,255,255,0.14); }
+    .burger .icon-burger { display:block; }
+    .burger .icon-close  { display:none; }
+    .burger.open .icon-burger { display:none; }
+    .burger.open .icon-close  { display:block; }
+    .mobile-menu { display:none; position:fixed; top:53px; left:0; width:100%;
+      background:rgba(15,17,21,0.97); -webkit-backdrop-filter:blur(20px);
+      backdrop-filter:blur(20px); border-bottom:1px solid var(--border);
+      padding:8px 14px 12px; flex-direction:column; gap:4px; z-index:1000; }
+    .mobile-menu.open { display:flex; }
+    .mobile-menu .mob-link { display:block; padding:12px 16px; font-size:15px;
+      font-family:'Inter',sans-serif; border-radius:14px; border:1px solid transparent;
+      color:var(--muted); text-decoration:none; transition:all 0.15s ease; }
+    .mobile-menu .mob-link:hover { background:rgba(255,255,255,0.07); color:var(--text); }
+    .mobile-menu .mob-link.active { background:rgba(255,255,255,0.09); border-color:var(--border); color:var(--text); }
+    body.light .burger { background:rgba(0,0,0,0.05); border-color:rgba(0,0,0,0.12); }
+    body.light .mobile-menu { background:rgba(235,239,245,0.97); }
     /* Responsive */
-    @media (max-width: 640px) {
-      .nav-links { display: none; }
-      .burger { display: flex; }
-    }
     @media (max-width: 720px) {
       body { padding: 70px 0 70px; }
       .page-wrapper { padding: 16px 14px 0; }
@@ -431,6 +418,7 @@
       .compare-table th, .compare-table td { padding: 10px 12px; font-size: 13px; }
       .topbar { padding: 10px 14px; }
       .nav-links { display: none; }
+      .burger { display: flex; }
       footer { padding: 10px 16px; font-size: 12px; }
     }
   </style>
@@ -448,31 +436,42 @@
   }
   </script>
 
-  <nav class="topbar" id="mainTopbar">
-    <button class="burger" id="burgerBtn" onclick="toggleBurger()" aria-label="Menu"><svg class="icon-burger" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--text)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="4" x2="14" y2="4"/><line x1="2" y1="8" x2="14" y2="8"/><line x1="2" y1="12" x2="14" y2="12"/></svg><svg class="icon-close" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--text)" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="3" x2="13" y2="13"/><line x1="13" y1="3" x2="3" y2="13"/></svg></button>
-    <a class="nav-logo" href="index.html">Calculateur IMC</a>
+  <nav class="topbar">
+    <button class="burger" id="burgerBtn" aria-label="Menu"><svg class="icon-burger" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--text)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="4" x2="14" y2="4"/><line x1="2" y1="8" x2="14" y2="8"/><line x1="2" y1="12" x2="14" y2="12"/></svg><svg class="icon-close" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--text)" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="3" x2="13" y2="13"/><line x1="13" y1="3" x2="3" y2="13"/></svg></button>
+    <a class="nav-logo" href="index.html" id="navLogo">Calculateur IMC</a>
     <div class="nav-links">
-      <a class="nav-link" href="index.html">Calculateur</a>
-      <a class="nav-link active" href="limites-imc.html">Limites de l'IMC</a>
-      <a class="nav-link" href="imc-enfant.html">IMC enfant</a>
+      <a class="nav-link" href="index.html" id="navCalc">Calculateur</a>
+      <a class="nav-link active" href="limites-imc.html" id="navLimites">Limites de l'IMC</a>
+      <a class="nav-link" href="imc-enfant.html" id="navEnfant">IMC enfant</a>
     </div>
     <div class="nav-controls">
+      <div class="language-switcher" id="langSwitcher">
+        <button class="lang-dropdown-btn" id="langBtn">
+          <span id="currentFlag">🇫🇷</span>
+          <svg class="lang-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="lang-menu" id="langMenu">
+          <div class="lang-option" data-lang="fr"><span>🇫🇷</span><span>Français</span></div>
+          <div class="lang-option" data-lang="en"><span>🇬🇧</span><span>English</span></div>
+          <div class="lang-option" data-lang="es"><span>🇪🇸</span><span>Español</span></div>
+        </div>
+      </div>
       <button class="theme-toggle" id="themeToggle">☾</button>
     </div>
   </nav>
   <div class="mobile-menu" id="mobileMenu">
-    <a class="mob-link" href="index.html">Calculateur</a>
-    <a class="mob-link active" href="limites-imc.html">Limites de l'IMC</a>
-    <a class="mob-link" href="imc-enfant.html">IMC enfant</a>
+    <a class="mob-link" href="index.html" id="mobCalc">Calculateur</a>
+    <a class="mob-link active" href="limites-imc.html" id="mobLimites">Limites de l'IMC</a>
+    <a class="mob-link" href="imc-enfant.html" id="mobEnfant">IMC enfant</a>
   </div>
 
   <div class="page-wrapper">
 
     <!-- Hero -->
     <div class="hero">
-      <div class="hero-badge">⚠ À SAVOIR</div>
-      <h1>Les limites de l'IMC : <span>ce qu'il ne mesure pas.</span></h1>
-      <p class="hero-desc">
+      <div class="hero-badge" id="heroBadge">⚠ À SAVOIR</div>
+      <h1 id="heroTitle">Les limites de l'IMC : <span id="heroSub">ce qu'il ne mesure pas.</span></h1>
+      <p class="hero-desc" id="heroDesc">
         L'IMC est un outil de dépistage populaire, rapide et gratuit. Mais il repose sur une formule qui date de 1832 et ignore de nombreux facteurs essentiels à la santé. Voici ce qu'il faut savoir avant d'interpréter son résultat.
       </p>
     </div>
@@ -482,146 +481,283 @@
 
       <div class="card accent-orange">
         <span class="card-icon">💪</span>
-        <h2>La masse musculaire ignorée</h2>
-        <p>L'IMC ne distingue pas le muscle de la graisse. Un athlète avec une forte masse musculaire peut être classé en "surpoids" ou "obésité" malgré un corps en excellente santé. À l'inverse, une personne sédentaire avec peu de muscles peut afficher un IMC normal tout en ayant un excès de graisse viscérale.</p>
+        <h2 id="card1Title">La masse musculaire ignorée</h2>
+        <p><p id="card1Desc">L'IMC ne distingue pas le muscle de la graisse. Un athlète avec une forte masse musculaire peut être classé en "surpoids" ou "obésité" malgré un corps en excellente santé. À l'inverse, une personne sédentaire avec peu de muscles peut afficher un IMC normal tout en ayant un excès de graisse viscérale.</p>
       </div>
 
       <div class="card accent-blue">
         <span class="card-icon">👴</span>
-        <h2>L'âge non pris en compte</h2>
-        <p>Avec l'âge, la masse musculaire diminue naturellement et la graisse augmente, même si le poids reste stable. Un IMC de 23 n'a pas la même signification à 25 ans et à 70 ans. Les personnes âgées avec un IMC légèrement supérieur à 25 ont parfois de meilleurs indicateurs de survie, c'est le paradoxe de l'obésité.</p>
+        <h2 id="card2Title">L'âge non pris en compte</h2>
+        <p><p id="card2Desc">Avec l'âge, la masse musculaire diminue naturellement et la graisse augmente, même si le poids reste stable. Un IMC de 23 n'a pas la même signification à 25 ans et à 70 ans. Les personnes âgées avec un IMC légèrement supérieur à 25 ont parfois de meilleurs indicateurs de survie, c'est le paradoxe de l'obésité.</p>
       </div>
 
       <div class="card accent-pink">
         <span class="card-icon">⚥</span>
-        <h2>Le sexe biologique non différencié</h2>
-        <p>À IMC égal, les femmes ont généralement un taux de graisse corporelle plus élevé que les hommes, c'est une différence physiologique normale. Les seuils OMS sont identiques pour les deux sexes, ce qui introduit un biais systématique dans l'interprétation.</p>
+        <h2 id="card3Title">Le sexe biologique non différencié</h2>
+        <p><p id="card3Desc">À IMC égal, les femmes ont généralement un taux de graisse corporelle plus élevé que les hommes, c'est une différence physiologique normale. Les seuils OMS sont identiques pour les deux sexes, ce qui introduit un biais systématique dans l'interprétation.</p>
       </div>
 
       <div class="card accent-purple">
         <span class="card-icon">🌍</span>
-        <h2>L'origine ethnique occultée</h2>
-        <p>Les populations asiatiques accumulent davantage de graisse viscérale pour un même IMC. L'OMS recommande des seuils abaissés pour ces populations : surpoids à partir de 23, obésité à 27.5. Les populations d'Afrique subsaharienne et des îles du Pacifique présentent des profils inverses.</p>
+        <h2 id="card4Title">L'origine ethnique occultée</h2>
+        <p><p id="card4Desc">Les populations asiatiques accumulent davantage de graisse viscérale pour un même IMC. L'OMS recommande des seuils abaissés pour ces populations : surpoids à partir de 23, obésité à 27.5. Les populations d'Afrique subsaharienne et des îles du Pacifique présentent des profils inverses.</p>
       </div>
 
       <div class="card accent-red">
         <span class="card-icon">📏</span>
-        <h2>La répartition des graisses absente</h2>
-        <p>La graisse abdominale (viscérale) est bien plus dangereuse pour la santé cardiovasculaire que la graisse sous-cutanée des hanches ou des cuisses. L'IMC ne donne aucune information sur où la graisse est stockée, ce qui est pourtant un prédicteur majeur de risques métaboliques.</p>
+        <h2 id="card5Title">La répartition des graisses absente</h2>
+        <p><p id="card5Desc">La graisse abdominale (viscérale) est bien plus dangereuse pour la santé cardiovasculaire que la graisse sous-cutanée des hanches ou des cuisses. L'IMC ne donne aucune information sur où la graisse est stockée, ce qui est pourtant un prédicteur majeur de risques métaboliques.</p>
       </div>
 
       <div class="card accent-green">
         <span class="card-icon">🦴</span>
-        <h2>La densité osseuse ignorée</h2>
-        <p>Les personnes à forte densité osseuse (ossature lourde) peuvent avoir un IMC supérieur sans excès de graisse. À l'opposé, l'ostéoporose réduit le poids osseux et peut masquer un surpoids adipeux réel. La structure squelettique contribue significativement au poids sans être liée à la graisse.</p>
+        <h2 id="card6Title">La densité osseuse ignorée</h2>
+        <p><p id="card6Desc">Les personnes à forte densité osseuse (ossature lourde) peuvent avoir un IMC supérieur sans excès de graisse. À l'opposé, l'ostéoporose réduit le poids osseux et peut masquer un surpoids adipeux réel. La structure squelettique contribue significativement au poids sans être liée à la graisse.</p>
       </div>
 
     </div>
 
     <!-- Tableau comparatif des indicateurs -->
     <div class="section-full">
-      <h2>Indicateurs complémentaires à l'IMC</h2>
-      <p>Pour une évaluation plus complète de la composition corporelle et du risque métabolique, ces indicateurs sont souvent utilisés en complément :</p>
+      <h2 id="sec1Title">Indicateurs complémentaires à l'IMC</h2>
+      <p><p id="sec1Desc">Pour une évaluation plus complète de la composition corporelle et du risque métabolique, ces indicateurs sont souvent utilisés en complément :</p>
 
-      <div class="table-scroll"><table class="compare-table">
+      <table class="compare-table">
         <thead>
           <tr>
-            <th>Indicateur</th>
-            <th>Ce qu'il mesure</th>
-            <th>Avantages</th>
-            <th>Limite</th>
+            <th id="thInd">Indicateur</th>
+            <th id="thMes">Ce qu'il mesure</th>
+            <th id="thAdv">Avantages</th>
+            <th id="thLim">Limite</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>Tour de taille</strong></td>
-            <td>Graisse abdominale</td>
-            <td><span class="tag tag-good">Simple</span> Prédit le risque cardiovasculaire</td>
-            <td>Varie selon la taille</td>
+            <td id="r1c1"><strong>Tour de taille</strong></td>
+            <td id="r1c2">Graisse abdominale</td>
+            <td><span class="tag tag-good" id="tag1">Simple</span> <span id="r1c3t">Prédit le risque cardiovasculaire</span></td>
+            <td id="r1c4">Varie selon la taille</td>
           </tr>
           <tr>
-            <td><strong>Rapport taille/hanches</strong></td>
-            <td>Répartition des graisses</td>
-            <td><span class="tag tag-good">Précis</span> Différencie obésité androïde/gynoïde</td>
-            <td>Moins connu du grand public</td>
+            <td id="r2c1"><strong>Rapport taille/hanches</strong></td>
+            <td id="r2c2">Répartition des graisses</td>
+            <td><span class="tag tag-good" id="tag2">Précis</span> <span id="r2c3t">Différencie obésité androïde/gynoïde</span></td>
+            <td id="r2c4">Moins connu du grand public</td>
           </tr>
           <tr>
-            <td><strong>Rapport taille/taille</strong></td>
-            <td>Graisse viscérale relative</td>
-            <td><span class="tag tag-good">Indépendant</span> du sexe et de l'ethnie</td>
-            <td>Peu utilisé en clinique</td>
+            <td id="r3c1"><strong>Rapport taille/taille</strong></td>
+            <td id="r3c2">Graisse viscérale relative</td>
+            <td><span class="tag tag-good" id="tag3">Indépendant</span> <span id="r3c3t">du sexe et de l'ethnie</span></td>
+            <td id="r3c4">Peu utilisé en clinique</td>
           </tr>
           <tr>
-            <td><strong>DEXA / IRM</strong></td>
-            <td>Composition corporelle exacte</td>
-            <td><span class="tag tag-good">Référence</span> Mesure précise graisse/muscle/os</td>
-            <td><span class="tag tag-bad">Coûteux</span> Accès médical requis</td>
+            <td id="r4c1"><strong>DEXA / IRM</strong></td>
+            <td id="r4c2">Composition corporelle exacte</td>
+            <td><span class="tag tag-good" id="tag4">Référence</span> <span id="r4c3t">Mesure précise graisse/muscle/os</span></td>
+            <td><span class="tag tag-bad" id="tag5">Coûteux</span> <span id="r4c4t">Accès médical requis</span></td>
           </tr>
           <tr>
-            <td><strong>Impédancemétrie</strong></td>
-            <td>% graisse et muscle</td>
-            <td><span class="tag tag-medium">Accessible</span> Balances connectées, cabinets</td>
-            <td>Précision variable selon hydratation</td>
+            <td id="r5c1"><strong>Impédancemétrie</strong></td>
+            <td id="r5c2">% graisse et muscle</td>
+            <td><span class="tag tag-medium" id="tag6">Accessible</span> <span id="r5c3t">Balances connectées, cabinets</span></td>
+            <td id="r5c4">Précision variable selon hydratation</td>
           </tr>
         </tbody>
-      </table></div>
+      </table>
     </div>
 
     <!-- Quand l'IMC reste utile -->
     <div class="section-full">
-      <h2>Quand l'IMC reste pertinent</h2>
-      <p>Malgré ses limites, l'IMC conserve une utilité réelle dans plusieurs contextes. À l'échelle d'une population, c'est un outil de surveillance épidémiologique robuste et standardisé depuis des décennies, permettant des comparaisons internationales.</p>
-      <p>Pour un individu sédentaire sans particularité musculaire ou ethnique marquée, l'IMC reste un indicateur de dépistage rapide et suffisant. Il est également utile pour suivre une tendance dans le temps : une augmentation progressive de l'IMC est un signal d'alerte valide même si la valeur absolue est imparfaite.</p>
-      <p>La règle d'or : l'IMC est un <strong>point de départ</strong>, jamais une conclusion. En cas de doute ou de valeur aux seuils, une évaluation médicale complète est toujours recommandée.</p>
+      <h2 id="sec2Title">Quand l'IMC reste pertinent</h2>
+      <p><p id="sec2P1">Malgré ses limites, l'IMC conserve une utilité réelle dans plusieurs contextes. À l'échelle d'une population, c'est un outil de surveillance épidémiologique robuste et standardisé depuis des décennies, permettant des comparaisons internationales.</p>
+      <p><p id="sec2P2">Pour un individu sédentaire sans particularité musculaire ou ethnique marquée, l'IMC reste un indicateur de dépistage rapide et suffisant. Il est également utile pour suivre une tendance dans le temps : une augmentation progressive de l'IMC est un signal d'alerte valide même si la valeur absolue est imparfaite.</p>
+      <p><p id="sec2P3">La règle d'or : l'IMC est un <strong>point de départ</strong>, jamais une conclusion. En cas de doute ou de valeur aux seuils, une évaluation médicale complète est toujours recommandée.</p>
     </div>
 
     <!-- CTA retour calculateur -->
     <div class="cta-section">
-      <h2>Calculez votre IMC</h2>
-      <p>En gardant ces nuances en tête, utilisez notre calculateur pour obtenir votre valeur et la situer par rapport aux seuils de référence.</p>
-      <a class="cta-btn" href="index.html">← Retour au calculateur</a>
+      <h2 id="ctaTitle">Calculez votre IMC</h2>
+      <p><p id="ctaDesc">En gardant ces nuances en tête, utilisez notre calculateur pour obtenir votre valeur et la situer par rapport aux seuils de référence.</p>
+      <a class="cta-btn" href="index.html" id="ctaBtn">← Retour au calculateur</a>
       <div class="page-links">
-        <a class="page-link" href="imc-enfant.html">IMC chez l'enfant →</a>
+        <a class="page-link" href="imc-enfant.html" id="childLink">IMC chez l'enfant →</a>
       </div>
     </div>
 
   </div>
 
   <footer>
-    <div>© Société X 2026</div>
+    <div id="footerCopy">© Société X 2026</div>
     <div class="footer-links">
-      <a href="index.html">Calculateur</a>
-      <a href="imc-enfant.html">IMC enfant</a>
+      <a href="index.html" id="footCalc">Calculateur</a>
+      <a href="imc-enfant.html" id="footEnfant">IMC enfant</a>
     </div>
   </footer>
 
   <script>
+  (function() {
+    var flags = { fr: '🇫🇷', en: '🇬🇧', es: '🇪🇸' };
+    var translations = {
+      fr: {
+        navLogo:'Calculateur IMC', navCalc:'Calculateur', navLimites:"Limites de l'IMC", navEnfant:'IMC enfant',
+        mobCalc:'Calculateur', mobLimites:"Limites de l'IMC", mobEnfant:'IMC enfant',
+        heroBadge:'⚠ À SAVOIR', heroTitle:"Les limites de l'IMC : <span id=\"heroSub\">ce qu'il ne mesure pas.</span>", heroSub:"ce qu'il ne mesure pas.",
+        heroDesc:"L'IMC est un outil de dépistage populaire, rapide et gratuit. Mais il repose sur une formule qui date de 1832 et ignore de nombreux facteurs essentiels à la santé. Voici ce qu'il faut savoir avant d'interpréter son résultat.",
+        card1Title:'La masse musculaire ignorée', card1Desc:"L'IMC ne distingue pas le muscle de la graisse. Un athlète avec une forte masse musculaire peut être classé en \"surpoids\" ou \"obésité\" malgré un corps en excellente santé. À l'inverse, une personne sédentaire avec peu de muscles peut afficher un IMC normal tout en ayant un excès de graisse viscérale.",
+        card2Title:"L'âge non pris en compte", card2Desc:"Avec l'âge, la masse musculaire diminue naturellement et la graisse augmente, même si le poids reste stable. Un IMC de 23 n'a pas la même signification à 25 ans et à 70 ans. Les personnes âgées avec un IMC légèrement supérieur à 25 ont parfois de meilleurs indicateurs de survie, c'est le paradoxe de l'obésité.",
+        card3Title:'Le sexe biologique non différencié', card3Desc:"À IMC égal, les femmes ont généralement un taux de graisse corporelle plus élevé que les hommes, c'est une différence physiologique normale. Les seuils OMS sont identiques pour les deux sexes, ce qui introduit un biais systématique dans l'interprétation.",
+        card4Title:"L'origine ethnique occultée", card4Desc:"Les populations asiatiques accumulent davantage de graisse viscérale pour un même IMC. L'OMS recommande des seuils abaissés pour ces populations : surpoids à partir de 23, obésité à 27.5. Les populations d'Afrique subsaharienne et des îles du Pacifique présentent des profils inverses.",
+        card5Title:'La répartition des graisses absente', card5Desc:"La graisse abdominale (viscérale) est bien plus dangereuse pour la santé cardiovasculaire que la graisse sous-cutanée des hanches ou des cuisses. L'IMC ne donne aucune information sur où la graisse est stockée, ce qui est pourtant un prédicteur majeur de risques métaboliques.",
+        card6Title:'La densité osseuse ignorée', card6Desc:"Les personnes à forte densité osseuse (ossature lourde) peuvent avoir un IMC supérieur sans excès de graisse. À l'opposé, l'ostéoporose réduit le poids osseux et peut masquer un surpoids adipeux réel. La structure squelettique contribue significativement au poids sans être liée à la graisse.",
+        sec1Title:"Indicateurs complémentaires à l'IMC", sec1Desc:"Pour une évaluation plus complète de la composition corporelle et du risque métabolique, ces indicateurs sont souvent utilisés en complément :",
+        thInd:'Indicateur', thMes:"Ce qu'il mesure", thAdv:'Avantages', thLim:'Limite',
+        r1c1:'<strong>Tour de taille</strong>', r1c2:'Graisse abdominale', tag1:'Simple', r1c3t:'Prédit le risque cardiovasculaire', r1c4:'Varie selon la taille',
+        r2c1:'<strong>Rapport taille/hanches</strong>', r2c2:'Répartition des graisses', tag2:'Précis', r2c3t:'Différencie obésité androïde/gynoïde', r2c4:'Moins connu du grand public',
+        r3c1:'<strong>Rapport taille/taille</strong>', r3c2:'Graisse viscérale relative', tag3:'Indépendant', r3c3t:"du sexe et de l'ethnie", r3c4:'Peu utilisé en clinique',
+        r4c1:'<strong>DEXA / IRM</strong>', r4c2:'Composition corporelle exacte', tag4:'Référence', r4c3t:'Mesure précise graisse/muscle/os', tag5:'Coûteux', r4c4t:'Accès médical requis',
+        r5c1:'<strong>Impédancemétrie</strong>', r5c2:'% graisse et muscle', tag6:'Accessible', r5c3t:'Balances connectées, cabinets', r5c4:'Précision variable selon hydratation',
+        sec2Title:"Quand l'IMC reste pertinent",
+        sec2P1:"Malgré ses limites, l'IMC conserve une utilité réelle dans plusieurs contextes. À l'échelle d'une population, c'est un outil de surveillance épidémiologique robuste et standardisé depuis des décennies, permettant des comparaisons internationales.",
+        sec2P2:"Pour un individu sédentaire sans particularité musculaire ou ethnique marquée, l'IMC reste un indicateur de dépistage rapide et suffisant. Il est également utile pour suivre une tendance dans le temps : une augmentation progressive de l'IMC est un signal d'alerte valide même si la valeur absolue est imparfaite.",
+        sec2P3:"La règle d'or : l'IMC est un <strong>point de départ</strong>, jamais une conclusion. En cas de doute ou de valeur aux seuils, une évaluation médicale complète est toujours recommandée.",
+        ctaTitle:'Calculez votre IMC', ctaDesc:"En gardant ces nuances en tête, utilisez notre calculateur pour obtenir votre valeur et la situer par rapport aux seuils de référence.",
+        ctaBtn:'← Retour au calculateur', childLink:"IMC chez l'enfant →",
+        footerCopy:'© Société X 2026', footCalc:'Calculateur', footEnfant:'IMC enfant',
+        pageTitle:"Limites de l'IMC | Ce que l'indice de masse corporelle ne dit pas"
+      },
+      en: {
+        navLogo:'BMI Calculator', navCalc:'Calculator', navLimites:'BMI Limits', navEnfant:'Child BMI',
+        mobCalc:'Calculator', mobLimites:'BMI Limits', mobEnfant:'Child BMI',
+        heroBadge:'⚠ GOOD TO KNOW', heroTitle:'The limits of BMI : <span id="heroSub">what it doesn\'t measure.</span>', heroSub:"what it doesn't measure.",
+        heroDesc:"BMI is a popular, quick and free screening tool. But it relies on a formula dating back to 1832 and ignores many essential health factors. Here is what you need to know before interpreting your result.",
+        card1Title:'Muscle mass ignored', card1Desc:'BMI does not distinguish between muscle and fat. An athlete with high muscle mass may be classified as "overweight" or "obese" despite excellent health. Conversely, a sedentary person with little muscle may show a normal BMI while having excess visceral fat.',
+        card2Title:'Age not taken into account', card2Desc:'With age, muscle mass naturally decreases and fat increases, even if weight stays stable. A BMI of 23 does not mean the same at 25 and at 70. Elderly people with a BMI slightly above 25 sometimes have better survival indicators, the obesity paradox.',
+        card3Title:'Biological sex not differentiated', card3Desc:'At equal BMI, women generally have a higher body fat percentage than men, a normal physiological difference. WHO thresholds are identical for both sexes, introducing a systematic bias in interpretation.',
+        card4Title:'Ethnic origin overlooked', card4Desc:'Asian populations accumulate more visceral fat for the same BMI. The WHO recommends lower thresholds: overweight from 23, obesity at 27.5. Sub-Saharan African and Pacific Island populations show inverse profiles.',
+        card5Title:'Fat distribution absent', card5Desc:'Abdominal (visceral) fat is far more dangerous for cardiovascular health than subcutaneous fat on the hips or thighs. BMI provides no information on where fat is stored, yet this is a major predictor of metabolic risk.',
+        card6Title:'Bone density ignored', card6Desc:'People with high bone density may have a higher BMI without excess fat. Conversely, osteoporosis reduces bone weight and may mask real adipose overweight. Skeletal structure contributes significantly to weight without being related to fat.',
+        sec1Title:'Complementary indicators to BMI', sec1Desc:'For a more complete assessment of body composition and metabolic risk, these indicators are often used as complements:',
+        thInd:'Indicator', thMes:'What it measures', thAdv:'Advantages', thLim:'Limitation',
+        r1c1:'<strong>Waist circumference</strong>', r1c2:'Abdominal fat', tag1:'Simple', r1c3t:'Predicts cardiovascular risk', r1c4:'Varies with height',
+        r2c1:'<strong>Waist-to-hip ratio</strong>', r2c2:'Fat distribution', tag2:'Accurate', r2c3t:'Differentiates android/gynoid obesity', r2c4:'Less known to the public',
+        r3c1:'<strong>Waist-to-height ratio</strong>', r3c2:'Relative visceral fat', tag3:'Independent', r3c3t:'of sex and ethnicity', r3c4:'Rarely used clinically',
+        r4c1:'<strong>DEXA / MRI</strong>', r4c2:'Exact body composition', tag4:'Reference', r4c3t:'Precise fat/muscle/bone measurement', tag5:'Expensive', r4c4t:'Medical access required',
+        r5c1:'<strong>Bioelectrical impedance</strong>', r5c2:'% fat and muscle', tag6:'Accessible', r5c3t:'Smart scales, clinics', r5c4:'Variable precision depending on hydration',
+        sec2Title:'When BMI remains relevant',
+        sec2P1:"Despite its limitations, BMI retains real utility in several contexts. At the population level, it is a robust epidemiological surveillance tool enabling international comparisons.",
+        sec2P2:"For a sedentary individual without notable muscular or ethnic particularities, BMI remains a quick and sufficient screening indicator. A progressive increase in BMI is a valid warning signal even if the absolute value is imperfect.",
+        sec2P3:"The golden rule: BMI is a <strong>starting point</strong>, never a conclusion. In case of doubt or borderline values, a complete medical evaluation is always recommended.",
+        ctaTitle:'Calculate your BMI', ctaDesc:"Keeping these nuances in mind, use our calculator to get your value and compare it to the reference thresholds.",
+        ctaBtn:'← Back to calculator', childLink:'Child BMI →',
+        footerCopy:'© Société X 2026', footCalc:'Calculator', footEnfant:'Child BMI',
+        pageTitle:"BMI Limits | What body mass index doesn't tell you"
+      },
+      es: {
+        navLogo:'Calculadora IMC', navCalc:'Calculadora', navLimites:'Límites del IMC', navEnfant:'IMC infantil',
+        mobCalc:'Calculadora', mobLimites:'Límites del IMC', mobEnfant:'IMC infantil',
+        heroBadge:'⚠ IMPORTANTE', heroTitle:'Los límites del IMC : <span id="heroSub">lo que no mide.</span>', heroSub:'lo que no mide.',
+        heroDesc:"El IMC es una herramienta de cribado popular, rápida y gratuita. Pero se basa en una fórmula que data de 1832 e ignora muchos factores esenciales para la salud. Esto es lo que debes saber antes de interpretar tu resultado.",
+        card1Title:'La masa muscular ignorada', card1Desc:'El IMC no distingue entre músculo y grasa. Un atleta con gran masa muscular puede clasificarse como con "sobrepeso" u "obesidad" a pesar de tener un cuerpo en excelente salud. Por el contrario, una persona sedentaria con poca masa muscular puede mostrar un IMC normal mientras tiene exceso de grasa visceral.',
+        card2Title:'La edad no considerada', card2Desc:'Con la edad, la masa muscular disminuye naturalmente y la grasa aumenta, aunque el peso permanezca estable. Un IMC de 23 no tiene el mismo significado a los 25 y a los 70 años. Las personas mayores con un IMC ligeramente superior a 25 a veces tienen mejores indicadores de supervivencia, es la paradoja de la obesidad.',
+        card3Title:'El sexo biológico sin diferenciar', card3Desc:"A igual IMC, las mujeres suelen tener un mayor porcentaje de grasa corporal que los hombres, lo cual es una diferencia fisiológica normal. Los umbrales de la OMS son idénticos para ambos sexos, lo que introduce un sesgo sistemático en la interpretación.",
+        card4Title:'El origen étnico ignorado', card4Desc:'Las poblaciones asiáticas acumulan más grasa visceral para el mismo IMC. La OMS recomienda umbrales reducidos: sobrepeso a partir de 23, obesidad a 27.5. Las poblaciones del África subsahariana y las islas del Pacífico presentan perfiles inversos.',
+        card5Title:'La distribución de grasa ausente', card5Desc:'La grasa abdominal (visceral) es mucho más peligrosa para la salud cardiovascular que la grasa subcutánea de las caderas o los muslos. El IMC no proporciona información sobre dónde se almacena la grasa, lo cual es un predictor importante de riesgos metabólicos.',
+        card6Title:'La densidad ósea ignorada', card6Desc:'Las personas con alta densidad ósea pueden tener un IMC superior sin exceso de grasa. Por el contrario, la osteoporosis reduce el peso óseo y puede enmascarar un exceso de peso adiposo real. La estructura esquelética contribuye significativamente al peso sin estar relacionada con la grasa.',
+        sec1Title:'Indicadores complementarios al IMC', sec1Desc:'Para una evaluación más completa de la composición corporal y el riesgo metabólico, estos indicadores se usan frecuentemente como complementos:',
+        thInd:'Indicador', thMes:'Qué mide', thAdv:'Ventajas', thLim:'Limitación',
+        r1c1:'<strong>Perímetro de cintura</strong>', r1c2:'Grasa abdominal', tag1:'Simple', r1c3t:'Predice el riesgo cardiovascular', r1c4:'Varía con la talla',
+        r2c1:'<strong>Índice cintura/cadera</strong>', r2c2:'Distribución de grasa', tag2:'Preciso', r2c3t:'Diferencia obesidad androide/ginoide', r2c4:'Poco conocido por el público',
+        r3c1:'<strong>Índice cintura/talla</strong>', r3c2:'Grasa visceral relativa', tag3:'Independiente', r3c3t:'del sexo y la etnia', r3c4:'Poco usado en clínica',
+        r4c1:'<strong>DEXA / IRM</strong>', r4c2:'Composición corporal exacta', tag4:'Referencia', r4c3t:'Medición precisa grasa/músculo/hueso', tag5:'Costoso', r4c4t:'Requiere acceso médico',
+        r5c1:'<strong>Impedanciometría</strong>', r5c2:'% grasa y músculo', tag6:'Accesible', r5c3t:'Básculas conectadas, consultorios', r5c4:'Precisión variable según hidratación',
+        sec2Title:'Cuándo el IMC sigue siendo relevante',
+        sec2P1:"A pesar de sus limitaciones, el IMC conserva una utilidad real en varios contextos. A escala poblacional, es una herramienta de vigilancia epidemiológica robusta y estandarizada que permite comparaciones internacionales.",
+        sec2P2:"Para un individuo sedentario sin particularidades musculares o étnicas destacadas, el IMC sigue siendo un indicador de cribado rápido y suficiente. Un aumento progresivo del IMC es una señal de alerta válida aunque el valor absoluto sea imperfecto.",
+        sec2P3:"La regla de oro: el IMC es un <strong>punto de partida</strong>, nunca una conclusión. En caso de duda o valor en los umbrales, siempre se recomienda una evaluación médica completa.",
+        ctaTitle:'Calcula tu IMC', ctaDesc:"Teniendo en cuenta estos matices, usa nuestra calculadora para obtener tu valor y situarlo respecto a los umbrales de referencia.",
+        ctaBtn:'← Volver a la calculadora', childLink:'IMC infantil →',
+        footerCopy:'© Société X 2026', footCalc:'Calculadora', footEnfant:'IMC infantil',
+        pageTitle:"Límites del IMC | Lo que el índice de masa corporal no dice"
+      }
+    };
 
-    function toggleBurger() {
-      document.getElementById('burgerBtn').classList.toggle('open');
-      document.getElementById('mobileMenu').classList.toggle('open');
+    function setLanguage(lang) {
+      localStorage.setItem('language', lang);
+      document.getElementById('currentFlag').textContent = flags[lang];
+      var t = translations[lang];
+      document.title = t.pageTitle;
+      var ids = ['navLogo','navCalc','navLimites','navEnfant','mobCalc','mobLimites','mobEnfant',
+        'heroBadge','heroSub','heroDesc','card1Title','card1Desc','card2Title','card2Desc',
+        'card3Title','card3Desc','card4Title','card4Desc','card5Title','card5Desc',
+        'card6Title','card6Desc','sec1Title','sec1Desc','thInd','thMes','thAdv','thLim',
+        'r1c1','r1c2','tag1','r1c3t','r1c4','r2c1','r2c2','tag2','r2c3t','r2c4',
+        'r3c1','r3c2','tag3','r3c3t','r3c4','r4c1','r4c2','tag4','r4c3t','tag5','r4c4t',
+        'r5c1','r5c2','tag6','r5c3t','r5c4','sec2Title','sec2P1','sec2P2','sec2P3',
+        'heroTitle','heroSub',
+        'ctaTitle','ctaDesc','ctaBtn','childLink','footerCopy','footCalc','footEnfant'];
+      ids.forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el && t[id] !== undefined) el.innerHTML = t[id];
+      });
+
     }
-    document.addEventListener('click', function(e) {
-      var burger = document.getElementById('burgerBtn');
-      var menu   = document.getElementById('mobileMenu');
-      if (!burger || !menu) return;
-      if (!burger.contains(e.target) && !menu.contains(e.target)) {
-        burger.classList.remove('open');
-        menu.classList.remove('open');
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+      /* Thème */
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light' || (!savedTheme && !prefersDark)) document.body.classList.add('light');
+      var toggleBtn = document.getElementById('themeToggle');
+      function updateIcon() { toggleBtn.textContent = document.body.classList.contains('light') ? '☀' : '☾'; }
+      updateIcon();
+      toggleBtn.addEventListener('click', function() {
+        document.body.classList.toggle('light');
+        localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+        updateIcon();
+      });
+
+      /* Langue */
+      var savedLang = localStorage.getItem('language') || navigator.language.slice(0,2);
+      setLanguage(translations[savedLang] ? savedLang : 'fr');
+
+      document.getElementById('langBtn').addEventListener('click', function() {
+        document.getElementById('langBtn').classList.toggle('open');
+        document.getElementById('langMenu').classList.toggle('open');
+      });
+      document.querySelectorAll('.lang-option[data-lang]').forEach(function(el) {
+        el.addEventListener('click', function() {
+          setLanguage(el.getAttribute('data-lang'));
+          document.getElementById('langBtn').classList.remove('open');
+          document.getElementById('langMenu').classList.remove('open');
+        });
+      });
+      document.addEventListener('click', function(e) {
+        var ls = document.getElementById('langSwitcher');
+        if (ls && !ls.contains(e.target)) {
+          document.getElementById('langBtn').classList.remove('open');
+          document.getElementById('langMenu').classList.remove('open');
+        }
+      });
+
+      /* Burger */
+      var burgerBtn = document.getElementById('burgerBtn');
+      if (burgerBtn) {
+        burgerBtn.addEventListener('click', function() {
+          burgerBtn.classList.toggle('open');
+          document.getElementById('mobileMenu').classList.toggle('open');
+        });
+        document.addEventListener('click', function(e) {
+          var menu = document.getElementById('mobileMenu');
+          if (!burgerBtn.contains(e.target) && menu && !menu.contains(e.target)) {
+            burgerBtn.classList.remove('open');
+            menu.classList.remove('open');
+          }
+        });
       }
     });
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const savedTheme  = localStorage.getItem('theme');
-    if (savedTheme === 'light' || (!savedTheme && !prefersDark)) document.body.classList.add('light');
-    const toggleBtn = document.getElementById('themeToggle');
-    function updateIcon() { toggleBtn.textContent = document.body.classList.contains('light') ? '☀' : '☾'; }
-    updateIcon();
-    toggleBtn.addEventListener('click', () => {
-      document.body.classList.toggle('light');
-      localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
-      updateIcon();
-    });
-  </script>
 
+  })();
+  </script>
 </body>
 </html>
