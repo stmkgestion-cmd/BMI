@@ -465,6 +465,58 @@
     body.light .burger { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.12); }
     body.light .burger svg { stroke: #111827; }
     body.light .mobile-menu { background: rgba(235,239,245,0.97); }
+
+    .language-switcher { position: relative; z-index: 999; }
+    .lang-dropdown-btn {
+      height: 40px; padding: 0 12px 0 9px; border-radius: 999px;
+      border: 1px solid var(--border); background: rgba(255,255,255,0.08);
+      display: flex; align-items: center; gap: 6px; cursor: pointer;
+      font-size: 18px; line-height: 1; transition: 0.2s ease;
+      color: var(--text); font-family: 'Inter', sans-serif;
+    }
+    .lang-dropdown-btn:hover { background: rgba(255,255,255,0.13); }
+    .lang-chevron {
+      width: 13px; height: 13px; flex-shrink: 0;
+      transition: transform 0.25s ease; stroke: var(--muted);
+      fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .lang-dropdown-btn.open .lang-chevron { transform: rotate(180deg); }
+    .lang-menu {
+      position: absolute; top: calc(100% + 8px); right: 0;
+      background: rgba(23,26,33,0.97); backdrop-filter: blur(16px);
+      border: 1px solid var(--border); border-radius: 18px;
+      padding: 6px; min-width: 130px; display: none;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.35); z-index: 999;
+    }
+    .lang-menu.open { display: block; }
+    .lang-option {
+      display: flex; align-items: center; gap: 9px;
+      padding: 10px 14px; border-radius: 12px; cursor: pointer;
+      font-size: 14px; color: var(--muted); transition: 0.15s ease;
+    }
+    .lang-option:hover { background: rgba(255,255,255,0.08); color: var(--text); }
+    body.light .lang-dropdown-btn { background: rgba(0,0,0,0.06); border-color: rgba(0,0,0,0.1); color: #111827; }
+    body.light .lang-menu { background: rgba(244,247,251,0.97); }
+    body.light .lang-option:hover { background: rgba(0,0,0,0.05); color: #111; }
+
+    .burger { display:none; align-items:center; justify-content:center; width:36px; height:36px;
+      border-radius:10px; border:1px solid var(--border); background:rgba(255,255,255,0.08);
+      cursor:pointer; flex-shrink:0; transition:background 0.2s ease; }
+    .burger:hover { background:rgba(255,255,255,0.14); }
+    .burger .icon-burger { display:block; } .burger .icon-close { display:none; }
+    .burger.open .icon-burger { display:none; } .burger.open .icon-close { display:block; }
+    .mobile-menu { display:none; position:fixed; top:53px; left:0; width:100%;
+      background:rgba(15,17,21,0.97); -webkit-backdrop-filter:blur(20px);
+      backdrop-filter:blur(20px); border-bottom:1px solid var(--border);
+      padding:8px 14px 12px; flex-direction:column; gap:4px; z-index:1000; }
+    .mobile-menu.open { display:flex; }
+    .mobile-menu .mob-link { display:block; padding:12px 16px; font-size:15px;
+      font-family:'Inter',sans-serif; border-radius:14px; border:1px solid transparent;
+      color:var(--muted); text-decoration:none; transition:all 0.15s ease; }
+    .mobile-menu .mob-link:hover { background:rgba(255,255,255,0.07); color:var(--text); }
+    .mobile-menu .mob-link.active { background:rgba(255,255,255,0.09); border-color:var(--border); color:var(--text); }
+    body.light .burger { background:rgba(0,0,0,0.05); border-color:rgba(0,0,0,0.12); }
+    body.light .mobile-menu { background:rgba(235,239,245,0.97); }
     /* Responsive */
     @media (max-width: 640px) {
       .nav-links { display: none; }
@@ -487,6 +539,7 @@
       .ptable th, .ptable td { padding: 9px 10px; font-size: 13px; }
       .topbar { padding: 10px 14px; }
       .nav-links { display: none; }
+      .burger { display: flex; }
       footer { padding: 10px 16px; font-size: 12px; }
     }
   </style>
@@ -505,14 +558,26 @@
   </script>
 
   <nav class="topbar" id="mainTopbar">
-    <button class="burger" id="burgerBtn" onclick="toggleBurger()" aria-label="Menu"><svg class="icon-burger" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--text)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="4" x2="14" y2="4"/><line x1="2" y1="8" x2="14" y2="8"/><line x1="2" y1="12" x2="14" y2="12"/></svg><svg class="icon-close" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--text)" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="3" x2="13" y2="13"/><line x1="13" y1="3" x2="3" y2="13"/></svg></button>
-    <a class="nav-logo" href="index.html">Calculateur IMC</a>
+    <button class="burger" id="burgerBtn" aria-label="Menu"><svg class="icon-burger" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--text)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="4" x2="14" y2="4"/><line x1="2" y1="8" x2="14" y2="8"/><line x1="2" y1="12" x2="14" y2="12"/></svg><svg class="icon-close" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--text)" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="3" x2="13" y2="13"/><line x1="13" y1="3" x2="3" y2="13"/></svg></button>
+    <button class="burger" id="burgerBtn" aria-label="Menu"><svg class="icon-burger" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--text)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="4" x2="14" y2="4"/><line x1="2" y1="8" x2="14" y2="8"/><line x1="2" y1="12" x2="14" y2="12"/></svg><svg class="icon-close" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--text)" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="3" x2="13" y2="13"/><line x1="13" y1="3" x2="3" y2="13"/></svg></button>
+    <a class="nav-logo" href="index.html" id="navLogo">Calculateur IMC</a>
     <div class="nav-links">
-      <a class="nav-link" href="index.html">Calculateur</a>
-      <a class="nav-link" href="limites-imc.html">Limites de l'IMC</a>
-      <a class="nav-link active" href="imc-enfant.html">IMC enfant</a>
+      <a class="nav-link" href="index.html" id="navCalc">Calculateur</a>
+      <a class="nav-link" href="limites-imc.html" id="navLimites">Limites de l'IMC</a>
+      <a class="nav-link active" href="imc-enfant.html" id="navEnfant">IMC enfant</a>
     </div>
     <div class="nav-controls">
+      <div class="language-switcher" id="langSwitcher">
+        <button class="lang-dropdown-btn" id="langBtn">
+          <span id="currentFlag">🇫🇷</span>
+          <svg class="lang-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="lang-menu" id="langMenu">
+          <div class="lang-option" data-lang="fr"><span>🇫🇷</span><span>Français</span></div>
+          <div class="lang-option" data-lang="en"><span>🇬🇧</span><span>English</span></div>
+          <div class="lang-option" data-lang="es"><span>🇪🇸</span><span>Español</span></div>
+        </div>
+      </div>
       <button class="theme-toggle" id="themeToggle">☾</button>
     </div>
   </nav>
@@ -526,20 +591,20 @@
 
     <!-- Hero -->
     <div class="hero">
-      <div class="hero-badge">👶 IMC ENFANT & ADOLESCENT</div>
-      <h1>L'IMC de l'enfant : <span>une lecture en percentile.</span></h1>
-      <p class="hero-desc">
+      <div class="hero-badge" id="heroBadge">👶 IMC ENFANT & ADOLESCENT</div>
+      <h1 id="heroTitle">L'IMC de l'enfant : <span id="heroSub">une lecture en percentile.</span></h1>
+      <p class="hero-desc" id="heroDesc">
         Contrairement à l'adulte, l'IMC d'un enfant ne s'interprète pas avec des seuils fixes. Il varie avec l'âge et le sexe, et se lit par rapport à une courbe de référence nationale exprimée en percentile.
       </p>
     </div>
 
     <!-- Calculateur -->
     <div class="calc-card">
-      <h2>Calculer l'IMC de votre enfant</h2>
+      <h2 id="calcTitle">Calculer l'IMC de votre enfant</h2>
 
       <div class="calc-grid">
         <div class="field">
-          <label>Taille (cm)</label>
+          <label id="lblHeight">Taille (cm)</label>
           <div class="input-wrapper">
             <input type="number" id="c-height" placeholder="Ex : 120" min="50" max="200">
             <div class="spin-btns">
@@ -553,7 +618,7 @@
           </div>
         </div>
         <div class="field">
-          <label>Poids (kg)</label>
+          <label id="lblWeight">Poids (kg)</label>
           <div class="input-wrapper">
             <input type="number" id="c-weight" placeholder="Ex : 22" min="5" max="150">
             <div class="spin-btns">
@@ -567,7 +632,7 @@
           </div>
         </div>
         <div class="field">
-          <label>Âge (années)</label>
+          <label id="lblAge">Âge (années)</label>
           <div class="input-wrapper">
             <input type="number" id="c-age" placeholder="Ex : 8" min="2" max="18">
             <div class="spin-btns">
@@ -581,22 +646,22 @@
           </div>
         </div>
         <div class="field">
-          <label>Sexe</label>
+          <label id="lblSex">Sexe</label>
           <div class="sex-toggle">
-            <button class="sex-btn" id="sex-f" onclick="selectSex('f')">Fille</button>
-            <button class="sex-btn" id="sex-m" onclick="selectSex('m')">Garçon</button>
+            <button class="sex-btn" id="sex-f" onclick="selectSex('f')" data-label-f="Fille">Fille</button>
+            <button class="sex-btn" id="sex-m" onclick="selectSex('m')" data-label-m="Garçon">Garçon</button>
           </div>
           <input type="hidden" id="c-sex" value="">
         </div>
       </div>
 
-      <button class="calc-btn" onclick="calculateChildIMC()">Calculer l'IMC</button>
+      <button class="calc-btn" id="calcBtn" onclick="calculateChildIMC()">Calculer l'IMC</button>
 
       <div class="result-card" id="childResult">
         <div class="result-row">
           <div class="result-imc" id="childImcValue">—</div>
           <div class="result-meta">
-            <span class="result-label">IMC calculé</span>
+            <span class="result-label" id="lblImcCalc">IMC calculé</span>
             <span class="result-status" id="childStatus">—</span>
             <span class="result-label" id="childPercentileLabel">—</span>
           </div>
@@ -621,38 +686,38 @@
 
     <!-- Explication percentile -->
     <div class="section-full">
-      <h2>Qu'est-ce qu'un percentile ?</h2>
-      <p>Le percentile indique la position d'un enfant par rapport à une population de référence du même âge et du même sexe. Un enfant au 50e percentile a un IMC médian : la moitié des enfants du même profil ont un IMC plus bas, l'autre moitié un IMC plus haut.</p>
-      <p>En France, les courbes de référence utilisées sont celles de l'INSERM et intégrées dans le carnet de santé. L'OMS dispose également de ses propres courbes légèrement différentes.</p>
+      <h2 id="sec1Title">Qu'est-ce qu'un percentile ?</h2>
+      <p id="sec1P1">Le percentile indique la position d'un enfant par rapport à une population de référence du même âge et du même sexe. Un enfant au 50e percentile a un IMC médian : la moitié des enfants du même profil ont un IMC plus bas, l'autre moitié un IMC plus haut.</p>
+      <p id="sec1P2">En France, les courbes de référence utilisées sont celles de l'INSERM et intégrées dans le carnet de santé. L'OMS dispose également de ses propres courbes légèrement différentes.</p>
 
       <table class="ptable">
         <thead>
           <tr>
-            <th>Catégorie</th>
-            <th>Percentile</th>
-            <th>Interprétation</th>
+            <th id="thCat">Catégorie</th>
+            <th id="thPct">Percentile</th>
+            <th id="thInt">Interprétation</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><span class="dot" style="background:#6ec6f5"></span>Insuffisance pondérale</td>
-            <td>&lt; 3e percentile</td>
-            <td>Poids insuffisant pour la taille et l'âge. Consultation recommandée.</td>
+            <td id="tr1c1"><span class="dot" style="background:#6ec6f5"></span>Insuffisance pondérale</td>
+            <td id="tr1c2">&lt; 3e percentile</td>
+            <td id="tr1c3">Poids insuffisant pour la taille et l'âge. Consultation recommandée.</td>
           </tr>
           <tr>
-            <td><span class="dot" style="background:#32d583"></span>Corpulence normale</td>
-            <td>3e – 85e percentile</td>
-            <td>Zone de référence. Croissance harmonieuse.</td>
+            <td id="tr2c1"><span class="dot" style="background:#32d583"></span>Corpulence normale</td>
+            <td id="tr2c2">3e – 85e percentile</td>
+            <td id="tr2c3">Zone de référence. Croissance harmonieuse.</td>
           </tr>
           <tr>
-            <td><span class="dot" style="background:#f5b546"></span>Surpoids</td>
-            <td>85e – 97e percentile</td>
-            <td>Excès de poids relatif à surveiller. Avis médical conseillé.</td>
+            <td id="tr3c1"><span class="dot" style="background:#f5b546"></span>Surpoids</td>
+            <td id="tr3c2">85e – 97e percentile</td>
+            <td id="tr3c3">Excès de poids relatif à surveiller. Avis médical conseillé.</td>
           </tr>
           <tr>
-            <td><span class="dot" style="background:#ff6b6b"></span>Obésité</td>
-            <td>&gt; 97e percentile</td>
-            <td>Obésité pédiatrique. Suivi médical nécessaire.</td>
+            <td id="tr4c1"><span class="dot" style="background:#ff6b6b"></span>Obésité</td>
+            <td id="tr4c2">&gt; 97e percentile</td>
+            <td id="tr4c3">Obésité pédiatrique. Suivi médical nécessaire.</td>
           </tr>
         </tbody>
       </table>
@@ -660,190 +725,309 @@
 
     <!-- Particularités -->
     <div class="section-full">
-      <h2>Pourquoi l'IMC enfant est différent</h2>
-      <p>L'IMC varie naturellement et fortement pendant l'enfance. Il augmente rapidement la première année de vie, diminue ensuite jusqu'à environ 6 ans (c'est le "rebond d'adiposité"), puis augmente à nouveau jusqu'à l'âge adulte. Ce rebond précoce, avant 5-6 ans, est associé à un risque plus élevé d'obésité à l'âge adulte.</p>
-      <p>C'est pourquoi un seuil fixe comme 25 pour le surpoids adulte n'a aucun sens pour un enfant de 8 ans. À cet âge, le surpoids correspond typiquement à un IMC autour de 18-19, selon le sexe et la courbe de référence utilisée.</p>
-      <p>L'interprétation doit toujours être faite par un professionnel de santé qui dispose du carnet de santé et peut observer la trajectoire de la courbe dans le temps, pas seulement un point isolé.</p>
+      <h2 id="sec2Title">Pourquoi l'IMC enfant est différent</h2>
+      <p id="sec2P1">L'IMC varie naturellement et fortement pendant l'enfance. Il augmente rapidement la première année de vie, diminue ensuite jusqu'à environ 6 ans (c'est le "rebond d'adiposité"), puis augmente à nouveau jusqu'à l'âge adulte. Ce rebond précoce, avant 5-6 ans, est associé à un risque plus élevé d'obésité à l'âge adulte.</p>
+      <p id="sec2P2">C'est pourquoi un seuil fixe comme 25 pour le surpoids adulte n'a aucun sens pour un enfant de 8 ans. À cet âge, le surpoids correspond typiquement à un IMC autour de 18-19, selon le sexe et la courbe de référence utilisée.</p>
+      <p id="sec2P3">L'interprétation doit toujours être faite par un professionnel de santé qui dispose du carnet de santé et peut observer la trajectoire de la courbe dans le temps, pas seulement un point isolé.</p>
     </div>
 
     <!-- Ce que les parents peuvent faire -->
     <div class="section-full">
-      <h2>Ce que les parents peuvent faire</h2>
-      <p>Si le résultat indique un surpoids ou une obésité, la réaction la plus utile n'est pas de mettre l'enfant au régime, ce qui peut être contre-productif et nuire à son rapport à la nourriture. L'approche recommandée par les pédiatres est de stabiliser le poids (l'enfant grandira dedans) plutôt que de le faire perdre du poids.</p>
-      <p>Concrètement : favoriser l'activité physique quotidienne (au moins 60 minutes à intensité modérée), réduire le temps d'écran, structurer les repas sans les rituels de récompense ou de punition avec la nourriture, et consulter un pédiatre ou un nutritionniste pédiatrique pour un accompagnement adapté.</p>
-      <p>Pour les enfants en insuffisance pondérale, une consultation médicale est également recommandée pour écarter une cause sous-jacente (trouble digestif, alimentaire, croissance atypique).</p>
+      <h2 id="sec3Title">Ce que les parents peuvent faire</h2>
+      <p id="sec3P1">Si le résultat indique un surpoids ou une obésité, la réaction la plus utile n'est pas de mettre l'enfant au régime, ce qui peut être contre-productif et nuire à son rapport à la nourriture. L'approche recommandée par les pédiatres est de stabiliser le poids (l'enfant grandira dedans) plutôt que de le faire perdre du poids.</p>
+      <p id="sec3P2">Concrètement : favoriser l'activité physique quotidienne (au moins 60 minutes à intensité modérée), réduire le temps d'écran, structurer les repas sans les rituels de récompense ou de punition avec la nourriture, et consulter un pédiatre ou un nutritionniste pédiatrique pour un accompagnement adapté.</p>
+      <p id="sec3P3">Pour les enfants en insuffisance pondérale, une consultation médicale est également recommandée pour écarter une cause sous-jacente (trouble digestif, alimentaire, croissance atypique).</p>
     </div>
 
     <!-- CTA -->
     <div class="cta-section">
-      <h2>Calculateur adulte</h2>
-      <p>Pour calculer votre propre IMC avec notre outil interactif, retournez sur la page principale.</p>
-      <a class="cta-btn" href="index.html">← Retour au calculateur</a>
+      <h2 id="ctaTitle">Calculateur adulte</h2>
+      <p id="ctaDesc">Pour calculer votre propre IMC avec notre outil interactif, retournez sur la page principale.</p>
+      <a class="cta-btn" href="index.html" id="ctaBtn">← Retour au calculateur</a>
       <div class="page-links">
-        <a class="page-link" href="limites-imc.html">Limites de l'IMC →</a>
+        <a class="page-link" href="limites-imc.html" id="limitesLink">Limites de l'IMC →</a>
       </div>
     </div>
 
   </div>
 
   <footer>
-    <div>© Société X 2026</div>
+    <div id="footerCopy">© Société X 2026</div>
     <div class="footer-links">
-      <a href="index.html">Calculateur</a>
-      <a href="limites-imc.html">Limites de l'IMC</a>
+      <a href="index.html" id="footCalc">Calculateur</a>
+      <a href="limites-imc.html" id="footLimites">Limites de l'IMC</a>
     </div>
   </footer>
 
   <script>
+  (function() {
+    var flags = { fr: '🇫🇷', en: '🇬🇧', es: '🇪🇸' };
+
+    var translations = {
+      fr: {
+        pageTitle: 'IMC Enfant | Calculateur IMC pour enfants et adolescents',
+        navLogo:'Calculateur IMC', navCalc:'Calculateur', navLimites:"Limites de l'IMC", navEnfant:'IMC enfant',
+        mobCalc:'Calculateur', mobLimites:"Limites de l'IMC", mobEnfant:'IMC enfant',
+        heroBadge:'👶 IMC ENFANT & ADOLESCENT',
+        heroTitle:"L'IMC de l'enfant : <span id=\"heroSub\">une lecture en percentile.</span>",
+        heroDesc:"Contrairement à l'adulte, l'IMC d'un enfant ne s'interprète pas avec des seuils fixes. Il varie avec l'âge et le sexe, et se lit par rapport à une courbe de référence nationale exprimée en percentile.",
+        calcTitle:"Calculer l'IMC de votre enfant", calcBtn:"Calculer l'IMC",
+        lblHeight:'Taille (cm)', lblWeight:'Poids (kg)', lblAge:'Âge (années)', lblSex:'Sexe',
+        sexF:'Fille', sexM:'Garçon', lblImcCalc:'IMC calculé',
+        alertMsg:'Veuillez renseigner tous les champs avec des valeurs valides (âge 2-18 ans).',
+        statusUnder:'Insuffisance pondérale', statusNormal:'Corpulence normale', statusOver:'Surpoids', statusObese:'Obésité',
+        noteUnder:"Le poids de votre enfant est inférieur au 3e percentile pour son âge et son sexe. Une consultation pédiatrique est recommandée pour évaluer sa croissance.",
+        noteNormal:"La corpulence de votre enfant est dans la zone normale pour son âge et son sexe. Continuez à suivre la courbe dans le carnet de santé.",
+        noteOver:"L'IMC de votre enfant se situe entre le 85e et le 97e percentile, ce qui indique un surpoids. Un suivi médical et des conseils nutritionnels adaptés sont conseillés.",
+        noteObese:"L'IMC de votre enfant dépasse le 97e percentile, correspondant à une obésité pédiatrique. Un suivi médical par un pédiatre ou spécialiste est nécessaire.",
+        sec1Title:"Qu'est-ce qu'un percentile ?",
+        sec1P1:"Le percentile indique la position d'un enfant par rapport à une population de référence du même âge et du même sexe. Un enfant au 50e percentile a un IMC médian : la moitié des enfants du même profil ont un IMC plus bas, l'autre moitié un IMC plus haut.",
+        sec1P2:"En France, les courbes de référence utilisées sont celles de l'INSERM et intégrées dans le carnet de santé. L'OMS dispose également de ses propres courbes légèrement différentes.",
+        thCat:'Catégorie', thPct:'Percentile', thInt:'Interprétation',
+        tr1c1:'<span class="dot" style="background:#6ec6f5"></span>Insuffisance pondérale', tr1c2:'&lt; 3e percentile', tr1c3:"Poids insuffisant pour la taille et l'âge. Consultation recommandée.",
+        tr2c1:'<span class="dot" style="background:#32d583"></span>Corpulence normale', tr2c2:'3e – 85e percentile', tr2c3:'Zone de référence. Croissance harmonieuse.',
+        tr3c1:'<span class="dot" style="background:#f5b546"></span>Surpoids', tr3c2:'85e – 97e percentile', tr3c3:'Excès de poids relatif à surveiller. Avis médical conseillé.',
+        tr4c1:'<span class="dot" style="background:#ff6b6b"></span>Obésité', tr4c2:'&gt; 97e percentile', tr4c3:'Obésité pédiatrique. Suivi médical nécessaire.',
+        sec2Title:"Pourquoi l'IMC enfant est différent",
+        sec2P1:"L'IMC varie naturellement et fortement pendant l'enfance. Il augmente rapidement la première année de vie, diminue ensuite jusqu'à environ 6 ans (le rebond d'adiposité), puis augmente à nouveau jusqu'à l'âge adulte. Ce rebond précoce, avant 5-6 ans, est associé à un risque plus élevé d'obésité à l'âge adulte.",
+        sec2P2:"C'est pourquoi un seuil fixe comme 25 pour le surpoids adulte n'a aucun sens pour un enfant de 8 ans. À cet âge, le surpoids correspond typiquement à un IMC autour de 18-19, selon le sexe et la courbe de référence utilisée.",
+        sec2P3:"L'interprétation doit toujours être faite par un professionnel de santé qui dispose du carnet de santé et peut observer la trajectoire de la courbe dans le temps, pas seulement un point isolé.",
+        sec3Title:'Ce que les parents peuvent faire',
+        sec3P1:"Si le résultat indique un surpoids ou une obésité, la réaction la plus utile n'est pas de mettre l'enfant au régime, ce qui peut être contre-productif et nuire à son rapport à la nourriture. L'approche recommandée par les pédiatres est de stabiliser le poids (l'enfant grandira dedans) plutôt que de le faire perdre du poids.",
+        sec3P2:"Concrètement : favoriser l'activité physique quotidienne (au moins 60 minutes à intensité modérée), réduire le temps d'écran, structurer les repas sans les rituels de récompense ou de punition avec la nourriture, et consulter un pédiatre ou un nutritionniste pédiatrique pour un accompagnement adapté.",
+        sec3P3:"Pour les enfants en insuffisance pondérale, une consultation médicale est également recommandée pour écarter une cause sous-jacente (trouble digestif, alimentaire, croissance atypique).",
+        ctaTitle:'Calculateur adulte', ctaDesc:"Pour calculer votre propre IMC avec notre outil interactif, retournez sur la page principale.",
+        ctaBtn2:'← Retour au calculateur', limitesLink:"Limites de l'IMC →",
+        footerCopy:'© Société X 2026', footCalc:'Calculateur', footLimites:"Limites de l'IMC"
+      },
+      en: {
+        pageTitle: 'Child BMI | BMI calculator for children and adolescents',
+        navLogo:'BMI Calculator', navCalc:'Calculator', navLimites:'BMI Limits', navEnfant:'Child BMI',
+        mobCalc:'Calculator', mobLimites:'BMI Limits', mobEnfant:'Child BMI',
+        heroBadge:'👶 CHILD & TEEN BMI',
+        heroTitle:"Child BMI : <span id=\"heroSub\">a percentile reading.</span>",
+        heroDesc:"Unlike adults, a child's BMI is not interpreted with fixed thresholds. It varies with age and sex, and is read against a national reference curve expressed in percentiles.",
+        calcTitle:"Calculate your child's BMI", calcBtn:'Calculate BMI',
+        lblHeight:'Height (cm)', lblWeight:'Weight (kg)', lblAge:'Age (years)', lblSex:'Sex',
+        sexF:'Girl', sexM:'Boy', lblImcCalc:'Calculated BMI',
+        alertMsg:'Please fill in all fields with valid values (age 2-18 years).',
+        statusUnder:'Underweight', statusNormal:'Normal weight', statusOver:'Overweight', statusObese:'Obesity',
+        noteUnder:"Your child's weight is below the 3rd percentile for their age and sex. A pediatric consultation is recommended to assess their growth.",
+        noteNormal:"Your child's weight is in the normal range for their age and sex. Keep tracking the curve in the health record.",
+        noteOver:"Your child's BMI is between the 85th and 97th percentile, indicating overweight. Medical follow-up and adapted nutritional advice are recommended.",
+        noteObese:"Your child's BMI exceeds the 97th percentile, corresponding to pediatric obesity. Medical follow-up by a pediatrician or specialist is necessary.",
+        sec1Title:'What is a percentile?',
+        sec1P1:"A percentile indicates a child's position relative to a reference population of the same age and sex. A child at the 50th percentile has a median BMI: half of children with the same profile have a lower BMI, the other half a higher one.",
+        sec1P2:"In France, the reference curves used are those from INSERM, integrated into the health record. The WHO also has its own slightly different curves.",
+        thCat:'Category', thPct:'Percentile', thInt:'Interpretation',
+        tr1c1:'<span class="dot" style="background:#6ec6f5"></span>Underweight', tr1c2:'&lt; 3rd percentile', tr1c3:'Insufficient weight for height and age. Consultation recommended.',
+        tr2c1:'<span class="dot" style="background:#32d583"></span>Normal weight', tr2c2:'3rd – 85th percentile', tr2c3:'Reference range. Harmonious growth.',
+        tr3c1:'<span class="dot" style="background:#f5b546"></span>Overweight', tr3c2:'85th – 97th percentile', tr3c3:'Relative excess weight to monitor. Medical advice recommended.',
+        tr4c1:'<span class="dot" style="background:#ff6b6b"></span>Obesity', tr4c2:'&gt; 97th percentile', tr4c3:'Pediatric obesity. Medical follow-up required.',
+        sec2Title:'Why child BMI is different',
+        sec2P1:'BMI varies naturally and significantly during childhood. It increases rapidly in the first year of life, then decreases until around age 6 (the "adiposity rebound"), then increases again until adulthood. This early rebound, before age 5-6, is associated with a higher risk of obesity in adulthood.',
+        sec2P2:"That is why a fixed threshold like 25 for adult overweight makes no sense for an 8-year-old child. At that age, overweight typically corresponds to a BMI around 18-19, depending on sex and the reference curve used.",
+        sec2P3:"Interpretation should always be done by a healthcare professional who has the health record and can observe the curve trajectory over time, not just an isolated point.",
+        sec3Title:'What parents can do',
+        sec3P1:"If the result indicates overweight or obesity, the most useful reaction is not to put the child on a diet, which can be counterproductive and harm their relationship with food. The approach recommended by pediatricians is to stabilize weight (the child will grow into it) rather than make them lose weight.",
+        sec3P2:"Concretely: encourage daily physical activity (at least 60 minutes at moderate intensity), reduce screen time, structure meals without reward or punishment rituals around food, and consult a pediatrician or pediatric nutritionist for appropriate support.",
+        sec3P3:"For underweight children, a medical consultation is also recommended to rule out an underlying cause (digestive disorder, eating disorder, atypical growth).",
+        ctaTitle:'Adult calculator', ctaDesc:"To calculate your own BMI with our interactive tool, go back to the main page.",
+        ctaBtn2:'← Back to calculator', limitesLink:'BMI Limits →',
+        footerCopy:'© Société X 2026', footCalc:'Calculator', footLimites:'BMI Limits'
+      },
+      es: {
+        pageTitle: 'IMC Infantil | Calculadora IMC para niños y adolescentes',
+        navLogo:'Calculadora IMC', navCalc:'Calculadora', navLimites:'Límites del IMC', navEnfant:'IMC infantil',
+        mobCalc:'Calculadora', mobLimites:'Límites del IMC', mobEnfant:'IMC infantil',
+        heroBadge:'👶 IMC INFANTIL & ADOLESCENTE',
+        heroTitle:"IMC del niño : <span id=\"heroSub\">una lectura en percentil.</span>",
+        heroDesc:"A diferencia del adulto, el IMC de un niño no se interpreta con umbrales fijos. Varía con la edad y el sexo, y se lee en relación con una curva de referencia nacional expresada en percentil.",
+        calcTitle:"Calcular el IMC de su hijo", calcBtn:'Calcular el IMC',
+        lblHeight:'Talla (cm)', lblWeight:'Peso (kg)', lblAge:'Edad (años)', lblSex:'Sexo',
+        sexF:'Niña', sexM:'Niño', lblImcCalc:'IMC calculado',
+        alertMsg:'Por favor, rellene todos los campos con valores válidos (edad 2-18 años).',
+        statusUnder:'Bajo peso', statusNormal:'Peso normal', statusOver:'Sobrepeso', statusObese:'Obesidad',
+        noteUnder:"El peso de su hijo está por debajo del percentil 3 para su edad y sexo. Se recomienda una consulta pediátrica para evaluar su crecimiento.",
+        noteNormal:"La corpulencia de su hijo está en la zona normal para su edad y sexo. Continúe siguiendo la curva en la libreta de salud.",
+        noteOver:"El IMC de su hijo se sitúa entre el percentil 85 y 97, lo que indica sobrepeso. Se recomiendan seguimiento médico y consejos nutricionales adaptados.",
+        noteObese:"El IMC de su hijo supera el percentil 97, correspondiendo a obesidad pediátrica. Es necesario un seguimiento médico por un pediatra o especialista.",
+        sec1Title:'¿Qué es un percentil?',
+        sec1P1:"El percentil indica la posición de un niño en relación con una población de referencia de la misma edad y sexo. Un niño en el percentil 50 tiene un IMC mediano: la mitad de los niños con el mismo perfil tienen un IMC más bajo, la otra mitad más alto.",
+        sec1P2:"En Francia, las curvas de referencia utilizadas son las del INSERM, integradas en la libreta de salud. La OMS también dispone de sus propias curvas ligeramente diferentes.",
+        thCat:'Categoría', thPct:'Percentil', thInt:'Interpretación',
+        tr1c1:'<span class="dot" style="background:#6ec6f5"></span>Bajo peso', tr1c2:'&lt; percentil 3', tr1c3:'Peso insuficiente para la talla y la edad. Consulta recomendada.',
+        tr2c1:'<span class="dot" style="background:#32d583"></span>Peso normal', tr2c2:'percentil 3 – 85', tr2c3:'Zona de referencia. Crecimiento armonioso.',
+        tr3c1:'<span class="dot" style="background:#f5b546"></span>Sobrepeso', tr3c2:'percentil 85 – 97', tr3c3:'Exceso de peso relativo a vigilar. Consejo médico recomendado.',
+        tr4c1:'<span class="dot" style="background:#ff6b6b"></span>Obesidad', tr4c2:'&gt; percentil 97', tr4c3:'Obesidad pediátrica. Seguimiento médico necesario.',
+        sec2Title:'Por qué el IMC del niño es diferente',
+        sec2P1:'El IMC varía natural y significativamente durante la infancia. Aumenta rápidamente el primer año de vida, luego disminuye hasta aproximadamente los 6 años (el "rebote adiposo"), y luego vuelve a aumentar hasta la edad adulta. Este rebote precoz, antes de los 5-6 años, está asociado con un mayor riesgo de obesidad en la edad adulta.',
+        sec2P2:"Por eso un umbral fijo como 25 para el sobrepeso adulto no tiene sentido para un niño de 8 años. A esa edad, el sobrepeso corresponde típicamente a un IMC alrededor de 18-19, según el sexo y la curva de referencia utilizada.",
+        sec2P3:"La interpretación siempre debe ser realizada por un profesional de la salud que disponga de la libreta de salud y pueda observar la trayectoria de la curva en el tiempo, no solo un punto aislado.",
+        sec3Title:'Lo que los padres pueden hacer',
+        sec3P1:"Si el resultado indica sobrepeso u obesidad, la reacción más útil no es poner al niño a dieta, lo que puede ser contraproducente y dañar su relación con la comida. El enfoque recomendado por los pediatras es estabilizar el peso (el niño crecerá dentro de él) en lugar de hacerle perder peso.",
+        sec3P2:"Concretamente: fomentar la actividad física diaria (al menos 60 minutos a intensidad moderada), reducir el tiempo de pantalla, estructurar las comidas sin rituales de recompensa o castigo con la comida, y consultar a un pediatra o nutricionista pediátrico para un acompañamiento adecuado.",
+        sec3P3:"Para los niños con bajo peso, también se recomienda una consulta médica para descartar una causa subyacente (trastorno digestivo, alimentario, crecimiento atípico).",
+        ctaTitle:'Calculadora adultos', ctaDesc:"Para calcular su propio IMC con nuestra herramienta interactiva, vuelva a la página principal.",
+        ctaBtn2:'← Volver a la calculadora', limitesLink:'Límites del IMC →',
+        footerCopy:'© Société X 2026', footCalc:'Calculadora', footLimites:'Límites del IMC'
+      }
+    };
+
+    /* ---- Textes dynamiques du calculateur (par langue) ---- */
+    var currentLang = 'fr';
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('language', lang);
+      document.getElementById('currentFlag').textContent = flags[lang];
+      var t = translations[lang];
+      document.title = t.pageTitle;
+      var ids = ['navLogo','navCalc','navLimites','navEnfant','mobCalc','mobLimites','mobEnfant',
+        'heroBadge','heroTitle','heroDesc','calcTitle','calcBtn','lblHeight','lblWeight','lblAge','lblSex','lblImcCalc',
+        'sec1Title','sec1P1','sec1P2','thCat','thPct','thInt',
+        'tr1c1','tr1c2','tr1c3','tr2c1','tr2c2','tr2c3','tr3c1','tr3c2','tr3c3','tr4c1','tr4c2','tr4c3',
+        'sec2Title','sec2P1','sec2P2','sec2P3','sec3Title','sec3P1','sec3P2','sec3P3',
+        'ctaTitle','ctaDesc','limitesLink','footerCopy','footCalc','footLimites'];
+      ids.forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el && t[id] !== undefined) el.innerHTML = t[id];
+      });
+      /* Boutons sexe */
+      var btnF = document.getElementById('sex-f');
+      var btnM = document.getElementById('sex-m');
+      if (btnF) btnF.textContent = t.sexF;
+      if (btnM) btnM.textContent = t.sexM;
+      /* Bouton CTA */
+      var ctaBtn = document.getElementById('ctaBtn');
+      if (ctaBtn) ctaBtn.textContent = t.ctaBtn2;
+    }
+
+    /* ---- Calculateur ---- */
     function selectSex(val) {
       document.getElementById('c-sex').value = val;
       document.getElementById('sex-f').classList.toggle('selected', val === 'f');
       document.getElementById('sex-m').classList.toggle('selected', val === 'm');
     }
 
-
-    function toggleBurger() {
-      document.getElementById('burgerBtn').classList.toggle('open');
-      document.getElementById('mobileMenu').classList.toggle('open');
-    }
-    document.addEventListener('click', function(e) {
-      var burger = document.getElementById('burgerBtn');
-      var menu   = document.getElementById('mobileMenu');
-      if (!burger || !menu) return;
-      if (!burger.contains(e.target) && !menu.contains(e.target)) {
-        burger.classList.remove('open');
-        menu.classList.remove('open');
-      }
-    });
-    /* ---- SPIN BUTTONS ---- */
     function spinVal(id, delta) {
-      const el = document.getElementById(id);
-      const min = parseFloat(el.min) || 0;
-      const max = parseFloat(el.max) || Infinity;
+      var el = document.getElementById(id);
+      var min = parseFloat(el.min) || 0;
+      var max = parseFloat(el.max) || Infinity;
       el.value = Math.min(max, Math.max(min, (parseFloat(el.value) || 0) + delta));
     }
 
-    /* ---- THEME ---- */
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const savedTheme  = localStorage.getItem('theme');
-    if (savedTheme === 'light' || (!savedTheme && !prefersDark)) document.body.classList.add('light');
-    const toggleBtn = document.getElementById('themeToggle');
-    function updateIcon() { toggleBtn.textContent = document.body.classList.contains('light') ? '☀' : '☾'; }
-    updateIcon();
-    toggleBtn.addEventListener('click', () => {
-      document.body.classList.toggle('light');
-      localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
-      updateIcon();
-    });
-
-    /* ---- COURBES SIMPLIFIÉES (références INSERM/OMS) ----
-       Valeurs de percentile 85 et 97 par âge et sexe
-       Source : courbes françaises du carnet de santé (valeurs indicatives)
-    */
-    const refs = {
-      f: {
-        // [âge]: [p3, p85, p97]
-        2:  [13.4, 17.1, 18.6],
-        3:  [12.9, 16.4, 17.9],
-        4:  [12.5, 15.9, 17.5],
-        5:  [12.3, 15.8, 17.6],
-        6:  [12.2, 16.0, 18.0],
-        7:  [12.3, 16.6, 18.9],
-        8:  [12.5, 17.3, 19.9],
-        9:  [12.9, 18.1, 21.0],
-        10: [13.3, 19.0, 22.1],
-        11: [13.9, 19.9, 23.1],
-        12: [14.5, 20.7, 24.0],
-        13: [15.1, 21.4, 24.7],
-        14: [15.7, 21.9, 25.2],
-        15: [16.1, 22.3, 25.6],
-        16: [16.4, 22.6, 25.9],
-        17: [16.6, 22.8, 26.1],
-        18: [16.8, 23.0, 26.3]
-      },
-      m: {
-        2:  [13.5, 17.0, 18.3],
-        3:  [13.0, 16.3, 17.7],
-        4:  [12.6, 15.9, 17.3],
-        5:  [12.4, 15.8, 17.4],
-        6:  [12.3, 16.0, 17.9],
-        7:  [12.4, 16.7, 18.9],
-        8:  [12.6, 17.5, 20.1],
-        9:  [13.0, 18.4, 21.3],
-        10: [13.5, 19.3, 22.5],
-        11: [14.1, 20.2, 23.6],
-        12: [14.7, 21.0, 24.6],
-        13: [15.3, 21.7, 25.4],
-        14: [15.9, 22.4, 26.0],
-        15: [16.5, 23.0, 26.5],
-        16: [17.0, 23.6, 27.0],
-        17: [17.4, 24.0, 27.4],
-        18: [17.8, 24.5, 27.8]
-      }
+    var refs = {
+      f: { 2:[13.4,17.1,18.6],3:[12.9,16.4,17.9],4:[12.5,15.9,17.5],5:[12.3,15.8,17.6],
+           6:[12.2,16.0,18.0],7:[12.3,16.6,18.9],8:[12.5,17.3,19.9],9:[12.9,18.1,21.0],
+           10:[13.3,19.0,22.1],11:[13.9,19.9,23.1],12:[14.5,20.7,24.0],13:[15.1,21.4,24.7],
+           14:[15.7,21.9,25.2],15:[16.1,22.3,25.6],16:[16.4,22.6,25.9],17:[16.6,22.8,26.1],18:[16.8,23.0,26.3] },
+      m: { 2:[13.5,17.0,18.3],3:[13.0,16.3,17.7],4:[12.6,15.9,17.3],5:[12.4,15.8,17.4],
+           6:[12.3,16.0,17.9],7:[12.4,16.7,18.9],8:[12.6,17.5,20.1],9:[13.0,18.4,21.3],
+           10:[13.5,19.3,22.5],11:[14.1,20.2,23.6],12:[14.7,21.0,24.6],13:[15.3,21.7,25.4],
+           14:[15.9,22.4,26.0],15:[16.5,23.0,26.5],16:[17.0,23.6,27.0],17:[17.4,24.0,27.4],18:[17.8,24.5,27.8] }
     };
 
     function calculateChildIMC() {
-      const h   = parseFloat(document.getElementById('c-height').value);
-      const w   = parseFloat(document.getElementById('c-weight').value);
-      const age = parseInt(document.getElementById('c-age').value);
-      const sex = document.getElementById('c-sex').value;
+      var h   = parseFloat(document.getElementById('c-height').value);
+      var w   = parseFloat(document.getElementById('c-weight').value);
+      var age = parseInt(document.getElementById('c-age').value);
+      var sex = document.getElementById('c-sex').value;
+      var t   = translations[currentLang];
 
       if (!h || !w || !age || !sex || h < 50 || w < 5 || age < 2 || age > 18) {
-        alert('Veuillez renseigner tous les champs avec des valeurs valides (âge 2-18 ans).');
-        return;
+        alert(t.alertMsg); return;
       }
-
-      const imc = w / Math.pow(h / 100, 2);
+      var imc = w / Math.pow(h / 100, 2);
       document.getElementById('childImcValue').textContent = imc.toFixed(1);
-
-      // Interpolation entre deux âges si besoin
-      const ageFloor = Math.min(18, Math.max(2, Math.floor(age)));
-      const ref = refs[sex][ageFloor];
-      const [p3, p85, p97] = ref;
-
-      let status, color, note, pctLabel, cursorPct;
+      var ageFloor = Math.min(18, Math.max(2, Math.floor(age)));
+      var ref = refs[sex][ageFloor];
+      var p3 = ref[0], p85 = ref[1], p97 = ref[2];
+      var status, color, note, pctLabel, cursorPct;
 
       if (imc < p3) {
-        status = 'Insuffisance pondérale';
-        color  = '#6ec6f5';
-        pctLabel = '< 3e percentile';
-        cursorPct = Math.max(1, (imc / p3) * 3);
-        note = "Le poids de votre enfant est inférieur au 3e percentile pour son âge et son sexe. Une consultation pédiatrique est recommandée pour évaluer sa croissance.";
+        status = t.statusUnder; color = '#6ec6f5';
+        pctLabel = '< 3e'; cursorPct = Math.max(1, (imc / p3) * 3); note = t.noteUnder;
       } else if (imc < p85) {
-        status = 'Corpulence normale';
-        color  = '#32d583';
-        const p = 3 + ((imc - p3) / (p85 - p3)) * 82;
-        pctLabel = `≈ ${Math.round(p)}e percentile`;
-        cursorPct = 3 + ((imc - p3) / (p85 - p3)) * 82;
-        note = "La corpulence de votre enfant est dans la zone normale pour son âge et son sexe. Continuez à suivre la courbe dans le carnet de santé.";
+        var p = 3 + ((imc - p3) / (p85 - p3)) * 82;
+        status = t.statusNormal; color = '#32d583';
+        pctLabel = '≈ ' + Math.round(p) + 'e'; cursorPct = p; note = t.noteNormal;
       } else if (imc < p97) {
-        status = 'Surpoids';
-        color  = '#f5b546';
-        const p = 85 + ((imc - p85) / (p97 - p85)) * 12;
-        pctLabel = `≈ ${Math.round(p)}e percentile`;
-        cursorPct = 85 + ((imc - p85) / (p97 - p85)) * 12;
-        note = "L'IMC de votre enfant se situe entre le 85e et le 97e percentile, ce qui indique un surpoids. Un suivi médical et des conseils nutritionnels adaptés sont conseillés.";
+        var p = 85 + ((imc - p85) / (p97 - p85)) * 12;
+        status = t.statusOver; color = '#f5b546';
+        pctLabel = '≈ ' + Math.round(p) + 'e'; cursorPct = p; note = t.noteOver;
       } else {
-        status = 'Obésité';
-        color  = '#ff6b6b';
-        pctLabel = '> 97e percentile';
-        cursorPct = Math.min(99, 97 + ((imc - p97) / p97) * 10);
-        note = "L'IMC de votre enfant dépasse le 97e percentile, correspondant à une obésité pédiatrique. Un suivi médical par un pédiatre ou spécialiste est nécessaire.";
+        status = t.statusObese; color = '#ff6b6b';
+        pctLabel = '> 97e'; cursorPct = Math.min(99, 97 + ((imc - p97) / p97) * 10); note = t.noteObese;
       }
-
-      document.getElementById('childStatus').textContent      = status;
-      document.getElementById('childStatus').style.color      = color;
+      document.getElementById('childStatus').textContent = status;
+      document.getElementById('childStatus').style.color = color;
       document.getElementById('childPercentileLabel').textContent = pctLabel;
-      document.getElementById('childCursor').style.left       = Math.min(98, Math.max(2, cursorPct)) + '%';
-      document.getElementById('childNote').textContent        = note;
-      document.getElementById('childResult').style.display    = 'block';
-
+      document.getElementById('childCursor').style.left = Math.min(98, Math.max(2, cursorPct)) + '%';
+      document.getElementById('childNote').textContent = note;
+      document.getElementById('childResult').style.display = 'block';
       if (window.innerWidth < 720) {
-        setTimeout(() => {
+        setTimeout(function() {
           document.getElementById('childResult').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 60);
       }
     }
+
+    /* ---- INIT ---- */
+    document.addEventListener('DOMContentLoaded', function() {
+
+      /* Thème */
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light' || (!savedTheme && !prefersDark)) document.body.classList.add('light');
+      var toggleBtn = document.getElementById('themeToggle');
+      function updateIcon() { toggleBtn.textContent = document.body.classList.contains('light') ? '☀' : '☾'; }
+      updateIcon();
+      toggleBtn.addEventListener('click', function() {
+        document.body.classList.toggle('light');
+        localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+        updateIcon();
+      });
+
+      /* Langue */
+      var savedLang = localStorage.getItem('language') || navigator.language.slice(0,2);
+      setLanguage(translations[savedLang] ? savedLang : 'fr');
+
+      document.getElementById('langBtn').addEventListener('click', function() {
+        this.classList.toggle('open');
+        document.getElementById('langMenu').classList.toggle('open');
+      });
+      document.querySelectorAll('.lang-option[data-lang]').forEach(function(el) {
+        el.addEventListener('click', function() {
+          setLanguage(el.getAttribute('data-lang'));
+          document.getElementById('langBtn').classList.remove('open');
+          document.getElementById('langMenu').classList.remove('open');
+        });
+      });
+      document.addEventListener('click', function(e) {
+        var ls = document.getElementById('langSwitcher');
+        if (ls && !ls.contains(e.target)) {
+          document.getElementById('langBtn').classList.remove('open');
+          document.getElementById('langMenu').classList.remove('open');
+        }
+      });
+
+      /* Burger */
+      document.getElementById('burgerBtn').addEventListener('click', function() {
+        this.classList.toggle('open');
+        document.getElementById('mobileMenu').classList.toggle('open');
+      });
+      document.addEventListener('click', function(e) {
+        var burger = document.getElementById('burgerBtn');
+        var menu = document.getElementById('mobileMenu');
+        if (burger && !burger.contains(e.target) && menu && !menu.contains(e.target)) {
+          burger.classList.remove('open');
+          menu.classList.remove('open');
+        }
+      });
+    });
+
+  })();
   </script>
 
 </body>
