@@ -110,59 +110,25 @@
 
 
     /* ---- BURGER MOBILE ---- */
-    .burger {
-      display: none;
-      align-items: center;
-      justify-content: center;
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.08);
-      cursor: pointer;
-      flex-shrink: 0;
-      transition: background 0.2s ease;
-    }
-    .burger:hover { background: rgba(255,255,255,0.14); }
-    .burger .icon-burger { display: block; }
-    .burger .icon-close  { display: none; }
-    .burger.open .icon-burger { display: none; }
-    .burger.open .icon-close  { display: block; }
-
-    .mobile-menu {
-      display: none;
-      position: fixed;
-      top: 53px; left: 0; width: 100%;
-      background: rgba(15,17,21,0.97);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      backdrop-filter: blur(20px) saturate(180%);
-      border-bottom: 1px solid var(--border);
-      padding: 8px 14px 12px;
-      flex-direction: column;
-      gap: 4px;
-      z-index: 1000;
-    }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu .mob-link {
-      display: block;
-      padding: 12px 16px;
-      font-size: 15px;
-      font-family: 'Inter', sans-serif;
-      border-radius: 14px;
-      border: 1px solid transparent;
-      color: var(--muted);
-      text-decoration: none;
-      transition: all 0.15s ease;
-    }
-    .mobile-menu .mob-link:hover { background: rgba(255,255,255,0.07); color: var(--text); }
-    .mobile-menu .mob-link.active {
-      background: rgba(255,255,255,0.09);
-      border-color: var(--border);
-      color: var(--text);
-    }
-    body.light .burger { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.12); }
-    body.light .burger svg { stroke: #111827; }
-    body.light .mobile-menu { background: rgba(235,239,245,0.97); }
+    .burger { display:none; align-items:center; justify-content:center; width:36px; height:36px;
+      border-radius:10px; border:1px solid var(--border); background:rgba(255,255,255,0.08);
+      cursor:pointer; flex-shrink:0; transition:background 0.2s ease; }
+    .burger:hover { background:rgba(255,255,255,0.14); }
+    .burger .icon-burger { display:block; } .burger .icon-close { display:none; }
+    .burger.open .icon-burger { display:none; } .burger.open .icon-close { display:block; }
+    .mobile-menu { display:none; position:fixed; top:53px; left:0; width:100%;
+      background:rgba(15,17,21,0.97); -webkit-backdrop-filter:blur(20px);
+      backdrop-filter:blur(20px); border-bottom:1px solid var(--border);
+      padding:8px 14px 12px; flex-direction:column; gap:4px; z-index:1000; }
+    .mobile-menu.open { display:flex; }
+    .mobile-menu .mob-link { display:block; padding:12px 16px; font-size:15px;
+      font-family:'Inter',sans-serif; border-radius:14px; border:1px solid transparent;
+      color:var(--muted); text-decoration:none; transition:all 0.15s ease; }
+    .mobile-menu .mob-link:hover { background:rgba(255,255,255,0.07); color:var(--text); }
+    .mobile-menu .mob-link.active { background:rgba(255,255,255,0.09); border-color:var(--border); color:var(--text); }
+    body.light .burger { background:rgba(0,0,0,0.05); border-color:rgba(0,0,0,0.12); }
+    body.light .burger svg { stroke:#111827; }
+    body.light .mobile-menu { background:rgba(235,239,245,0.97); }
     @media (max-width: 640px) {
       .topbar { padding: 8px 14px; }
       .nav-links { display: none; }
@@ -1040,12 +1006,12 @@
   </script>
 
   <nav class="topbar" id="mainTopbar">
-    <button class="burger" id="burgerBtn" onclick="toggleBurger()" aria-label="Menu"><svg class="icon-burger" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--text)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="4" x2="14" y2="4"/><line x1="2" y1="8" x2="14" y2="8"/><line x1="2" y1="12" x2="14" y2="12"/></svg><svg class="icon-close" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--text)" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="3" x2="13" y2="13"/><line x1="13" y1="3" x2="3" y2="13"/></svg></button>
-    <span class="nav-logo">Calculateur IMC</span>
+    <button class="burger" id="burgerBtn" aria-label="Menu"><svg class="icon-burger" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--text)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="4" x2="14" y2="4"/><line x1="2" y1="8" x2="14" y2="8"/><line x1="2" y1="12" x2="14" y2="12"/></svg><svg class="icon-close" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--text)" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="3" x2="13" y2="13"/><line x1="13" y1="3" x2="3" y2="13"/></svg></button>
+    <span class="nav-logo" id="navLogo">Calculateur IMC</span>
     <div class="nav-links">
-      <a class="nav-link active" href="index.html">Calculateur</a>
-      <a class="nav-link" href="limites-imc.html">Limites de l'IMC</a>
-      <a class="nav-link" href="imc-enfant.html">IMC enfant</a>
+      <a class="nav-link active" href="index.html" id="navCalc">Calculateur</a>
+      <a class="nav-link" href="limites-imc.html" id="navLimites">Limites de l'IMC</a>
+      <a class="nav-link" href="imc-enfant.html" id="navEnfant">IMC enfant</a>
     </div>
     <div class="nav-controls">
       <div class="language-switcher" id="langSwitcher">
@@ -1063,22 +1029,22 @@
           <div class="lang-option" onclick="setLanguage('es'); closeLangMenu();">
             <span class="flag">🇪🇸</span><span class="lang-name">Español</span>
           </div>
-        </div><!-- /lang-menu -->
-      </div><!-- /language-switcher -->
+        </div>
+      </div>
       <button class="theme-toggle" id="themeToggle">☾</button>
-    </div><!-- /nav-controls -->
+    </div>
   </nav>
   <div class="mobile-menu" id="mobileMenu">
-    <a class="mob-link active" href="index.html">Calculateur</a>
-    <a class="mob-link" href="limites-imc.html">Limites de l'IMC</a>
-    <a class="mob-link" href="imc-enfant.html">IMC enfant</a>
+    <a class="mob-link active" href="index.html" id="mobCalc">Calculateur</a>
+    <a class="mob-link" href="limites-imc.html" id="mobLimites">Limites de l'IMC</a>
+    <a class="mob-link" href="imc-enfant.html" id="mobEnfant">IMC enfant</a>
   </div>
 
   <div class="container">
 
     <section class="left">
       <h1 id="mainTitle">
-        Analysez votre<br>
+        Analysez votre <br>
         <span>indice de masse corporelle.</span>
       </h1>
 
@@ -1267,21 +1233,14 @@
   <script>
     const flags = { fr: '🇫🇷', en: '🇬🇧', es: '🇪🇸' };
 
-    
+
     function toggleBurger() {
-      document.getElementById('burgerBtn').classList.toggle('open');
-      document.getElementById('mobileMenu').classList.toggle('open');
+      var b = document.getElementById('burgerBtn');
+      var m = document.getElementById('mobileMenu');
+      if (b) b.classList.toggle('open');
+      if (m) m.classList.toggle('open');
     }
-    document.addEventListener('click', function(e) {
-      var burger = document.getElementById('burgerBtn');
-      var menu   = document.getElementById('mobileMenu');
-      if (!burger || !menu) return;
-      if (!burger.contains(e.target) && !menu.contains(e.target)) {
-        burger.classList.remove('open');
-        menu.classList.remove('open');
-      }
-    });
-function toggleLangMenu() {
+    function toggleLangMenu() {
       document.getElementById('langBtn').classList.toggle('open');
       document.getElementById('langMenu').classList.toggle('open');
     }
@@ -1291,7 +1250,7 @@ function toggleLangMenu() {
       document.getElementById('langMenu').classList.remove('open');
     }
 
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', e => {
       if (!document.getElementById('langSwitcher').contains(e.target)) closeLangMenu();
     });
 
@@ -1384,8 +1343,9 @@ function toggleLangMenu() {
 
     const translations = {
       fr: {
+        navLogo: 'Calculateur IMC', navCalc: 'Calculateur', navLimites: "Limites de l'IMC", navEnfant: 'IMC enfant', mobCalc: 'Calculateur', mobLimites: "Limites de l'IMC", mobEnfant: 'IMC enfant',
         badge: "QU'EST-CE QUE L'IMC ?",
-        title: "Analysez votre<br><span>indice de masse corporelle.</span>",
+        title: "Analysez votre <br><span>indice de masse corporelle.</span>",
         desc: "L'IMC (Indice de Masse Corporelle) est une valeur permettant d'évaluer la corpulence d'une personne en fonction de sa taille et de son poids.",
         normal: "IMC normal : 18.5 – 24.9", overweight: "Surpoids : 25 – 29.9", obesity: "Obésité : 30+",
         calc: "Calculez votre IMC", height: "Taille (cm)", weight: "Poids (kg)",
@@ -1407,8 +1367,9 @@ function toggleLangMenu() {
         footerLegal: "Mentions légales", footerContact: "Contact"
       },
       en: {
+        navLogo: 'BMI Calculator', navCalc: 'Calculator', navLimites: 'BMI Limits', navEnfant: 'Child BMI', mobCalc: 'Calculator', mobLimites: 'BMI Limits', mobEnfant: 'Child BMI',
         badge: "WHAT IS BMI?",
-        title: "Analyze your<br><span>body mass index.</span>",
+        title: "Analyze your <br><span>body mass index.</span>",
         desc: "BMI (Body Mass Index) is a value used to assess body weight based on height and weight.",
         normal: "Normal BMI: 18.5 – 24.9", overweight: "Overweight: 25 – 29.9", obesity: "Obesity: 30+",
         calc: "Calculate your BMI", height: "Height (cm)", weight: "Weight (kg)",
@@ -1430,8 +1391,9 @@ function toggleLangMenu() {
         footerLegal: "Legal notice", footerContact: "Contact"
       },
       es: {
+        navLogo: 'Calculadora IMC', navCalc: 'Calculadora', navLimites: 'Límites del IMC', navEnfant: 'IMC infantil', mobCalc: 'Calculadora', mobLimites: 'Límites del IMC', mobEnfant: 'IMC infantil',
         badge: "¿QUÉ ES EL IMC?",
-        title: "Analiza tu<br><span>índice de masa corporal.</span>",
+        title: "Analiza tu <br><span>índice de masa corporal.</span>",
         desc: "El IMC (Índice de Masa Corporal) es un valor que permite evaluar la complexión física según la altura y el peso.",
         normal: "IMC normal: 18.5 – 24.9", overweight: "Sobrepeso: 25 – 29.9", obesity: "Obesidad: 30+",
         calc: "Calcula tu IMC", height: "Altura (cm)", weight: "Peso (kg)",
