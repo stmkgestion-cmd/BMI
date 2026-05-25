@@ -821,6 +821,38 @@
     }
 
     /* ===== MOBILE ===== */
+    /* ---- UNIT TOGGLE ---- */
+    .unit-toggle {
+      display: flex;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 3px;
+      margin-bottom: 20px;
+      width: fit-content;
+    }
+    .unit-btn {
+      padding: 6px 13px;
+      border-radius: 8px;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-size: 12px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .unit-btn.active { background: rgba(255,255,255,0.11); color: var(--text); }
+    .unit-btn:hover:not(.active) { color: var(--text); }
+    body.light .unit-toggle { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.08); }
+    body.light .unit-btn.active { background: rgba(0,0,0,0.08); color: #111827; }
+
+    .imperial-height-row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .imperial-units { display: flex; gap: 6px; margin-top: 4px; }
+    .imperial-units span { flex: 1; text-align: center; font-size: 10px; color: var(--muted); letter-spacing: 0.3px; }
+
     @media (max-width: 640px) {
 
       /* Body plein écran, sans padding latéral */
@@ -1077,18 +1109,56 @@
       <div class="calculator">
         <h2 id="calcTitle">Calculez votre IMC</h2>
 
+        <div class="unit-toggle">
+          <button class="unit-btn active" id="unitMetricBtn" onclick="setUnit('metric')">cm / kg</button>
+          <button class="unit-btn" id="unitImperialBtn" onclick="setUnit('imperial')">ft / lbs</button>
+        </div>
+
         <div class="inputs-row">
         <div class="group">
-          <label id="heightLabel">Taille (cm)</label>
-          <div class="input-wrapper">
-            <input type="number" id="height" placeholder="Ex : 175">
-            <div class="spin-btns">
-              <button class="spin-btn" onclick="changeValue('height', 1)" title="+1">
-                <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
-              </button>
-              <button class="spin-btn" onclick="changeValue('height', -1)" title="-1">
-                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-              </button>
+          <div id="metricHeightWrap">
+            <label id="heightLabel">Taille (cm)</label>
+            <div class="input-wrapper">
+              <input type="number" id="height" placeholder="Ex : 175" oninput="autoCalculate()">
+              <div class="spin-btns">
+                <button class="spin-btn" onclick="changeValue('height', 1)" title="+1">
+                  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+                </button>
+                <button class="spin-btn" onclick="changeValue('height', -1)" title="-1">
+                  <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div id="imperialHeightWrap" style="display:none">
+            <label id="imperialHeightLabel">Taille</label>
+            <div class="imperial-height-row">
+              <div class="input-wrapper">
+                <input type="number" id="heightFt" placeholder="5" min="1" max="8" oninput="autoCalculate()">
+                <div class="spin-btns">
+                  <button class="spin-btn" onclick="changeValue('heightFt', 1)" title="+1">
+                    <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+                  </button>
+                  <button class="spin-btn" onclick="changeValue('heightFt', -1)" title="-1">
+                    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                  </button>
+                </div>
+              </div>
+              <div class="input-wrapper">
+                <input type="number" id="heightIn" placeholder="9" min="0" max="11" oninput="autoCalculate()">
+                <div class="spin-btns">
+                  <button class="spin-btn" onclick="changeValueIn(1)" title="+1">
+                    <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+                  </button>
+                  <button class="spin-btn" onclick="changeValueIn(-1)" title="-1">
+                    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="imperial-units">
+              <span>ft</span>
+              <span>in</span>
             </div>
           </div>
         </div>
@@ -1096,7 +1166,7 @@
         <div class="group">
           <label id="weightLabel">Poids (kg)</label>
           <div class="input-wrapper">
-            <input type="number" id="weight" placeholder="Ex : 70">
+            <input type="number" id="weight" placeholder="Ex : 70" oninput="autoCalculate()">
             <div class="spin-btns">
               <button class="spin-btn" onclick="changeValue('weight', 1)" title="+1">
                 <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
@@ -1109,7 +1179,7 @@
         </div>
         </div>
 
-        <button class="calc-btn" onclick="calculateIMC()">
+        <button class="calc-btn" onclick="calculateIMC(false)">
           <span id="calcButton">Calculer maintenant</span>
         </button>
 
@@ -1232,6 +1302,7 @@
 
   <script>
     const flags = { fr: '🇫🇷', en: '🇬🇧', es: '🇪🇸' };
+    let currentUnit = localStorage.getItem('unit') || 'metric';
 
 
     function toggleBurger() {
@@ -1263,13 +1334,87 @@
 
     function changeValue(id, delta) {
       const el = document.getElementById(id);
-      el.value = Math.max(0, (parseFloat(el.value) || 0) + delta);
+      const min = el.min !== '' ? parseFloat(el.min) : 0;
+      const max = el.max !== '' ? parseFloat(el.max) : Infinity;
+      el.value = Math.min(max, Math.max(min, (parseFloat(el.value) || 0) + delta));
+      autoCalculate();
     }
 
     function changeValueFloat(id, delta) {
       const el = document.getElementById(id);
       const v = Math.round(((parseFloat(el.value) || 0) + delta) * 10) / 10;
       el.value = Math.max(10, Math.min(50, v));
+    }
+
+    function changeValueIn(delta) {
+      const ftEl = document.getElementById('heightFt');
+      const inEl = document.getElementById('heightIn');
+      let val = (parseFloat(inEl.value) || 0) + delta;
+      if (val > 11) {
+        val = 0;
+        ftEl.value = Math.min(8, (parseFloat(ftEl.value) || 0) + 1);
+      } else if (val < 0) {
+        const ft = parseFloat(ftEl.value) || 0;
+        if (ft > 1) { val = 11; ftEl.value = ft - 1; }
+        else val = 0;
+      }
+      inEl.value = val;
+      autoCalculate();
+    }
+
+    function getHeightCm() {
+      if (currentUnit === 'imperial') {
+        const ft = parseFloat(document.getElementById('heightFt').value) || 0;
+        const inches = parseFloat(document.getElementById('heightIn').value) || 0;
+        return ft * 30.48 + inches * 2.54;
+      }
+      return parseFloat(document.getElementById('height').value) || 0;
+    }
+
+    function autoCalculate() {
+      let valid;
+      if (currentUnit === 'imperial') {
+        const ft = parseFloat(document.getElementById('heightFt').value);
+        const lbs = parseFloat(document.getElementById('weight').value);
+        valid = ft >= 1 && ft <= 8 && lbs >= 44 && lbs <= 1200;
+      } else {
+        const h = parseFloat(document.getElementById('height').value);
+        const w = parseFloat(document.getElementById('weight').value);
+        valid = h >= 50 && h <= 280 && w >= 20 && w <= 500;
+      }
+      if (valid) calculateIMC(true);
+    }
+
+    function setUnit(unit) {
+      currentUnit = unit;
+      localStorage.setItem('unit', unit);
+      document.getElementById('unitMetricBtn').classList.toggle('active', unit === 'metric');
+      document.getElementById('unitImperialBtn').classList.toggle('active', unit === 'imperial');
+      document.getElementById('metricHeightWrap').style.display = unit === 'metric' ? '' : 'none';
+      document.getElementById('imperialHeightWrap').style.display = unit === 'imperial' ? '' : 'none';
+      const lang = localStorage.getItem('language') || 'fr';
+      const t = translations[lang];
+      if (unit === 'imperial') {
+        const cmVal = parseFloat(document.getElementById('height').value);
+        if (cmVal >= 50) {
+          const totalIn = cmVal / 2.54;
+          document.getElementById('heightFt').value = Math.floor(totalIn / 12);
+          document.getElementById('heightIn').value = Math.round(totalIn % 12);
+        }
+        const kgVal = parseFloat(document.getElementById('weight').value);
+        if (kgVal > 0) document.getElementById('weight').value = Math.round(kgVal * 2.20462);
+        document.getElementById('weightLabel').innerHTML = t.weightLbs;
+        document.getElementById('weight').placeholder = 'Ex : 154';
+      } else {
+        const ft = parseFloat(document.getElementById('heightFt').value) || 0;
+        const inches = parseFloat(document.getElementById('heightIn').value) || 0;
+        if (ft > 0) document.getElementById('height').value = Math.round(ft * 30.48 + inches * 2.54);
+        const lbsVal = parseFloat(document.getElementById('weight').value);
+        if (lbsVal > 0) document.getElementById('weight').value = Math.round(lbsVal / 2.20462 * 10) / 10;
+        document.getElementById('weightLabel').innerHTML = t.weight;
+        document.getElementById('weight').placeholder = 'Ex : 70';
+      }
+      document.getElementById('result').style.display = 'none';
     }
 
     /* Positionne le curseur — flex 3.5/6.5/5/10 = total 25
@@ -1297,16 +1442,29 @@
       cursor.style.left = Math.min(98, Math.max(2, pct)) + '%';
     }
 
-    function calculateIMC() {
-      const height = parseFloat(document.getElementById('height').value);
-      const weight = parseFloat(document.getElementById('weight').value);
+    function calculateIMC(silent) {
       const lang = localStorage.getItem('language') || 'fr';
       const t = translations[lang];
-      if (!height || !weight || height <= 0 || weight <= 0) {
-        alert(t.alertMsg || 'Veuillez entrer des valeurs valides.');
-        return;
+      let heightCm, weightKg;
+      if (currentUnit === 'imperial') {
+        const ft = parseFloat(document.getElementById('heightFt').value);
+        const inches = parseFloat(document.getElementById('heightIn').value) || 0;
+        const lbs = parseFloat(document.getElementById('weight').value);
+        if (!ft || !lbs || ft <= 0 || lbs <= 0) {
+          if (!silent) alert(t.alertMsg || 'Veuillez entrer des valeurs valides.');
+          return;
+        }
+        heightCm = ft * 30.48 + inches * 2.54;
+        weightKg = lbs * 0.453592;
+      } else {
+        heightCm = parseFloat(document.getElementById('height').value);
+        weightKg = parseFloat(document.getElementById('weight').value);
+        if (!heightCm || !weightKg || heightCm <= 0 || weightKg <= 0) {
+          if (!silent) alert(t.alertMsg || 'Veuillez entrer des valeurs valides.');
+          return;
+        }
       }
-      const imc = weight / Math.pow(height / 100, 2);
+      const imc = weightKg / Math.pow(heightCm / 100, 2);
       document.getElementById('imcValue').textContent = imc.toFixed(1);
       let status, className;
       if (imc < 18.5)    { status = t.statusUnder;  className = 'medium'; }
@@ -1318,11 +1476,9 @@
       statusEl.className = 'status ' + className;
       positionCursor(imc);
       document.getElementById('result').style.display = 'block';
-      // reset IMC cible
       document.getElementById('targetImc').value = '';
       document.getElementById('targetResult').innerHTML = '';
-      // scroll vers le résultat sur mobile
-      if (window.innerWidth < 980) {
+      if (!silent && window.innerWidth < 980) {
         setTimeout(() => {
           document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 60);
@@ -1331,21 +1487,24 @@
 
     function calculateTargetWeight() {
       const targetImc = parseFloat(document.getElementById('targetImc').value);
-      const height = parseFloat(document.getElementById('height').value);
+      const heightCm = getHeightCm();
       const lang = localStorage.getItem('language') || 'fr';
       const t = translations[lang];
       const resultEl = document.getElementById('targetResult');
-      if (!targetImc || !height || targetImc < 10 || targetImc > 50) {
+      if (!targetImc || !heightCm || targetImc < 10 || targetImc > 50) {
         resultEl.innerHTML = '';
         return;
       }
-      const targetWeight = targetImc * Math.pow(height / 100, 2);
+      const targetWeightKg = targetImc * Math.pow(heightCm / 100, 2);
+      const weightDisplay = currentUnit === 'imperial'
+        ? `${(targetWeightKg * 2.20462).toFixed(1)} lbs`
+        : `${targetWeightKg.toFixed(1)} kg`;
       let color;
       if (targetImc < 18.5)    color = '#6ec6f5';
       else if (targetImc < 25) color = '#32d583';
       else if (targetImc < 30) color = '#f5b546';
       else                     color = '#ff6b6b';
-      resultEl.innerHTML = `<strong style="color:${color}">${targetWeight.toFixed(1)} kg</strong>${t.targetResultText || 'pour un IMC de'} ${targetImc}`;
+      resultEl.innerHTML = `<strong style="color:${color}">${weightDisplay}</strong>${t.targetResultText || 'pour un IMC de'} ${targetImc}`;
     }
 
     const translations = {
@@ -1371,7 +1530,8 @@
         contactEmailLabel: "Email", contactEmailInput: "jean@exemple.fr",
         contactMsgLabel: "Message", contactMsgInput: "Votre message…",
         contactSendBtn: "Envoyer le message", contactCloseBtn: "Fermer",
-        footerLegal: "Mentions légales", footerContact: "Contact"
+        footerLegal: "Mentions légales", footerContact: "Contact",
+        heightImpLabel: 'Taille', weightLbs: 'Poids (lbs)'
       },
       en: {
         navLogo: 'BMI Calculator', navCalc: 'Calculator', navLimites: 'BMI Limits', navEnfant: 'Child BMI', mobCalc: 'Calculator', mobLimites: 'BMI Limits', mobEnfant: 'Child BMI',
@@ -1395,7 +1555,8 @@
         contactEmailLabel: "Email", contactEmailInput: "john@example.com",
         contactMsgLabel: "Message", contactMsgInput: "Your message…",
         contactSendBtn: "Send message", contactCloseBtn: "Close",
-        footerLegal: "Legal notice", footerContact: "Contact"
+        footerLegal: "Legal notice", footerContact: "Contact",
+        heightImpLabel: 'Height', weightLbs: 'Weight (lbs)'
       },
       es: {
         navLogo: 'Calculadora IMC', navCalc: 'Calculadora', navLimites: 'Límites del IMC', navEnfant: 'IMC infantil', mobCalc: 'Calculadora', mobLimites: 'Límites del IMC', mobEnfant: 'IMC infantil',
@@ -1419,7 +1580,8 @@
         contactEmailLabel: "Email", contactEmailInput: "juan@ejemplo.es",
         contactMsgLabel: "Mensaje", contactMsgInput: "Tu mensaje…",
         contactSendBtn: "Enviar mensaje", contactCloseBtn: "Cerrar",
-        footerLegal: "Aviso legal", footerContact: "Contacto"
+        footerLegal: "Aviso legal", footerContact: "Contacto",
+        heightImpLabel: 'Talla', weightLbs: 'Peso (lbs)'
       }
     };
 
@@ -1473,10 +1635,15 @@
       document.getElementById('contactCloseBtn').innerHTML  = t.contactCloseBtn;
       document.querySelector('footer .footer-links a:first-child').innerHTML = t.footerLegal;
       document.querySelector('footer .footer-links a:last-child').innerHTML  = t.footerContact;
+      document.getElementById('imperialHeightLabel').innerHTML = t.heightImpLabel;
+      if (currentUnit === 'imperial') {
+        document.getElementById('weightLabel').innerHTML = t.weightLbs;
+      }
     }
 
     const savedLang = localStorage.getItem('language') || navigator.language.slice(0, 2);
     setLanguage(translations[savedLang] ? savedLang : 'fr');
+    if (currentUnit === 'imperial') setUnit('imperial');
 
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const savedTheme  = localStorage.getItem('theme');
