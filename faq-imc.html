@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ IMC | Questions fréquentes sur l'indice de masse corporelle</title>
+  <meta name="description" content="Toutes les réponses aux questions fréquentes sur l'IMC : calcul, interprétation, seuils, limites, IMC normal, surpoids, obésité et conseils pratiques.">
+  <meta name="keywords" content="FAQ IMC, questions IMC, IMC normal, calcul IMC, interprétation IMC, surpoids, obésité, seuils IMC">
+  <meta name="author" content="Société X">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="FAQ IMC – Questions fréquentes">
+  <meta property="og:description" content="Toutes les réponses aux questions fréquentes sur l'indice de masse corporelle.">
+  <meta property="og:type" content="article">
+  <link rel="canonical" href="https://www.votresite.com/faq-imc">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --footer: #c7d0dd; --link: #8db4ff; --bg: #0f1115;
+      --border: rgba(255,255,255,0.08); --text: #f5f7fb;
+      --muted: #a7b0c0; --accent: #ffffff;
+      --success: #32d583; --warning: #f5b546; --danger: #ff6b6b;
+      --shadow: 0 20px 60px rgba(0,0,0,0.45);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.04), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(255,255,255,0.03), transparent 25%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 80px 20px 80px;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    /* ---- NAV ---- */
+    .topbar {
+      position: fixed;
+      top: 0; left: 0; width: 100%;
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(15,17,21,0.82);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--border);
+      z-index: 900;
+    }
+
+    .nav-logo {
+      font-size: 15px; font-weight: 600; color: var(--text);
+      text-decoration: none; letter-spacing: -0.3px;
+    }
+
+    .nav-links { display: flex; gap: 6px; align-items: center; }
+
+    .nav-link {
+      padding: 8px 14px; border-radius: 999px; font-size: 13px;
+      color: var(--muted); text-decoration: none;
+      border: 1px solid transparent; transition: all 0.2s ease; white-space: nowrap;
+    }
+    .nav-link:hover { color: var(--text); background: rgba(255,255,255,0.07); border-color: var(--border); }
+    .nav-link.active { color: var(--text); background: rgba(255,255,255,0.09); border-color: var(--border); }
+
+    .nav-controls { display: flex; align-items: center; gap: 10px; }
+
+    .theme-toggle {
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 1px solid var(--border); background: rgba(255,255,255,0.08);
+      color: var(--text); cursor: pointer; font-size: 17px;
+      display: flex; align-items: center; justify-content: center; transition: 0.2s ease;
+    }
+    .theme-toggle:hover { transform: scale(1.05); background: rgba(255,255,255,0.13); }
+
+    /* ---- PAGE LAYOUT ---- */
+    .page-wrapper { max-width: 900px; margin: 0 auto; padding-top: 30px; }
+
+    /* Hero */
+    .hero {
+      padding: 52px 60px;
+      border: 1px solid var(--border); border-radius: 32px;
+      background: rgba(255,255,255,0.03); backdrop-filter: blur(20px);
+      box-shadow: var(--shadow); margin-bottom: 24px;
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 14px; border-radius: 999px;
+      background: rgba(141,180,255,0.12); border: 1px solid rgba(141,180,255,0.3);
+      color: var(--link); font-size: 12px; font-weight: 500;
+      letter-spacing: 0.5px; margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-size: 48px; font-weight: 700; letter-spacing: -2px;
+      line-height: 1.05; margin-bottom: 18px;
+    }
+    .hero h1 span { color: #cfd8e3; font-weight: 300; }
+
+    .hero-desc { color: var(--muted); font-size: 17px; line-height: 1.8; max-width: 620px; }
+
+    /* FAQ section */
+    .faq-section {
+      border: 1px solid var(--border); border-radius: 28px;
+      background: rgba(255,255,255,0.03); margin-bottom: 20px; overflow: hidden;
+    }
+
+    .faq-section-title {
+      padding: 28px 36px 0;
+      font-size: 13px; font-weight: 600; letter-spacing: 1px;
+      color: var(--muted); text-transform: uppercase;
+    }
+
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-item:last-child { border-bottom: none; }
+
+    .faq-question {
+      width: 100%; background: none; border: none; cursor: pointer;
+      padding: 22px 36px; text-align: left; color: var(--text);
+      font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 500;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 16px; transition: background 0.15s ease; line-height: 1.5;
+    }
+    .faq-question:hover { background: rgba(255,255,255,0.03); }
+
+    .faq-chevron {
+      flex-shrink: 0; width: 18px; height: 18px;
+      stroke: var(--muted); fill: none; stroke-width: 2.2;
+      stroke-linecap: round; stroke-linejoin: round;
+      transition: transform 0.25s ease;
+    }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+
+    .faq-answer {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.25s ease;
+    }
+    .faq-item.open .faq-answer { max-height: 600px; }
+
+    .faq-answer-inner {
+      padding: 0 36px 24px;
+      color: var(--muted); font-size: 15px; line-height: 1.85;
+    }
+    .faq-answer-inner strong { color: var(--text); }
+    .faq-answer-inner a { color: var(--link); text-decoration: none; }
+    .faq-answer-inner a:hover { text-decoration: underline; }
+
+    .faq-answer-inner .values-row {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px;
+    }
+    .val-chip {
+      display: flex; flex-direction: column; align-items: center;
+      padding: 10px 16px; border-radius: 14px; border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04); font-size: 13px; gap: 4px;
+    }
+    .val-chip .val-num { font-size: 17px; font-weight: 700; }
+    .val-chip .val-label { color: var(--muted); font-size: 11px; }
+    .val-chip.green { border-color: rgba(50,213,131,0.3); }
+    .val-chip.green .val-num { color: var(--success); }
+    .val-chip.yellow { border-color: rgba(245,181,70,0.3); }
+    .val-chip.yellow .val-num { color: var(--warning); }
+    .val-chip.orange { border-color: rgba(255,150,50,0.3); }
+    .val-chip.orange .val-num { color: #ff9632; }
+    .val-chip.red { border-color: rgba(255,107,107,0.3); }
+    .val-chip.red .val-num { color: var(--danger); }
+
+    /* CTA */
+    .cta-section {
+      padding: 40px; border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 28px; background: rgba(255,255,255,0.04);
+      text-align: center; margin-bottom: 20px;
+    }
+    .cta-section h2 { font-size: 24px; font-weight: 700; letter-spacing: -0.6px; margin-bottom: 10px; }
+    .cta-section p  { color: var(--muted); font-size: 15px; margin-bottom: 24px; line-height: 1.7; }
+
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 999px; background: var(--accent);
+      color: #111; font-size: 15px; font-weight: 600; text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s; border: none; cursor: pointer;
+      font-family: 'Inter', sans-serif;
+    }
+    .cta-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    .page-links {
+      display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 14px;
+    }
+    .page-link {
+      padding: 11px 20px; border-radius: 999px; border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05); color: var(--muted); font-size: 13px;
+      text-decoration: none; transition: all 0.2s ease;
+    }
+    .page-link:hover { background: rgba(255,255,255,0.1); color: var(--text); border-color: rgba(255,255,255,0.2); }
+
+    /* Footer */
+    footer {
+      position: fixed; bottom: 0; left: 0; width: 100%;
+      padding: 12px 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(15,17,21,0.82);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-top: 1px solid var(--border);
+      color: var(--footer); font-size: 13px; flex-wrap: wrap; gap: 10px; z-index: 900;
+    }
+    footer a { color: var(--link); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    .footer-links { display: flex; gap: 16px; }
+
+    /* Light mode */
+    body.light {
+      --bg: #f4f7fb; --border: rgba(0,0,0,0.08); --text: #111827;
+      --muted: #5b6472; --accent: #111827; --footer: #4b5563; --link: #2563eb;
+      background:
+        radial-gradient(circle at top left, rgba(0,0,0,0.03), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(0,0,0,0.02), transparent 25%),
+        var(--bg);
+    }
+    body.light .topbar, body.light footer { background: rgba(235,239,245,0.88); }
+    body.light .cta-btn { color: #fff; }
+    body.light .hero h1 span { color: #4a5568; }
+    body.light .lang-menu { background: rgba(244,247,251,0.97); }
+    body.light .lang-option:hover { background: rgba(0,0,0,0.05); color: #111; }
+    body.light .lang-dropdown-btn { background: rgba(0,0,0,0.06); border-color: rgba(0,0,0,0.1); color: #111827; }
+    body.light .faq-question:hover { background: rgba(0,0,0,0.02); }
+
+    /* Language */
+    .language-switcher { position: relative; z-index: 999; }
+    .lang-dropdown-btn {
+      height: 40px; padding: 0 12px 0 9px; border-radius: 999px;
+      border: 1px solid var(--border); background: rgba(255,255,255,0.08);
+      display: flex; align-items: center; gap: 6px; cursor: pointer;
+      font-size: 18px; line-height: 1; transition: 0.2s ease;
+      color: var(--text); font-family: 'Inter', sans-serif;
+    }
+    .lang-dropdown-btn:hover { background: rgba(255,255,255,0.13); }
+    .lang-chevron {
+      width: 13px; height: 13px; flex-shrink: 0;
+      transition: transform 0.25s ease; stroke: var(--muted);
+      fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .lang-dropdown-btn.open .lang-chevron { transform: rotate(180deg); }
+    .lang-menu {
+      position: absolute; top: calc(100% + 8px); right: 0;
+      background: rgba(23,26,33,0.97); backdrop-filter: blur(16px);
+      border: 1px solid var(--border); border-radius: 18px;
+      padding: 6px; min-width: 130px; display: none;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.35); z-index: 999;
+    }
+    .lang-menu.open { display: block; }
+    .lang-option {
+      display: flex; align-items: center; gap: 9px;
+      padding: 10px 14px; border-radius: 12px; cursor: pointer;
+      font-size: 14px; color: var(--muted); transition: 0.15s ease;
+    }
+    .lang-option:hover { background: rgba(255,255,255,0.08); color: var(--text); }
+
+    /* Burger */
+    .burger {
+      display:none; align-items:center; justify-content:center; width:36px; height:36px;
+      border-radius:10px; border:1px solid var(--border); background:rgba(255,255,255,0.08);
+      cursor:pointer; flex-shrink:0; transition:background 0.2s ease;
+    }
+    .burger:hover { background:rgba(255,255,255,0.14); }
+    .burger .icon-burger { display:block; }
+    .burger .icon-close  { display:none; }
+    .burger.open .icon-burger { display:none; }
+    .burger.open .icon-close  { display:block; }
+    .mobile-menu {
+      display:none; position:fixed; top:53px; left:0; width:100%;
+      background:rgba(15,17,21,0.97); -webkit-backdrop-filter:blur(20px);
+      backdrop-filter:blur(20px); border-bottom:1px solid var(--border);
+      padding:8px 14px 12px; flex-direction:column; gap:4px; z-index:1000;
+    }
+    .mobile-menu.open { display:flex; }
+    .mobile-menu .mob-link {
+      display:block; padding:12px 16px; font-size:15px;
+      font-family:'Inter',sans-serif; border-radius:14px; border:1px solid transparent;
+      color:var(--muted); text-decoration:none; transition:all 0.15s ease;
+    }
+    .mobile-menu .mob-link:hover { background:rgba(255,255,255,0.07); color:var(--text); }
+    .mobile-menu .mob-link.active { background:rgba(255,255,255,0.09); border-color:var(--border); color:var(--text); }
+    body.light .burger { background:rgba(0,0,0,0.05); border-color:rgba(0,0,0,0.12); }
+    body.light .mobile-menu { background:rgba(235,239,245,0.97); }
+
+    /* Responsive */
+    @media (max-width: 720px) {
+      body { padding: 70px 0 70px; }
+      .page-wrapper { padding: 16px 14px 0; }
+      .hero { padding: 28px 20px; border-radius: 20px; }
+      .hero h1 { font-size: 28px; letter-spacing: -1px; }
+      .hero-desc { font-size: 14px; }
+      .faq-section { border-radius: 20px; margin-bottom: 12px; }
+      .faq-section-title { padding: 20px 20px 0; font-size: 12px; }
+      .faq-question { padding: 18px 20px; font-size: 15px; }
+      .faq-answer-inner { padding: 0 20px 20px; font-size: 14px; }
+      .cta-section { padding: 26px 18px; border-radius: 20px; margin-bottom: 12px; }
+      .topbar { padding: 10px 14px; }
+      .nav-links { display: none; }
+      .burger { display: flex; }
+      footer { padding: 10px 16px; font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <script type="application/ld+json" id="faqSchema">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Comment se calcule l'IMC ?",
+        "acceptedAnswer": { "@type": "Answer", "text": "L'IMC se calcule en divisant le poids en kilogrammes par le carré de la taille en mètres : IMC = poids (kg) / taille² (m). Par exemple, pour 70 kg et 1,75 m : 70 / (1,75 × 1,75) = 22,9." }
+      },
+      {
+        "@type": "Question",
+        "name": "Quel est un IMC normal pour un adulte ?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Selon l'OMS, un IMC entre 18,5 et 24,9 est considéré comme normal. En dessous de 18,5 correspond à une maigreur, entre 25 et 29,9 à un surpoids, et au-delà de 30 à une obésité." }
+      },
+      {
+        "@type": "Question",
+        "name": "L'IMC est-il fiable ?",
+        "acceptedAnswer": { "@type": "Answer", "text": "L'IMC est un outil de dépistage utile à l'échelle de la population, mais imparfait à l'échelle individuelle. Il ne distingue pas la masse musculaire de la graisse, et ne tient pas compte de l'âge, du sexe biologique, ni de l'origine ethnique." }
+      },
+      {
+        "@type": "Question",
+        "name": "L'IMC est-il différent pour les enfants ?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Oui. Chez les enfants et adolescents (2-18 ans), l'IMC s'interprète en percentile selon l'âge et le sexe, pas avec des seuils fixes. Un IMC au-dessus du 97e percentile indique une obésité, en dessous du 3e percentile une maigreur." }
+      },
+      {
+        "@type": "Question",
+        "name": "Peut-on avoir un IMC normal et être en mauvaise santé ?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Oui, c'est ce qu'on appelle la TOFI (Thin Outside, Fat Inside). Une personne peut afficher un IMC normal tout en ayant un excès de graisse viscérale abdominale, ce qui est associé à des risques cardiovasculaires et métaboliques élevés." }
+      },
+      {
+        "@type": "Question",
+        "name": "Quelle est la différence entre surpoids et obésité ?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Le surpoids correspond à un IMC entre 25 et 29,9. L'obésité commence à partir de 30 et se divise en trois grades : grade 1 (30-34,9), grade 2 (35-39,9) et grade 3 ou obésité morbide (40 et plus)." }
+      },
+      {
+        "@type": "Question",
+        "name": "Un sportif peut-il avoir un IMC élevé sans excès de graisse ?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Oui. La masse musculaire est plus dense que la graisse. Un athlète comme un rugbyman ou un haltérophile peut avoir un IMC de 28 à 32 tout en ayant un faible taux de graisse corporelle. C'est l'une des principales limites de l'IMC." }
+      },
+      {
+        "@type": "Question",
+        "name": "Les seuils IMC sont-ils les mêmes pour tout le monde ?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Non. L'OMS recommande des seuils abaissés pour les populations asiatiques : surpoids à partir de 23, obésité à 27,5. Ces populations accumulent davantage de graisse viscérale pour un même IMC que les populations caucasiennes." }
+      },
+      {
+        "@type": "Question",
+        "name": "Quelle est la formule de l'IMC en unités impériales ?",
+        "acceptedAnswer": { "@type": "Answer", "text": "En unités impériales : IMC = (poids en livres × 703) / (taille en pouces)². Par exemple, pour 154 lbs et 5 ft 9 in (69 pouces) : (154 × 703) / (69²) = 22,7." }
+      },
+      {
+        "@type": "Question",
+        "name": "Comment perdre du poids pour atteindre un IMC normal ?",
+        "acceptedAnswer": { "@type": "Answer", "text": "L'IMC est un indicateur, pas une cible en soi. Pour améliorer sa composition corporelle, il est recommandé de combiner une alimentation équilibrée (déficit calorique modéré) avec une activité physique régulière. Consultez un professionnel de santé pour un suivi personnalisé." }
+      }
+    ]
+  }
+  </script>
+
+  <nav class="topbar">
+    <button class="burger" id="burgerBtn" aria-label="Menu">
+      <svg class="icon-burger" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--text)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="4" x2="14" y2="4"/><line x1="2" y1="8" x2="14" y2="8"/><line x1="2" y1="12" x2="14" y2="12"/></svg>
+      <svg class="icon-close" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--text)" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="3" x2="13" y2="13"/><line x1="13" y1="3" x2="3" y2="13"/></svg>
+    </button>
+    <a class="nav-logo" href="index.html" id="navLogo">Calculateur IMC</a>
+    <div class="nav-links">
+      <a class="nav-link" href="index.html" id="navCalc">Calculateur</a>
+      <a class="nav-link" href="limites-imc.html" id="navLimites">Limites de l'IMC</a>
+      <a class="nav-link" href="imc-enfant.html" id="navEnfant">IMC enfant</a>
+      <a class="nav-link active" href="faq-imc.html" id="navFaq">FAQ</a>
+    </div>
+    <div class="nav-controls">
+      <div class="language-switcher" id="langSwitcher">
+        <button class="lang-dropdown-btn" id="langBtn">
+          <span id="currentFlag">🇫🇷</span>
+          <svg class="lang-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="lang-menu" id="langMenu">
+          <div class="lang-option" data-lang="fr"><span>🇫🇷</span><span>Français</span></div>
+          <div class="lang-option" data-lang="en"><span>🇬🇧</span><span>English</span></div>
+          <div class="lang-option" data-lang="es"><span>🇪🇸</span><span>Español</span></div>
+        </div>
+      </div>
+      <button class="theme-toggle" id="themeToggle">☾</button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a class="mob-link" href="index.html" id="mobCalc">Calculateur</a>
+    <a class="mob-link" href="limites-imc.html" id="mobLimites">Limites de l'IMC</a>
+    <a class="mob-link" href="imc-enfant.html" id="mobEnfant">IMC enfant</a>
+    <a class="mob-link active" href="faq-imc.html" id="mobFaq">FAQ</a>
+  </div>
+
+  <div class="page-wrapper">
+
+    <div class="hero">
+      <div class="hero-badge" id="heroBadge">❓ FAQ</div>
+      <h1 id="heroTitle">Questions fréquentes sur <span id="heroSub">l'IMC.</span></h1>
+      <p class="hero-desc" id="heroDesc">Calcul, interprétation, seuils, limites et conseils pratiques — toutes les réponses aux questions les plus posées sur l'indice de masse corporelle.</p>
+    </div>
+
+    <!-- Bloc 1 : Calcul & bases -->
+    <div class="faq-section">
+      <p class="faq-section-title" id="sec1Label">Calcul &amp; bases</p>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)" id="q1">
+          <span id="q1text">Comment se calcule l'IMC ?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner" id="a1">
+            L'IMC se calcule en divisant le poids en kilogrammes par le carré de la taille en mètres :<br><br>
+            <strong>IMC = poids (kg) / taille² (m)</strong><br><br>
+            Exemple : pour 70 kg et 1,75 m → 70 ÷ (1,75 × 1,75) = <strong>22,9</strong>. En unités impériales, la formule devient : <strong>IMC = (poids lbs × 703) / taille² (pouces)</strong>.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)" id="q2">
+          <span id="q2text">Qui a inventé l'IMC ?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner" id="a2">
+            L'IMC a été développé par le statisticien belge <strong>Adolphe Quetelet</strong> en 1832, d'où son ancien nom "indice de Quetelet". Il a été popularisé comme outil médical dans les années 1970 par le physiologiste américain Ancel Keys, qui lui a donné son nom actuel de <em>Body Mass Index</em> (BMI).
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)" id="q3">
+          <span id="q3text">Quelle est la formule en unités impériales ?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner" id="a3">
+            En pouces et livres : <strong>IMC = (poids lbs × 703) / taille² (pouces)</strong>.<br><br>
+            Exemple : 154 lbs, 5 ft 9 in (= 69 pouces) → (154 × 703) / (69²) = 108 262 / 4 761 = <strong>22,7</strong>.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bloc 2 : Interprétation & seuils -->
+    <div class="faq-section">
+      <p class="faq-section-title" id="sec2Label">Interprétation &amp; seuils</p>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)" id="q4">
+          <span id="q4text">Quel est un IMC normal pour un adulte ?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner" id="a4">
+            Selon l'Organisation Mondiale de la Santé (OMS), voici les catégories pour l'adulte :
+            <div class="values-row">
+              <div class="val-chip yellow"><span class="val-num">&lt; 18,5</span><span class="val-label" id="chip1">Maigreur</span></div>
+              <div class="val-chip green"><span class="val-num">18,5 – 24,9</span><span class="val-label" id="chip2">Normal</span></div>
+              <div class="val-chip yellow"><span class="val-num">25 – 29,9</span><span class="val-label" id="chip3">Surpoids</span></div>
+              <div class="val-chip orange"><span class="val-num">30 – 34,9</span><span class="val-label" id="chip4">Obésité G1</span></div>
+              <div class="val-chip red"><span class="val-num">&ge; 35</span><span class="val-label" id="chip5">Obésité G2+</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)" id="q5">
+          <span id="q5text">Quelle est la différence entre surpoids et obésité ?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner" id="a5">
+            Le <strong>surpoids</strong> correspond à un IMC entre 25 et 29,9. L'<strong>obésité</strong> commence à partir de 30 et se subdivise en trois grades :
+            <br><br>
+            • <strong>Grade 1</strong> (obésité modérée) : IMC 30–34,9<br>
+            • <strong>Grade 2</strong> (obésité sévère) : IMC 35–39,9<br>
+            • <strong>Grade 3</strong> (obésité morbide) : IMC ≥ 40<br><br>
+            Le risque de complications cardiovasculaires et métaboliques augmente progressivement avec le grade.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)" id="q6">
+          <span id="q6text">Les seuils sont-ils les mêmes pour tous ?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner" id="a6">
+            Non. L'OMS recommande des <strong>seuils abaissés pour les populations asiatiques</strong> : surpoids à partir de 23, obésité à 27,5 — car ces populations accumulent davantage de graisse viscérale pour un même IMC. À l'inverse, certaines populations d'Afrique subsaharienne et des îles du Pacifique tolèrent mieux des IMC plus élevés. Les seuils OMS standard ont été calibrés principalement sur des populations caucasiennes.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)" id="q7">
+          <span id="q7text">L'IMC est-il différent selon l'âge ?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner" id="a7">
+            Les seuils OMS s'appliquent aux adultes de 18 ans et plus, quelle que soit l'âge — mais l'interprétation doit être nuancée. Chez les personnes âgées, un IMC légèrement supérieur à 25 (autour de 27) est souvent associé à une meilleure survie, phénomène connu sous le nom de <strong>paradoxe de l'obésité</strong>. Pour les enfants et adolescents (2–18 ans), des courbes de percentile spécifiques à l'âge et au sexe sont utilisées.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bloc 3 : Cas particuliers -->
+    <div class="faq-section">
+      <p class="faq-section-title" id="sec3Label">Cas particuliers</p>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)" id="q8">
+          <span id="q8text">Un sportif peut-il avoir un IMC élevé sans excès de graisse ?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner" id="a8">
+            Oui, c'est l'un des cas les plus courants où l'IMC est trompeur. La masse musculaire est plus dense que la graisse : un rugbyman, un haltérophile ou un sprinter peut afficher un IMC de 28 à 32 avec un taux de graisse corporelle excellent (8–15 %). Dans ce cas, des mesures complémentaires (impédancemétrie, tour de taille) sont bien plus pertinentes.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)" id="q9">
+          <span id="q9text">Peut-on avoir un IMC normal et être en mauvaise santé ?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner" id="a9">
+            Oui. C'est ce qu'on appelle la <strong>TOFI</strong> (<em>Thin Outside, Fat Inside</em> — mince dehors, gras dedans). Une personne peut avoir un IMC normal (ex. 22) tout en stockant un excès de <strong>graisse viscérale abdominale</strong>, invisible de l'extérieur. Cette graisse profonde est associée à un risque élevé de diabète de type 2, de maladies cardiovasculaires et de syndrome métabolique.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)" id="q10">
+          <span id="q10text">Comment calculer l'IMC d'un enfant ?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner" id="a10">
+            La formule est identique (poids / taille²), mais l'interprétation est totalement différente. Le résultat s'exprime en <strong>percentile</strong> par rapport aux enfants du même âge et du même sexe :<br><br>
+            • Sous le 3e percentile → maigreur<br>
+            • Entre 3e et 97e percentile → poids normal<br>
+            • Au-dessus du 97e percentile → obésité<br><br>
+            Consultez notre <a href="imc-enfant.html" id="childLink">calculateur IMC enfant</a> pour un résultat adapté.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)" id="q11">
+          <span id="q11text">L'IMC est-il valable pendant la grossesse ?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner" id="a11">
+            Non. Pendant la grossesse, le poids augmente naturellement (bébé, placenta, liquide amniotique, réserves). L'IMC prénatal (avant la grossesse) est utilisé par les médecins pour définir les objectifs de prise de poids, mais l'IMC en cours de grossesse n'a aucune valeur diagnostique isolée. Le suivi doit être réalisé par un professionnel de santé.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bloc 4 : Fiabilité & alternatives -->
+    <div class="faq-section">
+      <p class="faq-section-title" id="sec4Label">Fiabilité &amp; alternatives</p>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)" id="q12">
+          <span id="q12text">L'IMC est-il un bon indicateur de santé ?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner" id="a12">
+            C'est un <strong>indicateur de dépistage populationnel</strong>, utile pour des études à grande échelle et pour détecter des tendances. À l'échelle individuelle, il est imparfait car il ignore la composition corporelle (muscle vs graisse), la répartition des graisses, l'origine ethnique et l'âge. Il doit être considéré comme un <strong>point de départ</strong>, jamais comme un diagnostic.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)" id="q13">
+          <span id="q13text">Quelles alternatives à l'IMC existe-t-il ?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner" id="a13">
+            Plusieurs indicateurs complémentaires sont utilisés :<br><br>
+            • <strong>Tour de taille</strong> : prédit mieux le risque cardiovasculaire (seuils &gt; 94 cm homme, &gt; 80 cm femme)<br>
+            • <strong>Rapport taille/hanches</strong> : distingue l'obésité androïde (abdominale) de l'obésité gynoïde<br>
+            • <strong>Rapport taille/taille</strong> : indépendant du sexe, seuil d'alerte à 0,5<br>
+            • <strong>Impédancemétrie</strong> : mesure le % de graisse et de masse musculaire<br>
+            • <strong>DEXA</strong> : référence médicale pour la composition corporelle exacte
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)" id="q14">
+          <span id="q14text">Faut-il consulter un médecin si son IMC est anormal ?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner" id="a14">
+            Un IMC en dehors des normes est un <strong>signal d'alerte</strong>, pas un diagnostic. Si votre IMC est inférieur à 17 ou supérieur à 30, ou s'il a significativement changé en peu de temps, une consultation médicale est recommandée pour évaluer votre santé globale et exclure toute cause sous-jacente. Pour un IMC entre 25 et 30, le contexte (activité physique, alimentation, autres facteurs de risque) détermine si une intervention est nécessaire.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section">
+      <h2 id="ctaTitle">Calculez votre IMC maintenant</h2>
+      <p id="ctaDesc">Utilisez notre calculateur gratuit pour obtenir votre résultat en quelques secondes, avec une interprétation détaillée.</p>
+      <a class="cta-btn" href="index.html" id="ctaBtn">← Retour au calculateur</a>
+      <div class="page-links">
+        <a class="page-link" href="limites-imc.html" id="limLink">Limites de l'IMC →</a>
+        <a class="page-link" href="imc-enfant.html" id="enfLink">IMC enfant →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <div id="footerCopy">© Société X 2026</div>
+    <div class="footer-links">
+      <a href="index.html" id="footCalc">Calculateur</a>
+      <a href="imc-enfant.html" id="footEnfant">IMC enfant</a>
+      <a href="faq-imc.html" id="footFaq">FAQ</a>
+    </div>
+  </footer>
+
+  <script>
+  (function() {
+    var flags = { fr: '🇫🇷', en: '🇬🇧', es: '🇪🇸' };
+
+    var translations = {
+      fr: {
+        pageTitle: "FAQ IMC | Questions fréquentes sur l'indice de masse corporelle",
+        navLogo: 'Calculateur IMC', navCalc: 'Calculateur', navLimites: "Limites de l'IMC", navEnfant: 'IMC enfant', navFaq: 'FAQ',
+        mobCalc: 'Calculateur', mobLimites: "Limites de l'IMC", mobEnfant: 'IMC enfant', mobFaq: 'FAQ',
+        heroBadge: '❓ FAQ',
+        heroTitle: 'Questions fréquentes sur <span id="heroSub">l\'IMC.</span>',
+        heroSub: 'l\'IMC.',
+        heroDesc: 'Calcul, interprétation, seuils, limites et conseils pratiques — toutes les réponses aux questions les plus posées sur l\'indice de masse corporelle.',
+        sec1Label: 'Calcul &amp; bases',
+        q1text: 'Comment se calcule l\'IMC ?',
+        a1: 'L\'IMC se calcule en divisant le poids en kilogrammes par le carré de la taille en mètres :<br><br><strong>IMC = poids (kg) / taille² (m)</strong><br><br>Exemple : pour 70 kg et 1,75 m → 70 ÷ (1,75 × 1,75) = <strong>22,9</strong>. En unités impériales, la formule devient : <strong>IMC = (poids lbs × 703) / taille² (pouces)</strong>.',
+        q2text: 'Qui a inventé l\'IMC ?',
+        a2: 'L\'IMC a été développé par le statisticien belge <strong>Adolphe Quetelet</strong> en 1832, d\'où son ancien nom "indice de Quetelet". Il a été popularisé comme outil médical dans les années 1970 par le physiologiste américain Ancel Keys, qui lui a donné son nom actuel de <em>Body Mass Index</em> (BMI).',
+        q3text: 'Quelle est la formule en unités impériales ?',
+        a3: 'En pouces et livres : <strong>IMC = (poids lbs × 703) / taille² (pouces)</strong>.<br><br>Exemple : 154 lbs, 5 ft 9 in (= 69 pouces) → (154 × 703) / (69²) = 108 262 / 4 761 = <strong>22,7</strong>.',
+        sec2Label: 'Interprétation &amp; seuils',
+        q4text: 'Quel est un IMC normal pour un adulte ?',
+        a4: 'Selon l\'Organisation Mondiale de la Santé (OMS), voici les catégories pour l\'adulte :<div class="values-row"><div class="val-chip yellow"><span class="val-num">&lt; 18,5</span><span class="val-label" id="chip1">Maigreur</span></div><div class="val-chip green"><span class="val-num">18,5 – 24,9</span><span class="val-label" id="chip2">Normal</span></div><div class="val-chip yellow"><span class="val-num">25 – 29,9</span><span class="val-label" id="chip3">Surpoids</span></div><div class="val-chip orange"><span class="val-num">30 – 34,9</span><span class="val-label" id="chip4">Obésité G1</span></div><div class="val-chip red"><span class="val-num">&ge; 35</span><span class="val-label" id="chip5">Obésité G2+</span></div></div>',
+        chip1: 'Maigreur', chip2: 'Normal', chip3: 'Surpoids', chip4: 'Obésité G1', chip5: 'Obésité G2+',
+        q5text: 'Quelle est la différence entre surpoids et obésité ?',
+        a5: 'Le <strong>surpoids</strong> correspond à un IMC entre 25 et 29,9. L\'<strong>obésité</strong> commence à partir de 30 et se subdivise en trois grades :<br><br>• <strong>Grade 1</strong> (obésité modérée) : IMC 30–34,9<br>• <strong>Grade 2</strong> (obésité sévère) : IMC 35–39,9<br>• <strong>Grade 3</strong> (obésité morbide) : IMC ≥ 40<br><br>Le risque de complications cardiovasculaires et métaboliques augmente progressivement avec le grade.',
+        q6text: 'Les seuils sont-ils les mêmes pour tous ?',
+        a6: 'Non. L\'OMS recommande des <strong>seuils abaissés pour les populations asiatiques</strong> : surpoids à partir de 23, obésité à 27,5 — car ces populations accumulent davantage de graisse viscérale pour un même IMC. À l\'inverse, certaines populations d\'Afrique subsaharienne et des îles du Pacifique tolèrent mieux des IMC plus élevés. Les seuils OMS standard ont été calibrés principalement sur des populations caucasiennes.',
+        q7text: 'L\'IMC est-il différent selon l\'âge ?',
+        a7: 'Les seuils OMS s\'appliquent aux adultes de 18 ans et plus, quelle que soit l\'âge — mais l\'interprétation doit être nuancée. Chez les personnes âgées, un IMC légèrement supérieur à 25 (autour de 27) est souvent associé à une meilleure survie, phénomène connu sous le nom de <strong>paradoxe de l\'obésité</strong>. Pour les enfants et adolescents (2–18 ans), des courbes de percentile spécifiques à l\'âge et au sexe sont utilisées.',
+        sec3Label: 'Cas particuliers',
+        q8text: 'Un sportif peut-il avoir un IMC élevé sans excès de graisse ?',
+        a8: 'Oui, c\'est l\'un des cas les plus courants où l\'IMC est trompeur. La masse musculaire est plus dense que la graisse : un rugbyman, un haltérophile ou un sprinter peut afficher un IMC de 28 à 32 avec un taux de graisse corporelle excellent (8–15 %). Dans ce cas, des mesures complémentaires (impédancemétrie, tour de taille) sont bien plus pertinentes.',
+        q9text: 'Peut-on avoir un IMC normal et être en mauvaise santé ?',
+        a9: 'Oui. C\'est ce qu\'on appelle la <strong>TOFI</strong> (<em>Thin Outside, Fat Inside</em> — mince dehors, gras dedans). Une personne peut avoir un IMC normal (ex. 22) tout en stockant un excès de <strong>graisse viscérale abdominale</strong>, invisible de l\'extérieur. Cette graisse profonde est associée à un risque élevé de diabète de type 2, de maladies cardiovasculaires et de syndrome métabolique.',
+        q10text: 'Comment calculer l\'IMC d\'un enfant ?',
+        a10: 'La formule est identique (poids / taille²), mais l\'interprétation est totalement différente. Le résultat s\'exprime en <strong>percentile</strong> par rapport aux enfants du même âge et du même sexe :<br><br>• Sous le 3e percentile → maigreur<br>• Entre 3e et 97e percentile → poids normal<br>• Au-dessus du 97e percentile → obésité<br><br>Consultez notre <a href="imc-enfant.html" id="childLink">calculateur IMC enfant</a> pour un résultat adapté.',
+        q11text: 'L\'IMC est-il valable pendant la grossesse ?',
+        a11: 'Non. Pendant la grossesse, le poids augmente naturellement (bébé, placenta, liquide amniotique, réserves). L\'IMC prénatal (avant la grossesse) est utilisé par les médecins pour définir les objectifs de prise de poids, mais l\'IMC en cours de grossesse n\'a aucune valeur diagnostique isolée. Le suivi doit être réalisé par un professionnel de santé.',
+        sec4Label: 'Fiabilité &amp; alternatives',
+        q12text: 'L\'IMC est-il un bon indicateur de santé ?',
+        a12: 'C\'est un <strong>indicateur de dépistage populationnel</strong>, utile pour des études à grande échelle et pour détecter des tendances. À l\'échelle individuelle, il est imparfait car il ignore la composition corporelle (muscle vs graisse), la répartition des graisses, l\'origine ethnique et l\'âge. Il doit être considéré comme un <strong>point de départ</strong>, jamais comme un diagnostic.',
+        q13text: 'Quelles alternatives à l\'IMC existe-t-il ?',
+        a13: 'Plusieurs indicateurs complémentaires sont utilisés :<br><br>• <strong>Tour de taille</strong> : prédit mieux le risque cardiovasculaire (seuils &gt; 94 cm homme, &gt; 80 cm femme)<br>• <strong>Rapport taille/hanches</strong> : distingue l\'obésité androïde (abdominale) de l\'obésité gynoïde<br>• <strong>Rapport taille/taille</strong> : indépendant du sexe, seuil d\'alerte à 0,5<br>• <strong>Impédancemétrie</strong> : mesure le % de graisse et de masse musculaire<br>• <strong>DEXA</strong> : référence médicale pour la composition corporelle exacte',
+        q14text: 'Faut-il consulter un médecin si son IMC est anormal ?',
+        a14: 'Un IMC en dehors des normes est un <strong>signal d\'alerte</strong>, pas un diagnostic. Si votre IMC est inférieur à 17 ou supérieur à 30, ou s\'il a significativement changé en peu de temps, une consultation médicale est recommandée pour évaluer votre santé globale et exclure toute cause sous-jacente. Pour un IMC entre 25 et 30, le contexte (activité physique, alimentation, autres facteurs de risque) détermine si une intervention est nécessaire.',
+        ctaTitle: 'Calculez votre IMC maintenant',
+        ctaDesc: 'Utilisez notre calculateur gratuit pour obtenir votre résultat en quelques secondes, avec une interprétation détaillée.',
+        ctaBtn: '← Retour au calculateur',
+        limLink: "Limites de l'IMC →", enfLink: 'IMC enfant →',
+        footerCopy: '© Société X 2026', footCalc: 'Calculateur', footEnfant: 'IMC enfant', footFaq: 'FAQ'
+      },
+      en: {
+        pageTitle: 'BMI FAQ | Frequently asked questions about body mass index',
+        navLogo: 'BMI Calculator', navCalc: 'Calculator', navLimites: 'BMI Limits', navEnfant: 'Child BMI', navFaq: 'FAQ',
+        mobCalc: 'Calculator', mobLimites: 'BMI Limits', mobEnfant: 'Child BMI', mobFaq: 'FAQ',
+        heroBadge: '❓ FAQ',
+        heroTitle: 'Frequently asked questions about <span id="heroSub">BMI.</span>',
+        heroSub: 'BMI.',
+        heroDesc: 'Calculation, interpretation, thresholds, limits and practical advice — all answers to the most common questions about body mass index.',
+        sec1Label: 'Calculation &amp; basics',
+        q1text: 'How is BMI calculated?',
+        a1: 'BMI is calculated by dividing weight in kilograms by the square of height in meters:<br><br><strong>BMI = weight (kg) / height² (m)</strong><br><br>Example: for 70 kg and 1.75 m → 70 ÷ (1.75 × 1.75) = <strong>22.9</strong>. In imperial units: <strong>BMI = (weight lbs × 703) / height² (inches)</strong>.',
+        q2text: 'Who invented BMI?',
+        a2: 'BMI was developed by Belgian statistician <strong>Adolphe Quetelet</strong> in 1832, hence its former name "Quetelet index". It was popularized as a medical tool in the 1970s by American physiologist Ancel Keys, who gave it the name <em>Body Mass Index</em>.',
+        q3text: 'What is the formula in imperial units?',
+        a3: 'In pounds and inches: <strong>BMI = (weight lbs × 703) / height² (inches)</strong>.<br><br>Example: 154 lbs, 5 ft 9 in (= 69 inches) → (154 × 703) / (69²) = 108,262 / 4,761 = <strong>22.7</strong>.',
+        sec2Label: 'Interpretation &amp; thresholds',
+        q4text: 'What is a normal BMI for an adult?',
+        a4: 'According to the World Health Organization (WHO), the categories for adults are:<div class="values-row"><div class="val-chip yellow"><span class="val-num">&lt; 18.5</span><span class="val-label" id="chip1">Underweight</span></div><div class="val-chip green"><span class="val-num">18.5 – 24.9</span><span class="val-label" id="chip2">Normal</span></div><div class="val-chip yellow"><span class="val-num">25 – 29.9</span><span class="val-label" id="chip3">Overweight</span></div><div class="val-chip orange"><span class="val-num">30 – 34.9</span><span class="val-label" id="chip4">Obesity G1</span></div><div class="val-chip red"><span class="val-num">&ge; 35</span><span class="val-label" id="chip5">Obesity G2+</span></div></div>',
+        chip1: 'Underweight', chip2: 'Normal', chip3: 'Overweight', chip4: 'Obesity G1', chip5: 'Obesity G2+',
+        q5text: 'What is the difference between overweight and obesity?',
+        a5: '<strong>Overweight</strong> is a BMI between 25 and 29.9. <strong>Obesity</strong> starts at 30 and is divided into three grades:<br><br>• <strong>Grade 1</strong> (moderate obesity): BMI 30–34.9<br>• <strong>Grade 2</strong> (severe obesity): BMI 35–39.9<br>• <strong>Grade 3</strong> (morbid obesity): BMI ≥ 40<br><br>The risk of cardiovascular and metabolic complications increases progressively with grade.',
+        q6text: 'Are thresholds the same for everyone?',
+        a6: 'No. The WHO recommends <strong>lower thresholds for Asian populations</strong>: overweight from 23, obesity at 27.5 — as these populations accumulate more visceral fat for the same BMI. Standard WHO thresholds were calibrated mainly on Caucasian populations.',
+        q7text: 'Does BMI differ by age?',
+        a7: 'WHO thresholds apply to adults 18 and over regardless of age — but interpretation should be nuanced. In elderly people, a BMI slightly above 25 (around 27) is often associated with better survival, known as the <strong>obesity paradox</strong>. For children and adolescents (2–18), age- and sex-specific percentile charts are used.',
+        sec3Label: 'Special cases',
+        q8text: 'Can an athlete have a high BMI without excess fat?',
+        a8: 'Yes, this is one of the most common cases where BMI is misleading. Muscle mass is denser than fat: a rugby player, weightlifter or sprinter can show a BMI of 28 to 32 with excellent body fat levels (8–15%). In this case, complementary measurements (bioimpedance, waist circumference) are far more relevant.',
+        q9text: 'Can you have a normal BMI and still be unhealthy?',
+        a9: 'Yes. This is known as <strong>TOFI</strong> (<em>Thin Outside, Fat Inside</em>). A person can have a normal BMI (e.g. 22) while storing excess <strong>visceral abdominal fat</strong>, invisible from the outside. This deep fat is associated with high risks of type 2 diabetes, cardiovascular disease and metabolic syndrome.',
+        q10text: "How is a child's BMI calculated?",
+        a10: 'The formula is the same (weight / height²), but interpretation is completely different. The result is expressed as a <strong>percentile</strong> compared to children of the same age and sex:<br><br>• Below 3rd percentile → underweight<br>• Between 3rd and 97th percentile → normal weight<br>• Above 97th percentile → obesity<br><br>Use our <a href="imc-enfant.html" id="childLink">child BMI calculator</a> for an adapted result.',
+        q11text: 'Is BMI valid during pregnancy?',
+        a11: 'No. During pregnancy, weight naturally increases (baby, placenta, amniotic fluid, reserves). Pre-pregnancy BMI is used by doctors to set weight gain targets, but BMI during pregnancy has no standalone diagnostic value. Follow-up should be done by a healthcare professional.',
+        sec4Label: 'Reliability &amp; alternatives',
+        q12text: 'Is BMI a good health indicator?',
+        a12: 'It is a <strong>population-level screening indicator</strong>, useful for large-scale studies and detecting trends. At the individual level, it is imperfect as it ignores body composition (muscle vs fat), fat distribution, ethnic origin and age. It should be seen as a <strong>starting point</strong>, never as a diagnosis.',
+        q13text: 'What alternatives to BMI exist?',
+        a13: 'Several complementary indicators are used:<br><br>• <strong>Waist circumference</strong>: better predicts cardiovascular risk (thresholds &gt; 94 cm men, &gt; 80 cm women)<br>• <strong>Waist-to-hip ratio</strong>: distinguishes android (abdominal) from gynoid obesity<br>• <strong>Waist-to-height ratio</strong>: independent of sex, alert threshold at 0.5<br>• <strong>Bioelectrical impedance</strong>: measures % fat and muscle mass<br>• <strong>DEXA</strong>: medical reference for exact body composition',
+        q14text: 'Should you see a doctor if your BMI is abnormal?',
+        a14: 'An out-of-range BMI is a <strong>warning signal</strong>, not a diagnosis. If your BMI is below 17 or above 30, or has changed significantly in a short time, a medical consultation is recommended to assess your overall health. For a BMI between 25 and 30, context (physical activity, diet, other risk factors) determines whether intervention is needed.',
+        ctaTitle: 'Calculate your BMI now',
+        ctaDesc: 'Use our free calculator to get your result in seconds, with a detailed interpretation.',
+        ctaBtn: '← Back to calculator',
+        limLink: 'BMI Limits →', enfLink: 'Child BMI →',
+        footerCopy: '© Société X 2026', footCalc: 'Calculator', footEnfant: 'Child BMI', footFaq: 'FAQ'
+      },
+      es: {
+        pageTitle: 'FAQ IMC | Preguntas frecuentes sobre el índice de masa corporal',
+        navLogo: 'Calculadora IMC', navCalc: 'Calculadora', navLimites: 'Límites del IMC', navEnfant: 'IMC infantil', navFaq: 'FAQ',
+        mobCalc: 'Calculadora', mobLimites: 'Límites del IMC', mobEnfant: 'IMC infantil', mobFaq: 'FAQ',
+        heroBadge: '❓ FAQ',
+        heroTitle: 'Preguntas frecuentes sobre <span id="heroSub">el IMC.</span>',
+        heroSub: 'el IMC.',
+        heroDesc: 'Cálculo, interpretación, umbrales, límites y consejos prácticos — todas las respuestas a las preguntas más habituales sobre el índice de masa corporal.',
+        sec1Label: 'Cálculo &amp; conceptos básicos',
+        q1text: '¿Cómo se calcula el IMC?',
+        a1: 'El IMC se calcula dividiendo el peso en kilogramos por el cuadrado de la altura en metros:<br><br><strong>IMC = peso (kg) / altura² (m)</strong><br><br>Ejemplo: para 70 kg y 1,75 m → 70 ÷ (1,75 × 1,75) = <strong>22,9</strong>. En unidades imperiales: <strong>IMC = (peso lbs × 703) / altura² (pulgadas)</strong>.',
+        q2text: '¿Quién inventó el IMC?',
+        a2: 'El IMC fue desarrollado por el estadístico belga <strong>Adolphe Quetelet</strong> en 1832, de ahí su antiguo nombre "índice de Quetelet". Fue popularizado como herramienta médica en los años 70 por el fisiólogo estadounidense Ancel Keys, quien le dio el nombre de <em>Body Mass Index</em>.',
+        q3text: '¿Cuál es la fórmula en unidades imperiales?',
+        a3: 'En libras y pulgadas: <strong>IMC = (peso lbs × 703) / altura² (pulgadas)</strong>.<br><br>Ejemplo: 154 lbs, 5 ft 9 in (= 69 pulgadas) → (154 × 703) / (69²) = 108 262 / 4 761 = <strong>22,7</strong>.',
+        sec2Label: 'Interpretación &amp; umbrales',
+        q4text: '¿Cuál es un IMC normal para un adulto?',
+        a4: 'Según la Organización Mundial de la Salud (OMS), las categorías para adultos son:<div class="values-row"><div class="val-chip yellow"><span class="val-num">&lt; 18,5</span><span class="val-label" id="chip1">Bajo peso</span></div><div class="val-chip green"><span class="val-num">18,5 – 24,9</span><span class="val-label" id="chip2">Normal</span></div><div class="val-chip yellow"><span class="val-num">25 – 29,9</span><span class="val-label" id="chip3">Sobrepeso</span></div><div class="val-chip orange"><span class="val-num">30 – 34,9</span><span class="val-label" id="chip4">Obesidad G1</span></div><div class="val-chip red"><span class="val-num">&ge; 35</span><span class="val-label" id="chip5">Obesidad G2+</span></div></div>',
+        chip1: 'Bajo peso', chip2: 'Normal', chip3: 'Sobrepeso', chip4: 'Obesidad G1', chip5: 'Obesidad G2+',
+        q5text: '¿Cuál es la diferencia entre sobrepeso y obesidad?',
+        a5: 'El <strong>sobrepeso</strong> corresponde a un IMC entre 25 y 29,9. La <strong>obesidad</strong> comienza a partir de 30 y se divide en tres grados:<br><br>• <strong>Grado 1</strong> (obesidad moderada): IMC 30–34,9<br>• <strong>Grado 2</strong> (obesidad grave): IMC 35–39,9<br>• <strong>Grado 3</strong> (obesidad mórbida): IMC ≥ 40<br><br>El riesgo de complicaciones cardiovasculares y metabólicas aumenta progresivamente con el grado.',
+        q6text: '¿Son los umbrales iguales para todos?',
+        a6: 'No. La OMS recomienda <strong>umbrales más bajos para las poblaciones asiáticas</strong>: sobrepeso a partir de 23, obesidad a 27,5, ya que estas poblaciones acumulan más grasa visceral para el mismo IMC. Los umbrales OMS estándar se calibraron principalmente en poblaciones caucásicas.',
+        q7text: '¿Varía el IMC con la edad?',
+        a7: 'Los umbrales OMS se aplican a adultos de 18 años en adelante — pero la interpretación debe matizarse. En personas mayores, un IMC ligeramente superior a 25 (alrededor de 27) se asocia a menudo con mejor supervivencia, fenómeno conocido como la <strong>paradoja de la obesidad</strong>. Para niños y adolescentes (2–18 años) se usan curvas de percentil específicas.',
+        sec3Label: 'Casos especiales',
+        q8text: '¿Puede un deportista tener un IMC alto sin exceso de grasa?',
+        a8: 'Sí, es uno de los casos más frecuentes donde el IMC es engañoso. La masa muscular es más densa que la grasa: un rugbista, un levantador de pesas o un velocista puede mostrar un IMC de 28 a 32 con un excelente porcentaje de grasa corporal (8–15%). En ese caso, mediciones complementarias (impedanciometría, perímetro de cintura) son mucho más relevantes.',
+        q9text: '¿Puede tener un IMC normal y estar en mala salud?',
+        a9: 'Sí. Esto se conoce como <strong>TOFI</strong> (<em>Thin Outside, Fat Inside</em> — delgado por fuera, gordo por dentro). Una persona puede tener un IMC normal (p. ej. 22) mientras almacena un exceso de <strong>grasa visceral abdominal</strong>, invisible desde el exterior. Esta grasa profunda está asociada a un alto riesgo de diabetes tipo 2, enfermedades cardiovasculares y síndrome metabólico.',
+        q10text: '¿Cómo se calcula el IMC de un niño?',
+        a10: 'La fórmula es idéntica (peso / altura²), pero la interpretación es completamente diferente. El resultado se expresa en <strong>percentil</strong> respecto a niños de la misma edad y sexo:<br><br>• Por debajo del percentil 3 → bajo peso<br>• Entre percentil 3 y 97 → peso normal<br>• Por encima del percentil 97 → obesidad<br><br>Consulte nuestra <a href="imc-enfant.html" id="childLink">calculadora IMC infantil</a> para un resultado adaptado.',
+        q11text: '¿Es válido el IMC durante el embarazo?',
+        a11: 'No. Durante el embarazo, el peso aumenta naturalmente (bebé, placenta, líquido amniótico, reservas). El IMC previo al embarazo es utilizado por los médicos para definir objetivos de ganancia de peso, pero el IMC durante el embarazo no tiene valor diagnóstico aislado. El seguimiento debe realizarlo un profesional sanitario.',
+        sec4Label: 'Fiabilidad &amp; alternativas',
+        q12text: '¿Es el IMC un buen indicador de salud?',
+        a12: 'Es un <strong>indicador de cribado poblacional</strong>, útil para estudios a gran escala y para detectar tendencias. A escala individual, es imperfecto ya que ignora la composición corporal (músculo vs grasa), la distribución de la grasa, el origen étnico y la edad. Debe considerarse un <strong>punto de partida</strong>, nunca un diagnóstico.',
+        q13text: '¿Qué alternativas al IMC existen?',
+        a13: 'Se utilizan varios indicadores complementarios:<br><br>• <strong>Perímetro de cintura</strong>: predice mejor el riesgo cardiovascular (umbrales &gt; 94 cm hombre, &gt; 80 cm mujer)<br>• <strong>Índice cintura/cadera</strong>: diferencia obesidad androide de ginoide<br>• <strong>Índice cintura/talla</strong>: independiente del sexo, umbral de alerta en 0,5<br>• <strong>Impedanciometría</strong>: mide el % de grasa y masa muscular<br>• <strong>DEXA</strong>: referencia médica para la composición corporal exacta',
+        q14text: '¿Hay que consultar al médico si el IMC es anormal?',
+        a14: 'Un IMC fuera de los rangos normales es una <strong>señal de alerta</strong>, no un diagnóstico. Si su IMC es inferior a 17 o superior a 30, o ha cambiado significativamente en poco tiempo, se recomienda una consulta médica. Para un IMC entre 25 y 30, el contexto (actividad física, alimentación, otros factores de riesgo) determina si es necesaria una intervención.',
+        ctaTitle: 'Calcule su IMC ahora',
+        ctaDesc: 'Use nuestra calculadora gratuita para obtener su resultado en segundos, con una interpretación detallada.',
+        ctaBtn: '← Volver a la calculadora',
+        limLink: 'Límites del IMC →', enfLink: 'IMC infantil →',
+        footerCopy: '© Société X 2026', footCalc: 'Calculadora', footEnfant: 'IMC infantil', footFaq: 'FAQ'
+      }
+    };
+
+    function setLanguage(lang) {
+      localStorage.setItem('language', lang);
+      document.getElementById('currentFlag').textContent = flags[lang];
+      var t = translations[lang];
+      document.title = t.pageTitle;
+      var ids = [
+        'navLogo','navCalc','navLimites','navEnfant','navFaq',
+        'mobCalc','mobLimites','mobEnfant','mobFaq',
+        'heroBadge','heroSub','heroDesc','heroTitle',
+        'sec1Label','q1text','a1','q2text','a2','q3text','a3',
+        'sec2Label','q4text','a4','chip1','chip2','chip3','chip4','chip5',
+        'q5text','a5','q6text','a6','q7text','a7',
+        'sec3Label','q8text','a8','q9text','a9','q10text','a10','q11text','a11',
+        'sec4Label','q12text','a12','q13text','a13','q14text','a14',
+        'ctaTitle','ctaDesc','ctaBtn','limLink','enfLink',
+        'footerCopy','footCalc','footEnfant','footFaq'
+      ];
+      ids.forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el && t[id] !== undefined) el.innerHTML = t[id];
+      });
+    }
+
+    function toggleFaq(btn) {
+      var item = btn.closest('.faq-item');
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function(el) { el.classList.remove('open'); });
+      if (!isOpen) item.classList.add('open');
+    }
+
+    window.toggleFaq = toggleFaq;
+    window.setLanguage = setLanguage;
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+      /* Thème */
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light' || (!savedTheme && !prefersDark)) document.body.classList.add('light');
+      var toggleBtn = document.getElementById('themeToggle');
+      function updateIcon() { toggleBtn.textContent = document.body.classList.contains('light') ? '☀' : '☾'; }
+      updateIcon();
+      toggleBtn.addEventListener('click', function() {
+        document.body.classList.toggle('light');
+        localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+        updateIcon();
+      });
+
+      /* Langue */
+      var savedLang = localStorage.getItem('language') || navigator.language.slice(0, 2);
+      setLanguage(translations[savedLang] ? savedLang : 'fr');
+
+      document.getElementById('langBtn').addEventListener('click', function() {
+        this.classList.toggle('open');
+        document.getElementById('langMenu').classList.toggle('open');
+      });
+      document.querySelectorAll('.lang-option[data-lang]').forEach(function(el) {
+        el.addEventListener('click', function() {
+          setLanguage(el.getAttribute('data-lang'));
+          document.getElementById('langBtn').classList.remove('open');
+          document.getElementById('langMenu').classList.remove('open');
+        });
+      });
+      document.addEventListener('click', function(e) {
+        var ls = document.getElementById('langSwitcher');
+        if (ls && !ls.contains(e.target)) {
+          document.getElementById('langBtn').classList.remove('open');
+          document.getElementById('langMenu').classList.remove('open');
+        }
+      });
+
+      /* Burger */
+      var burgerBtn = document.getElementById('burgerBtn');
+      if (burgerBtn) {
+        burgerBtn.addEventListener('click', function() {
+          burgerBtn.classList.toggle('open');
+          document.getElementById('mobileMenu').classList.toggle('open');
+        });
+        document.addEventListener('click', function(e) {
+          var menu = document.getElementById('mobileMenu');
+          if (!burgerBtn.contains(e.target) && menu && !menu.contains(e.target)) {
+            burgerBtn.classList.remove('open');
+            menu.classList.remove('open');
+          }
+        });
+      }
+
+      /* Ouvrir la première question par défaut */
+      var first = document.querySelector('.faq-item');
+      if (first) first.classList.add('open');
+    });
+
+  })();
+  </script>
+</body>
+</html>
