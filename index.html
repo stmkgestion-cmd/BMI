@@ -1246,6 +1246,7 @@
     <div>© Société X 2026</div>
     <div class="footer-links">
       <a href="#" onclick="openLegal()">Mentions légales</a>
+      <a href="politique-confidentialite.html">Confidentialité</a>
       <a href="#" onclick="openContact()">Contact</a>
     </div>
   </footer>
@@ -1259,11 +1260,18 @@
   <div class="legal-page" id="legalPage">
     <div class="page-content">
       <h2 id="legalTitle">Mentions légales</h2>
-      <p><strong id="legalEditor">Éditeur du site :</strong> Société X</p>
-      <p id="legalP1">Le présent site propose un outil informatif de calcul d'indice de masse corporelle (IMC).</p>
-      <p id="legalP2">Les informations affichées sont fournies à titre indicatif et ne remplacent pas un avis médical professionnel.</p>
-      <p id="legalP3">Les données saisies ne sont ni enregistrées ni revendues.</p>
-      <p>© 2026 Société X — Tous droits réservés.</p>
+
+      <p><strong id="legalEditor">Éditeur du site :</strong></p>
+      <p id="legalEditorDetails">[Nom / Raison sociale]<br>[Forme juridique — SIRET : XXXXXXXXXX]<br>[Adresse postale]<br>Email : [votre@email.fr]</p>
+
+      <p><strong id="legalHostLabel">Hébergeur :</strong></p>
+      <p id="legalHostDetails">Cloudflare, Inc.<br>101 Townsend St, San Francisco, CA 94107, États-Unis<br>cloudflare.com</p>
+
+      <p id="legalP1">Ce site propose un outil informatif de calcul d'indice de masse corporelle (IMC). Les résultats sont fournis à titre indicatif uniquement et ne constituent pas un avis médical. Consultez un professionnel de santé pour toute question relative à votre santé.</p>
+      <p id="legalP2">Les données saisies (taille, poids) sont traitées exclusivement dans votre navigateur et ne sont jamais transmises à nos serveurs.</p>
+      <p id="legalP3">© 2026 Société X — Tous droits réservés.</p>
+      <p><a href="politique-confidentialite.html" id="legalPrivacyLink" style="color:var(--link);">Politique de confidentialité →</a></p>
+
       <div class="contact-divider"></div>
       <button class="close-btn" onclick="closeLegal()">
         <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
