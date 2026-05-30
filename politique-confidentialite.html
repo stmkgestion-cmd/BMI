@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Politique de confidentialité | Calculateur IMC</title>
+  <meta name="description" content="Politique de confidentialité du calculateur IMC : données collectées, utilisation, droits RGPD, cookies et services tiers.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.votresite.com/politique-confidentialite">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --footer: #c7d0dd; --link: #8db4ff; --bg: #0f1115;
+      --border: rgba(255,255,255,0.08); --text: #f5f7fb;
+      --muted: #a7b0c0; --accent: #ffffff;
+      --shadow: 0 20px 60px rgba(0,0,0,0.45);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.04), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(255,255,255,0.03), transparent 25%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 80px 20px 80px;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    /* NAV */
+    .topbar {
+      position: fixed; top: 0; left: 0; width: 100%;
+      padding: 14px 28px; display: flex; align-items: center;
+      justify-content: space-between;
+      background: rgba(15,17,21,0.82);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--border); z-index: 900;
+    }
+    .nav-logo { font-size: 15px; font-weight: 600; color: var(--text); text-decoration: none; letter-spacing: -0.3px; }
+    .nav-links { display: flex; gap: 6px; align-items: center; }
+    .nav-link {
+      padding: 8px 14px; border-radius: 999px; font-size: 13px;
+      color: var(--muted); text-decoration: none; border: 1px solid transparent;
+      transition: all 0.2s ease; white-space: nowrap;
+    }
+    .nav-link:hover { color: var(--text); background: rgba(255,255,255,0.07); border-color: var(--border); }
+    .nav-controls { display: flex; align-items: center; gap: 10px; }
+    .theme-toggle {
+      width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border);
+      background: rgba(255,255,255,0.08); color: var(--text); cursor: pointer; font-size: 17px;
+      display: flex; align-items: center; justify-content: center; transition: 0.2s ease;
+    }
+    .theme-toggle:hover { transform: scale(1.05); background: rgba(255,255,255,0.13); }
+
+    /* Burger */
+    .burger {
+      display:none; align-items:center; justify-content:center; width:36px; height:36px;
+      border-radius:10px; border:1px solid var(--border); background:rgba(255,255,255,0.08);
+      cursor:pointer; flex-shrink:0; transition:background 0.2s ease;
+    }
+    .burger:hover { background:rgba(255,255,255,0.14); }
+    .burger .icon-burger { display:block; }
+    .burger .icon-close  { display:none; }
+    .burger.open .icon-burger { display:none; }
+    .burger.open .icon-close  { display:block; }
+    .mobile-menu {
+      display:none; position:fixed; top:53px; left:0; width:100%;
+      background:rgba(15,17,21,0.97); -webkit-backdrop-filter:blur(20px);
+      backdrop-filter:blur(20px); border-bottom:1px solid var(--border);
+      padding:8px 14px 12px; flex-direction:column; gap:4px; z-index:1000;
+    }
+    .mobile-menu.open { display:flex; }
+    .mobile-menu .mob-link {
+      display:block; padding:12px 16px; font-size:15px; font-family:'Inter',sans-serif;
+      border-radius:14px; border:1px solid transparent; color:var(--muted);
+      text-decoration:none; transition:all 0.15s ease;
+    }
+    .mobile-menu .mob-link:hover { background:rgba(255,255,255,0.07); color:var(--text); }
+    body.light .burger { background:rgba(0,0,0,0.05); border-color:rgba(0,0,0,0.12); }
+    body.light .mobile-menu { background:rgba(235,239,245,0.97); }
+
+    /* PAGE */
+    .page-wrapper { max-width: 820px; margin: 0 auto; padding-top: 30px; }
+
+    .hero {
+      padding: 44px 56px; border: 1px solid var(--border); border-radius: 32px;
+      background: rgba(255,255,255,0.03); backdrop-filter: blur(20px);
+      box-shadow: var(--shadow); margin-bottom: 20px;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px;
+      border-radius: 999px; background: rgba(141,180,255,0.12);
+      border: 1px solid rgba(141,180,255,0.3); color: var(--link);
+      font-size: 12px; font-weight: 500; letter-spacing: 0.5px; margin-bottom: 20px;
+    }
+    .hero h1 { font-size: 40px; font-weight: 700; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 14px; }
+    .hero h1 span { color: #cfd8e3; font-weight: 300; }
+    .update-date { color: var(--muted); font-size: 13px; margin-top: 8px; }
+
+    /* Sections */
+    .section {
+      padding: 32px 36px; border: 1px solid var(--border); border-radius: 24px;
+      background: rgba(255,255,255,0.03); margin-bottom: 16px;
+    }
+    .section h2 {
+      font-size: 20px; font-weight: 700; letter-spacing: -0.5px;
+      margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
+    }
+    .section h2 .s-icon { font-size: 20px; }
+    .section p { font-size: 14px; color: var(--muted); line-height: 1.85; margin-bottom: 12px; }
+    .section p:last-child { margin-bottom: 0; }
+    .section strong { color: var(--text); }
+    .section a { color: var(--link); text-decoration: none; }
+    .section a:hover { text-decoration: underline; }
+
+    .section ul { padding-left: 18px; margin-top: 8px; margin-bottom: 12px; }
+    .section ul li { font-size: 14px; color: var(--muted); line-height: 1.85; margin-bottom: 4px; }
+
+    /* Table */
+    .data-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 14px; }
+    .data-table th {
+      text-align: left; padding: 9px 14px; color: var(--muted); font-weight: 500;
+      font-size: 11px; letter-spacing: 0.5px; border-bottom: 1px solid var(--border);
+    }
+    .data-table td {
+      padding: 11px 14px; border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: var(--muted); vertical-align: top; line-height: 1.6;
+    }
+    .data-table td strong { color: var(--text); }
+    .data-table tr:last-child td { border-bottom: none; }
+
+    /* Rights box */
+    .rights-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
+    .right-item {
+      padding: 14px 16px; border-radius: 14px; border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03); font-size: 13px; color: var(--muted); line-height: 1.6;
+    }
+    .right-item strong { color: var(--text); display: block; margin-bottom: 4px; }
+
+    /* CTA */
+    .cta-section {
+      padding: 32px; border: 1px solid rgba(255,255,255,0.1); border-radius: 24px;
+      background: rgba(255,255,255,0.04); text-align: center; margin-bottom: 20px;
+    }
+    .cta-section h2 { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 8px; }
+    .cta-section p { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px;
+      border-radius: 999px; background: var(--accent); color: #111;
+      font-size: 14px; font-weight: 600; text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .cta-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* Footer */
+    footer {
+      position: fixed; bottom: 0; left: 0; width: 100%; padding: 12px 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(15,17,21,0.82); -webkit-backdrop-filter: blur(20px) saturate(180%);
+      backdrop-filter: blur(20px) saturate(180%); border-top: 1px solid var(--border);
+      color: var(--footer); font-size: 13px; flex-wrap: wrap; gap: 10px; z-index: 900;
+    }
+    footer a { color: var(--link); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    .footer-links { display: flex; gap: 16px; }
+
+    /* Light mode */
+    body.light {
+      --bg: #f4f7fb; --border: rgba(0,0,0,0.08); --text: #111827;
+      --muted: #5b6472; --accent: #111827; --footer: #4b5563; --link: #2563eb;
+      background:
+        radial-gradient(circle at top left, rgba(0,0,0,0.03), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(0,0,0,0.02), transparent 25%),
+        var(--bg);
+    }
+    body.light .topbar, body.light footer { background: rgba(235,239,245,0.88); }
+    body.light .cta-btn { color: #fff; }
+    body.light .hero h1 span { color: #4a5568; }
+    body.light .data-table td { color: #374151; }
+
+    @media (max-width: 720px) {
+      body { padding: 70px 0 70px; }
+      .page-wrapper { padding: 16px 14px 0; }
+      .hero { padding: 24px 18px; border-radius: 20px; }
+      .hero h1 { font-size: 26px; letter-spacing: -1px; }
+      .section { padding: 22px 18px; border-radius: 18px; margin-bottom: 12px; }
+      .section h2 { font-size: 17px; }
+      .rights-grid { grid-template-columns: 1fr; }
+      .cta-section { padding: 22px 18px; border-radius: 18px; }
+      .topbar { padding: 10px 14px; }
+      .nav-links { display: none; }
+      .burger { display: flex; }
+      footer { padding: 10px 16px; font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="topbar">
+    <button class="burger" id="burgerBtn" aria-label="Menu">
+      <svg class="icon-burger" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--text)" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="4" x2="14" y2="4"/><line x1="2" y1="8" x2="14" y2="8"/><line x1="2" y1="12" x2="14" y2="12"/></svg>
+      <svg class="icon-close" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--text)" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="3" x2="13" y2="13"/><line x1="13" y1="3" x2="3" y2="13"/></svg>
+    </button>
+    <a class="nav-logo" href="index.html">Calculateur IMC</a>
+    <div class="nav-links">
+      <a class="nav-link" href="index.html">Calculateur</a>
+      <a class="nav-link" href="limites-imc.html">Limites de l'IMC</a>
+      <a class="nav-link" href="imc-enfant.html">IMC enfant</a>
+      <a class="nav-link" href="faq-imc.html">FAQ</a>
+    </div>
+    <div class="nav-controls">
+      <button class="theme-toggle" id="themeToggle">☾</button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a class="mob-link" href="index.html">Calculateur</a>
+    <a class="mob-link" href="limites-imc.html">Limites de l'IMC</a>
+    <a class="mob-link" href="imc-enfant.html">IMC enfant</a>
+    <a class="mob-link" href="faq-imc.html">FAQ</a>
+  </div>
+
+  <div class="page-wrapper">
+
+    <div class="hero">
+      <div class="hero-badge">🔒 RGPD</div>
+      <h1>Politique de confidentialité <span>&amp; données personnelles</span></h1>
+      <p class="update-date">Dernière mise à jour : 30 mai 2026</p>
+    </div>
+
+    <!-- 1. Responsable -->
+    <div class="section">
+      <h2><span class="s-icon">🏢</span> Responsable du traitement</h2>
+      <p>
+        Le responsable du traitement des données collectées sur ce site est :<br><br>
+        <strong>[Nom / Raison sociale]</strong><br>
+        [Forme juridique, SIRET si applicable]<br>
+        [Adresse postale complète]<br>
+        Email : <strong>[votre@email.fr]</strong>
+      </p>
+      <p>
+        Pour toute question relative à vos données personnelles, vous pouvez nous contacter à l'adresse email ci-dessus.
+      </p>
+    </div>
+
+    <!-- 2. Données collectées -->
+    <div class="section">
+      <h2><span class="s-icon">📋</span> Données collectées</h2>
+      <p>Ce site collecte un minimum de données. Voici l'inventaire complet :</p>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Donnée</th>
+            <th>Nature</th>
+            <th>Finalité</th>
+            <th>Base légale</th>
+            <th>Durée</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Préférences de thème</strong> (clair/sombre)</td>
+            <td>localStorage — locale, non transmise</td>
+            <td>Confort visuel</td>
+            <td>Intérêt légitime</td>
+            <td>Jusqu'à effacement navigateur</td>
+          </tr>
+          <tr>
+            <td><strong>Préférence de langue</strong> (fr/en/es)</td>
+            <td>localStorage — locale, non transmise</td>
+            <td>Adaptation linguistique</td>
+            <td>Intérêt légitime</td>
+            <td>Jusqu'à effacement navigateur</td>
+          </tr>
+          <tr>
+            <td><strong>Préférence d'unité</strong> (cm/kg ou ft/lbs)</td>
+            <td>localStorage — locale, non transmise</td>
+            <td>Confort d'usage</td>
+            <td>Intérêt légitime</td>
+            <td>Jusqu'à effacement navigateur</td>
+          </tr>
+          <tr>
+            <td><strong>Adresse IP</strong></td>
+            <td>Transmise à Cloudflare (hébergeur) et Google (fonts)</td>
+            <td>Acheminement réseau / chargement des polices</td>
+            <td>Intérêt légitime</td>
+            <td>Selon politique de chaque tiers</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p style="margin-top:16px;">
+        <strong>Aucune donnée de santé n'est enregistrée.</strong> Les valeurs de taille et de poids saisies dans le calculateur sont traitées exclusivement dans votre navigateur et ne sont jamais transmises à nos serveurs.
+      </p>
+    </div>
+
+    <!-- 3. Cookies -->
+    <div class="section">
+      <h2><span class="s-icon">🍪</span> Cookies et stockage local</h2>
+      <p>
+        Ce site n'utilise <strong>aucun cookie de traçage</strong>, publicitaire ou d'analyse comportementale.
+      </p>
+      <p>
+        Les seules données stockées localement (<code>localStorage</code>) sont vos préférences d'affichage (thème, langue, unité). Ces données restent sur votre appareil et ne sont jamais transmises à des serveurs tiers. Vous pouvez les effacer à tout moment en vidant le stockage de votre navigateur.
+      </p>
+      <p>
+        Aucun bandeau de consentement aux cookies n'est requis en l'absence de cookies de traçage.
+      </p>
+    </div>
+
+    <!-- 4. Services tiers -->
+    <div class="section">
+      <h2><span class="s-icon">🔗</span> Services tiers</h2>
+
+      <p><strong>Cloudflare (hébergeur)</strong></p>
+      <p>
+        Ce site est hébergé sur l'infrastructure de <strong>Cloudflare, Inc.</strong> (101 Townsend St, San Francisco, CA 94107, États-Unis). Cloudflare peut traiter votre adresse IP pour acheminer les requêtes réseau et assurer la protection contre les attaques.
+        Politique de confidentialité : <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">cloudflare.com/privacypolicy</a>
+      </p>
+
+      <p style="margin-top:14px;"><strong>Google Fonts</strong></p>
+      <p>
+        Ce site charge la police de caractères <em>Inter</em> depuis les serveurs de <strong>Google LLC</strong>. Ce chargement implique la transmission de votre adresse IP à Google, qui peut en déduire votre localisation approximative. Google est soumis aux mécanismes de transfert UE–États-Unis (DPF — Data Privacy Framework).
+        Politique de confidentialité : <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>
+      </p>
+      <p>
+        Ce site ne recourt à <strong>aucun autre service tiers</strong> : pas de Google Analytics, pas de pixel publicitaire (Meta, TikTok…), pas de réseau social intégré.
+      </p>
+    </div>
+
+    <!-- 5. Vos droits -->
+    <div class="section">
+      <h2><span class="s-icon">⚖️</span> Vos droits (RGPD)</h2>
+      <p>Conformément au Règlement Général sur la Protection des Données (RGPD — UE 2016/679), vous disposez des droits suivants :</p>
+
+      <div class="rights-grid">
+        <div class="right-item">
+          <strong>Droit d'accès</strong>
+          Obtenir confirmation que des données vous concernant sont traitées et en recevoir une copie.
+        </div>
+        <div class="right-item">
+          <strong>Droit de rectification</strong>
+          Faire corriger des données inexactes ou incomplètes vous concernant.
+        </div>
+        <div class="right-item">
+          <strong>Droit à l'effacement</strong>
+          Demander la suppression de vos données dans les cas prévus par le RGPD.
+        </div>
+        <div class="right-item">
+          <strong>Droit d'opposition</strong>
+          Vous opposer au traitement de vos données fondé sur l'intérêt légitime.
+        </div>
+        <div class="right-item">
+          <strong>Droit à la portabilité</strong>
+          Recevoir vos données dans un format structuré et lisible par machine.
+        </div>
+        <div class="right-item">
+          <strong>Droit de réclamation</strong>
+          Introduire une réclamation auprès de la <strong>CNIL</strong> (<a href="https://www.cnil.fr" target="_blank" rel="noopener">cnil.fr</a>).
+        </div>
+      </div>
+
+      <p style="margin-top:16px;">
+        Pour exercer vos droits, contactez-nous à : <strong>[votre@email.fr]</strong><br>
+        Nous nous engageons à répondre dans un délai d'<strong>un mois</strong> conformément à l'article 12 du RGPD.
+      </p>
+    </div>
+
+    <!-- 6. Avertissement médical -->
+    <div class="section">
+      <h2><span class="s-icon">⚕️</span> Avertissement médical</h2>
+      <p>
+        Les résultats fournis par ce calculateur sont <strong>fournis à titre informatif uniquement</strong> et ne constituent en aucun cas un avis, un diagnostic ou une recommandation médicale.
+      </p>
+      <p>
+        L'IMC est un indicateur statistique qui présente des limites connues (voir notre page <a href="limites-imc.html">Limites de l'IMC</a>). Il ne remplace pas une évaluation médicale complète réalisée par un professionnel de santé qualifié.
+      </p>
+      <p>
+        En cas de doute sur votre poids, votre santé ou votre alimentation, consultez un médecin, un diététicien ou un professionnel de santé compétent.
+      </p>
+    </div>
+
+    <!-- 7. Modifications -->
+    <div class="section">
+      <h2><span class="s-icon">🔄</span> Modifications de cette politique</h2>
+      <p>
+        Cette politique de confidentialité peut être mise à jour à tout moment, notamment en cas d'évolution du site ou de la réglementation applicable. La date de dernière mise à jour figure en haut de page. En continuant à utiliser ce site après une modification, vous en acceptez les nouvelles dispositions.
+      </p>
+    </div>
+
+    <div class="cta-section">
+      <h2>Des questions ?</h2>
+      <p>Pour toute question relative à cette politique ou à vos données personnelles, contactez-nous directement.</p>
+      <a class="cta-btn" href="index.html">← Retour au calculateur</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <div>© Société X 2026</div>
+    <div class="footer-links">
+      <a href="index.html">Calculateur</a>
+      <a href="politique-confidentialite.html">Confidentialité</a>
+    </div>
+  </footer>
+
+  <script>
+  (function() {
+    document.addEventListener('DOMContentLoaded', function() {
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light' || (!savedTheme && !prefersDark)) document.body.classList.add('light');
+      var toggleBtn = document.getElementById('themeToggle');
+      function updateIcon() { toggleBtn.textContent = document.body.classList.contains('light') ? '☀' : '☾'; }
+      updateIcon();
+      toggleBtn.addEventListener('click', function() {
+        document.body.classList.toggle('light');
+        localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+        updateIcon();
+      });
+
+      var burgerBtn = document.getElementById('burgerBtn');
+      if (burgerBtn) {
+        burgerBtn.addEventListener('click', function() {
+          burgerBtn.classList.toggle('open');
+          document.getElementById('mobileMenu').classList.toggle('open');
+        });
+        document.addEventListener('click', function(e) {
+          var menu = document.getElementById('mobileMenu');
+          if (!burgerBtn.contains(e.target) && menu && !menu.contains(e.target)) {
+            burgerBtn.classList.remove('open');
+            menu.classList.remove('open');
+          }
+        });
+      }
+    });
+  })();
+  </script>
+</body>
+</html>
